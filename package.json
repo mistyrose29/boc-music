@@ -1,0 +1,31 @@
+{
+  "name": "boc-music",
+  "version": "1.0.0",
+  "description": "RPP29 MistyRose Blue Ocean Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mistyrose29/boc-music.git"
+  },
+  "authors": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mistyrose29/boc-music/issues"
+  },
+  "homepage": "https://github.com/mistyrose29/boc-music#readme",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "chai": "^4.3.4",
+    "jest": "^27.3.1"
+  }
+}
