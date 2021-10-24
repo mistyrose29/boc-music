@@ -2,5 +2,5 @@ FROM node:alpine as builder
 WORKDIR '/boc-music'
 COPY package.json .
 RUN npm install
-COPY ./ ./
+COPY . .
 RUN npm run start
