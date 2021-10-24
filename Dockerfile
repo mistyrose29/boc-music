@@ -1,9 +1,9 @@
 FROM node:alpine
-WORKDIR '/app'
-COPY package.json .
+WORKDIR /app
+COPY package.json /app
 RUN npm install
-COPY . .
+COPY . /app
 RUN npm run build
-COPY . .
+COPY . /app
+CMD npm start
 EXPOSE 3000
-CMD ["npm", "start"]
