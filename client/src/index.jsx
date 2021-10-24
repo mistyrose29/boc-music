@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+//import Waveform from './Waveform/Waveform.jsx'
+import WaveformApp from './Waveform/WaveformApp.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -11,7 +13,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>BOC</div>
+      <div>BOC
+        <WaveformApp />
+        </div>
+      
     );
   }
 
