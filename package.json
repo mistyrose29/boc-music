@@ -6,8 +6,9 @@
   "scripts": {
     "test": "jest",
     "server": "npx nodemon server/index.js",
-    "webpack": "webpack --mode development --watch",
-    "webpack:prod": "webpack --mode production"
+    "webpack:dev": "webpack --mode development --watch",
+    "webpack:prod": "webpack --mode production",
+    "start": "webpack && node dist/bundle.js"
   },
   "repository": {
     "type": "git",
