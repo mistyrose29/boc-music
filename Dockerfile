@@ -1,9 +1,9 @@
 FROM node:alpine
 WORKDIR /app
-COPY package.json /app
+COPY package.json .
 RUN npm install
-COPY . /app
+COPY . .
 RUN npm run build
-COPY . /app
+COPY . .
 CMD npm start
 EXPOSE 3000
