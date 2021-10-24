@@ -8,7 +8,7 @@
     "server": "npx nodemon server/index.js",
     "webpack:dev": "webpack --mode development --watch",
     "webpack:prod": "webpack --mode production",
-    "start": "webpack && node dist/bundle.js"
+    "start": "webpack && node server/index.js"
   },
   "repository": {
     "type": "git",
