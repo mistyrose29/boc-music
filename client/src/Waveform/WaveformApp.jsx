@@ -25,7 +25,12 @@ export default function WaveformApp() {
 
   return (
     <div className="WaveformApp">
-      <Waveform url={selectedTrack.url} />
+      <Waveform
+        url={selectedTrack.url}
+        id={selectedTrack.id}
+        tracks={tracks}
+        setSelectedTrack={setSelectedTrack}
+      />
       <PlayList
         tracks={tracks}
         selectedTrack={selectedTrack}
