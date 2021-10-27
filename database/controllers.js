@@ -1,14 +1,17 @@
 import { storage } from './index.js';
-import { ref, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export const uploadFile = (file) => {
   const storageRef = ref(storage, file.name);
+  return uploadBytes(storageRef, file);
+};
 
-  // 'file' comes from the Blob or File API
-  uploadBytes(storageRef, file).then((snapshot) => {
-    // upload something to firebase
-    // then do something else
-    console.log(snapshot);
-    console.log('Uploaded a blob or file!');
-  });
+export const deleteFile = (filepath) => {
+  const storageRef = ref(storage, filepath);
+  return deleteObject(storageRef);
+};
+
+export const getFileUrl = (filepath) => {
+  const storage = getStorage();
+  return getDownloadURL(ref(storage, 'images/stars.jpg'));
 };
