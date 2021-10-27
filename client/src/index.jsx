@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 //import Waveform from './Waveform/Waveform.jsx'
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Layers from './Layering/Layer.jsx';
+import Upload from './Upload/Upload.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class App extends React.Component {
         <WaveformApp />
         <hr />
         <Layers />
+        <hr />
+        <Upload />
       </div>
     );
   }
