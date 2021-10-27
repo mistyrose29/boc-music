@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "server": "npx nodemon server/index.js",
-    "webpack": "webpack --mode development --watch"
+    "webpack:dev": "webpack --mode development --watch",
+    "webpack:prod": "export NODE_OPTIONS=--openssl-legacy-provider; webpack --mode production"
   },
   "repository": {
     "type": "git",

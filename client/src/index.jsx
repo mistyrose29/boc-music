@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import Waveform from './Waveform/Waveform.jsx'
-import WaveformApp from './Waveform/WaveformApp.jsx'
+import WaveformApp from './Waveform/WaveformApp.jsx';
+import Layers from './Layering/Layer.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
 
     };
   }
@@ -15,8 +17,9 @@ class App extends React.Component {
     return (
       <div>BOC
         <WaveformApp />
-        </div>
-      
+        <hr />
+        <Layers />
+      </div>
     );
   }
 
