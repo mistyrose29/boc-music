@@ -1,11 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import Equalizer from './eq-window.jsx';
+
+//import Waveform from './Waveform/Waveform.jsx'
+import WaveformApp from './Waveform/WaveformApp.jsx';
+import Layers from './Layering/Layer.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
 
     };
   }
@@ -13,8 +20,13 @@ class App extends React.Component {
   render() {
     return (
       <div>BOC
-        <Equalizer/>
 
+
+
+
+        <WaveformApp />
+        <hr />
+        <Layers />
 
       </div>
     );

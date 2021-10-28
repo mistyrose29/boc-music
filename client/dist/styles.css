@@ -1,7 +1,35 @@
+
 div#player {
     width: 80vw;
 	height: 60vh;
 	background: black;
 	margin: 20vh auto 0px auto;
 	display: block;
+
+.waveform-container {
+  margin-bottom: 3%;
+}
+
+#waveform {
+  margin-bottom: 1%
+}
+
+#time-current {
+  color: orangered
+}
+
+.playlist-item-selected {
+  color : orangered;
+  cursor: default;
+}
+
+.playlist-item:hover {
+  cursor: pointer;
+}
+
+.playlist-item, .playlist-item-selected {
+  padding-bottom: 2.5%;
+  margin-bottom: 2.5%;
+  border-bottom: 1px solid #ececec;
+
 }
