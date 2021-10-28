@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 //import Waveform from './Waveform/Waveform.jsx'
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Layers from './Layering/Layer.jsx';
+import EqualizerWindow from './EditAudio/EQ.jsx';
 import Project from './ProjectView/Project.jsx';
 
 class App extends React.Component {
@@ -21,14 +22,14 @@ class App extends React.Component {
     } else {
       return (
         <div>BOC
-          <WaveformApp />
+        <EqualizerWindow/>
+        {/*<WaveformApp />*/}
           <hr />
           <button onClick={() => this.setState({testing: true})}>Load Test Project</button>
         </div>
       );
     }
   }
-
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
