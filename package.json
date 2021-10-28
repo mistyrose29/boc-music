@@ -4,7 +4,7 @@
   "description": "RPP29 MistyRose Blue Ocean Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "server": "npx nodemon server/index.js",
     "webpack": "webpack --mode development --watch"
   },
@@ -20,11 +20,13 @@
   "homepage": "https://github.com/mistyrose29/boc-music#readme",
   "dependencies": {
     "axios": "^0.23.0",
+    "debounce": "^1.2.1",
     "eslint": "^7.32.0",
     "eslint-config-hackreactor": "github:reactorcore/eslint-config-hackreactor",
     "express": "^4.17.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "wavesurfer.js": "^5.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.15.7",
