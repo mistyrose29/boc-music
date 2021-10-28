@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 //import Waveform from './Waveform/Waveform.jsx'
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Layers from './Layering/Layer.jsx';
+import EqualizerWindow from './EditAudio/EQ.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,9 +17,10 @@ class App extends React.Component {
   render() {
     return (
       <div>BOC
-        <WaveformApp />
+        <EqualizerWindow/>
+        {/* <WaveformApp /> */}
         <hr />
-        <Layers />
+        {/* <Layers /> */}
       </div>
     );
   }
