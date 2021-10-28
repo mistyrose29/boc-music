@@ -32,6 +32,15 @@
   margin: 10px;
   padding: 10px;
   border: 1px solid black;
+}
+
+.padding-top {
+  padding-top: 10px;
+}
+
+.basic-waveform {
+}
+
 .waveform-container {
   margin-bottom: 3%;
 }
@@ -43,7 +52,6 @@
 #time-current {
   color: orangered
 }
-
 
 .playlist-item-selected {
   color : orangered;

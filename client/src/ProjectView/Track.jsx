@@ -1,26 +1,51 @@
 import React from 'react';
+import WaveformBasic from './WaveformBasic.jsx';
 import { getFileUrl, deleteFile } from '../../../database/controllers.js';
 
 class Track extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playing: false,
-      wavesurfer: null
+      isMuted: false,
+      wavesurfer: null,
+      url: null
     };
 
-    this.handlePlay = this.handlePlay.bind(this);
+    this.buildWaveform = this.buildWaveform.bind(this);
+    this.handleMute = this.handleMute.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  onComponentDidMount() {
-    // Load wavesurfer for each
+  componentDidMount() {
+    getFileUrl(this.props.path)
+      .then((url) => {
+        console.log(url);
+        this.setState({
+          url: url
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  handlePlay() {
+  buildWaveform() {
+    if (this.state.url === null) {
+      return <div></div>;
+    } else {
+      return (
+        <WaveformBasic
+          url={this.state.url}
+          isPlaying={this.props.isPlaying}
+          isMuted={this.state.isMuted}/>
+      );
+    }
+  }
+
+  handleMute() {
     this.setState({
-      playing: !this.state.playing
+      isMuted: !this.state.isMuted
     });
   }
 
@@ -41,22 +66,24 @@ class Track extends React.Component {
 
   render() {
     return (
-      <div className='track flex-row justify-evenly'>
-        <button onClick={this.handlePlay}>
-          {this.state.playing ? 'Pause' : 'Play'}
-        </button>
-        <div>
-          {`${this.props.index} ${this.props.name}`}
+      <div className='track flex-column'>
+        <div className='flex-row justify-evenly'>
+          <button onClick={this.handleMute}>
+            {this.state.isMuted ? 'UnMute' : 'Mute'}
+          </button>
+          <div>
+            {`${this.props.index} ${this.props.name}`}
+          </div>
+          <button onClick={this.handleEdit}>
+            edit track
+          </button>
+          <button onClick={this.handleDelete}>
+            delete
+          </button>
         </div>
-        <div>
-          Waveform
+        <div className="basic-waveform">
+          {this.buildWaveform()}
         </div>
-        <button onClick={this.handleEdit}>
-          edit track
-        </button>
-        <button onClick={this.handleDelete}>
-          delete
-        </button>
       </div>
     );
   }
