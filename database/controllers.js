@@ -1,8 +1,8 @@
 import { storage } from './index.js';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
 
-export const uploadFile = (file) => {
-  const storageRef = ref(storage, file.name);
+export const uploadFile = (file, filepath) => {
+  const storageRef = ref(storage, `${filepath}/${file.name}`);
   return uploadBytes(storageRef, file);
 };
 
@@ -12,6 +12,11 @@ export const deleteFile = (filepath) => {
 };
 
 export const getFileUrl = (filepath) => {
-  const storage = getStorage();
-  return getDownloadURL(ref(storage, 'images/stars.jpg'));
+  const storageRef = ref(storage, filepath);
+  return getDownloadURL(storageRef);
+};
+
+export const getProjectFiles = (projectId) => {
+  const listRef = ref(storage, projectId);
+  return listAll(listRef);
 };

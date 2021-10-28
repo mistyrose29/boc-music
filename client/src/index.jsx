@@ -3,27 +3,30 @@ import ReactDOM from 'react-dom';
 //import Waveform from './Waveform/Waveform.jsx'
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Layers from './Layering/Layer.jsx';
-import Upload from './Upload/Upload.jsx';
+import Project from './ProjectView/Project.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
-
+      testing: false
     };
   }
 
   render() {
-    return (
-      <div>BOC
-        <WaveformApp />
-        <hr />
-        <Layers />
-        <hr />
-        <Upload />
-      </div>
-    );
+    if (this.state.testing) {
+      return (
+        <Project projectId={'test'}/>
+      );
+    } else {
+      return (
+        <div>BOC
+          <WaveformApp />
+          <hr />
+          <button onClick={() => this.setState({testing: true})}>Load Test Project</button>
+        </div>
+      );
+    }
   }
 
 }

@@ -15,13 +15,15 @@ class Upload extends React.Component {
       return;
     }
 
-    uploadFile(event.target.files[0])
+    uploadFile(event.target.files[0], this.props.projectId)
       .then(() => {
         window.alert('Successfully uploaded file');
+        this.props.reload();
       })
       .catch((err) => {
         window.alert('Error occured we could not upload your file');
       });
+
   }
 
   // On file upload (click the upload button)
@@ -31,9 +33,9 @@ class Upload extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='upload flex-row'>
         <input style={{display: 'none'}} id='file-upload' type='file' onChange={this.onFileChange}/>
-        <button onClick={this.onFileUpload}>Upload!</button>
+        <button className="grow" onClick={this.onFileUpload}>Upload!</button>
       </div>
     );
   }
