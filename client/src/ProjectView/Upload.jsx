@@ -1,5 +1,5 @@
 import React from 'react';
-import { uploadFile } from '../../../database/controllers.js';
+import { createFile } from '../../../database/controllers.js';
 
 class Upload extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Upload extends React.Component {
       return;
     }
 
-    uploadFile(event.target.files[0], this.props.projectId)
+    createFile(event.target.files[0], this.props.projectId)
       .then(() => {
         window.alert('Successfully uploaded file');
         this.props.reload();
