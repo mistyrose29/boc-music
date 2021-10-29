@@ -4,21 +4,34 @@ import ReactDOM from 'react-dom';
 import WaveformApp from './Waveform/WaveformApp.jsx';
 // import EqualizerWindow from './EditAudio/EQ.jsx';
 import Project from './ProjectView/Project.jsx';
+import Home from './Home/Home.jsx';
 import './styles/styles.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      testing: false
+      testing: false,
+      projectId: null,
     };
+
+    this.loadProject = this.loadProject.bind(this);
+  }
+
+  loadProject(event) {
+    let projectId = event.target.getAttribute('projectId');
+    this.setState({
+      projectId: projectId
+    });
   }
 
   render() {
     if (this.state.testing) {
-      return (
-        <Project projectId={'test'}/>
-      );
+      if (this.state.projectId === null) {
+        return <Home loadProject={this.loadProject}/>;
+      } else {
+        return <Project projectId={this.state.projectId}/>;
+      }
     } else {
       return (
         <div>BOC

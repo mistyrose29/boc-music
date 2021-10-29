@@ -5,16 +5,30 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: null
+      projects: []
     };
   }
 
   componentDidMount() {
     // get projects
-    const projects = [];
-    this.setState({
-      projects: projects
-    });
+    let projects = [];
+    getAllProjects('test')
+      .then((docs) => {
+        docs.forEach((doc) => {
+          let project = doc.data();
+          project.id = doc.id;
+          projects.push(project);
+        });
+
+        console.log(projects);
+
+        this.setState({
+          projects: projects
+        });
+      })
+      .catch((error) => {
+        console.log('Error occured retrieving projects: ', error);
+      });
   }
 
   render() {
@@ -25,9 +39,13 @@ class Home extends React.Component {
         <h2>Your Projects</h2>
         {this.state.projects.map((project, index) => {
           return (
-            <div>
-              <div>{project.name}</div>
-              <button onClick={this.props.openproject}>Open Project</button>
+            <div key={index}>
+              <div>{project.title}</div>
+              <button
+                projectid={project.id}
+                onClick={this.props.loadProject}>
+                  Open Project
+              </button>
             </div>
           );
         })}

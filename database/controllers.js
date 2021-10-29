@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
-import { addDoc, getDoc, collection } from 'firebase/firestore';
+import { query, where, addDoc, getDocs, collection } from 'firebase/firestore';
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
@@ -30,9 +30,9 @@ export const createProject = (data) => {
   return addDoc(collection(db, 'projects'), data);
 };
 
-export const getAllProjects = (ownerId) => {
+export const getAllProjects = (owner) => {
   const projectsRef = collection(db, 'projects');
-  const q = query(projectsRef, where('ownerId', '==', ownerId));
+  const q = query(projectsRef, where('owner', '==', owner));
   return getDocs(q);
 };
 
