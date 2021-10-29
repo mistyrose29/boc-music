@@ -5,6 +5,7 @@ import WaveformApp from './Waveform/WaveformApp.jsx';
 // import EqualizerWindow from './EditAudio/EQ.jsx';
 import Projects from './Projects/Projects.jsx';
 import './styles/styles.css';
+import Authentication from './Auth/Authentication.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class App extends React.Component {
           <WaveformApp />
           <hr />
           <button onClick={() => this.setState({testing: true})}>View Test User's Projects</button>
+          <Authentication />
         </div>
       );
     }
