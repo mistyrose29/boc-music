@@ -1,7 +1,7 @@
 import React from 'react';
 import Track from './Track.jsx';
 import Upload from './Upload.jsx';
-import { getProjectFiles } from '../../../database/controllers.js';
+import { getProjectFiles } from '../../../../database/controllers.js';
 
 class Project extends React.Component {
   constructor(props) {

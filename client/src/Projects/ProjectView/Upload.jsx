@@ -1,5 +1,5 @@
 import React from 'react';
-import { createFile } from '../../../database/controllers.js';
+import { createFile } from '../../../../database/controllers.js';
 
 class Upload extends React.Component {
   constructor(props) {
