@@ -91,6 +91,11 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
 
     setVolume(newVolume);
     wavesurfer.current.setVolume(newVolume);
+
+    wavesurfer.current.savedVolume = newVolume;
+    if (wavesurfer.current.isMuted) {
+      wavesurfer.current.toggleMute();
+    }
   };
 
   const mute = () => {
