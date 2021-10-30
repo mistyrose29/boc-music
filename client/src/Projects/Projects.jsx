@@ -13,13 +13,14 @@ class Projects extends React.Component {
       projectId: null,
       title: '',
       description: '',
-      public: false,
+      isPublic: false,
     };
 
     this.loadProjectList = this.loadProjectList.bind(this);
     this.loadProject = this.loadProject.bind(this);
     this.create = this.create.bind(this);
     this.save = this.save.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   componentDidMount() {
@@ -66,7 +67,7 @@ class Projects extends React.Component {
     const data = {
       title: title,
       description: description,
-      public: this.state.public,
+      public: this.state.isPublic,
       owner: this.props.ownerId,
       createdAt: new Date(),
       sharedWith: []
@@ -83,6 +84,14 @@ class Projects extends React.Component {
     this.loadProjectList();
   }
 
+  clear() {
+    this.setState({
+      title: '',
+      description: '',
+      isPublic: false,
+    });
+  }
+
   render() {
     if (this.state.projectId !== null) {
       return (
@@ -94,13 +103,14 @@ class Projects extends React.Component {
         <div className='main-container'>
           <header className="sticky-header">
             <h1 className="center-text projects-header">Projects</h1>
-            <div className='top-right'>
+            <div className='bottom-right'>
               <CreateProject
                 title={this.state.title}
                 description={this.state.description}
                 isPublic={this.state.isPublic}
                 create={this.create}
-                save={this.save}/>
+                save={this.save}
+                clear={this.clear}/>
             </div>
           </header>
           <>

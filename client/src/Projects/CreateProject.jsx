@@ -2,20 +2,29 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 
-const CreateProject = ({title, description, isPublic, create, save }) => {
+const CreateProject = ({title, description, isPublic, create, save, clear }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSave = () => {
     save();
+    clear();
     setShow(false);
   };
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow} style={{borderRadius: '100px'}}>
-        +
+      <Button
+        variant="primary"
+        onClick={handleShow}
+        style={{
+          borderRadius: '100px',
+          width: '60px',
+          height: '60px',
+          fontSize: '30px'
+        }}>
+        ＋
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -51,8 +60,8 @@ const CreateProject = ({title, description, isPublic, create, save }) => {
               <Form.Check
                 type="checkbox"
                 label="Make Project Public"
-                name="public"
-                value={isPublic}
+                name="isPublic"
+                checked={isPublic}
                 onChange={create}/>
             </Form.Group>
 

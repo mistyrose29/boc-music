@@ -33,9 +33,9 @@
   padding: 40px;
 }
 
-.top-right {
+.bottom-right {
   position: absolute;
-  top: 20px;
+  top: calc(100vh - 80px);
   right: 20px;
 }
 
