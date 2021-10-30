@@ -101,10 +101,12 @@ export const createUser = (userData) => {
   const docRef = doc(db, 'users', userData.userId);
   const docSnap = getDoc(docRef).then(results => {
     if (results.exists()) {
-      console.log('Document data:', results.data());
+      // console.log('Document data:', results.data());
+      // do nothing
     } else {
       // doc.data() will be undefined in this case
-      console.log('No such document! New Record CREATED!');
+      // console.log('No such document! New Record CREATED!');
+      // create doc but don't log it
       setDoc(doc(db, 'users', userData.userId), userInfo);
     }
   });

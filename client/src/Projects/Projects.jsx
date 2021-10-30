@@ -74,6 +74,7 @@ class Projects extends React.Component {
       title: title,
       description: description,
       public: this.state.isPublic,
+      ownerName: this.props.ownerName,
       owner: this.props.ownerId,
       createdAt: new Date(),
       sharedWith: []
@@ -81,7 +82,7 @@ class Projects extends React.Component {
 
     createProject(data)
       .then((res) => {
-        console.log(res);
+        console.log('project created');
       })
       .catch((error) => {
         console.log(error);
