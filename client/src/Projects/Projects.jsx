@@ -56,8 +56,13 @@ class Projects extends React.Component {
 
   create(event) {
     const name = event.target.name;
+    let value = event.target.value;
+    if (name === 'isPublic') {
+      value = event.target.checked;
+    }
+
     this.setState({
-      [name]: event.target.value
+      [name]: value
     });
   }
 
