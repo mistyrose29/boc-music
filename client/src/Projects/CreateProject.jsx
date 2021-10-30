@@ -22,7 +22,8 @@ const CreateProject = ({title, description, isPublic, create, save, clear }) => 
           borderRadius: '100px',
           width: '60px',
           height: '60px',
-          fontSize: '30px'
+          fontSize: '30px',
+          boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.4)'
         }}>
         ＋
       </Button>
