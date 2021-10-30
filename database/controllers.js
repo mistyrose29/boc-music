@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
-import { query, where, addDoc, getDocs, collection, doc, deleteDoc } from 'firebase/firestore';
+import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit } from 'firebase/firestore';
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
@@ -30,9 +30,43 @@ export const createProject = (data) => {
   return addDoc(collection(db, 'projects'), data);
 };
 
-export const getAllProjects = (owner) => {
+export const getAllProjects = (owner, filters) => {
+  let primary = ['owner', '==', owner];
+  let secondary;
+
+
+  if (filters) {
+    const { key, query } = filters;
+    if (key === 'all') {
+      primary = ['public', '==', true];
+    } else if (key === 'shared') {
+      primary = ['sharedWith', 'array-contains', owner];
+    } else {
+      primary = primary;
+    }
+
+    if (query !== '' && query !== null && query !== undefined) {
+      secondary = ['title', '==', query];
+    }
+  }
+
   const projectsRef = collection(db, 'projects');
-  const q = query(projectsRef, where('owner', '==', owner));
+
+  let q;
+  if (secondary) {
+    console.log(secondary);
+    q = query(projectsRef,
+      where(...primary),
+      where(...secondary),
+      orderBy('createdAt', 'desc'),
+      limit(5));
+  } else {
+    q = query(projectsRef,
+      where(...primary),
+      orderBy('createdAt', 'desc'),
+      limit(5));
+  }
+
   return getDocs(q);
 };
 
@@ -55,4 +89,8 @@ export const deleteProject = (projectId) => {
   // }).catch((error) => {
   //   // Uh-oh, an error occurred!
   // });
+};
+
+export const searchProjects = (term) => {
+  return;
 };
