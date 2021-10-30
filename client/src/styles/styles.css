@@ -1,3 +1,10 @@
+#eq-popup {
+  position: static;
+  top: 1em;
+  padding: 1em;
+  background-color: white;
+  border: 1em solid black;
+}
 .flex-column {
   display: flex;
   flex-direction: column;

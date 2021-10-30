@@ -20,6 +20,16 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
   const [volume, setVolume] = useState(0.5);
+  // toggle EQ popup on or off
+  
+  const [EQToggle, setEQToggle] = useState(false);
+  const hideEQ = () => {
+    setEQToggle(false);
+  };
+  const showEQ = () => {
+    setEQToggle(true);
+  };
+
 
 
   useEffect(() => {
@@ -109,6 +119,22 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
     }
   }
 
+  // handles EQ popup window
+  const EQpopup = () => {
+    if (EQToggle === false) {
+      showEQ();
+    } else {
+      hideEQ();
+    }
+    setEQToggle(
+    <div id = 'eq-popup'>
+      <p>insert EQ controls here</p>
+      <button onClick = {hideEQ}>Close</button>
+      
+      </div>)
+
+  }
+
   return (
     <div className="waveform-container">
       <div id="waveform" ref={waveformRef} />
@@ -121,6 +147,14 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         <button onClick={() => { previous(id) }}>Previous</button>
         <button onClick={() => { next(id) }}>Next</button>
         <button onClick={mute}>Mute</button>
+        {/* Add EQ edit functionality */}
+        <button onClick={() => {
+          EQpopup()
+        }}>Edit Audio</button>
+        {/* EQ TOGGLE */}
+        {EQToggle}
+       
+
         <input
           type="range"
           id="volume"
