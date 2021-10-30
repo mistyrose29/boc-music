@@ -12,7 +12,25 @@ class App extends React.Component {
     super(props);
     this.state = {
       testing: false,
+      loggedInUser: {},
     };
+  }
+
+  addUserState(userInfo) {
+    // console.log('adding user to state')
+    if (userInfo.task === 'signin') {
+      this.setState({
+        loggedInUser: userInfo,
+      }, () => {
+        console.log('🦊 Current Logged In User Info: ', this.state.loggedInUser);
+      });
+    } else if (userInfo.task === 'signout') {
+      this.setState({
+        loggedInUser: {}
+      }, () => {
+        // console.log(this.state.loggedInUser);
+      });
+    }
   }
 
   render() {
@@ -24,7 +42,7 @@ class App extends React.Component {
           <WaveformApp />
           <hr />
           <button onClick={() => this.setState({testing: true})}>View Test User's Projects</button>
-          <Authentication />
+          <Authentication addUserState={this.addUserState.bind(this)}/>
         </div>
       );
     }

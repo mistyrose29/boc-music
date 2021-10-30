@@ -1,15 +1,12 @@
 import React from 'react';
 import { auth } from '../../../database/index.js';
 
-
-const LoginSuccess = ({ user }) => {
+export default function LoginSuccess(props) {
   return (
     <div>
-      <h1>Hello, {user.displayName}</h1>
-      <img src={user.photoURL} alt="userPhoto" />
-      <button onClick={() => auth.signOut()}>Sign out</button>
+      <h1>Hello, {props.user.displayName}</h1>
+      <img src={props.user.photoURL} alt="userPhoto" />
+      <button onClick={() => { auth.signOut(); props.signOut.addUserState({ task: 'signout' }); }}>Sign out</button>
     </div>
   );
-};
-
-export default LoginSuccess;
+}
