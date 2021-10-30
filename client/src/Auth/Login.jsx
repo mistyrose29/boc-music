@@ -1,11 +1,13 @@
 import React from 'react';
-import { signInWithGoogle } from '../../../database/index.js';
+import { signIn } from '../../../database/index.js';
 
-const Login = () => {
+const Login = (props) => {
+
   return (
     <div>
-      <button onClick={signInWithGoogle}>
-        Sign in with google
+      {/* <div id="loader">Loading...</div> */}
+      <button onClick={signIn}>
+        Login
       </button>
     </div>
   );
