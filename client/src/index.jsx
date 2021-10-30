@@ -35,7 +35,11 @@ class App extends React.Component {
 
   render() {
     if (this.state.testing) {
-      return <Projects ownerId={'test'}/>;
+      return (
+        <Projects
+          ownerName={this.state.loggedInUser.username}
+          ownerId={this.state.loggedInUser.userId}/>
+      );
     } else {
       return (
         <div>BOC
