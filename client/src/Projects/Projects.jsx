@@ -93,17 +93,14 @@ class Projects extends React.Component {
       return (
         <div className='main-container'>
           <header className="sticky-header">
-            <h1 className="center-text padding-all">Home</h1>
-            <div className="projects-header">
-              <div className='home flex-row justify-evenly'>
-                <h2>Your Projects</h2>
-                <CreateProject
-                  title={this.state.title}
-                  description={this.state.description}
-                  isPublic={this.state.isPublic}
-                  create={this.create}
-                  save={this.save}/>
-              </div>
+            <h1 className="center-text projects-header">Projects</h1>
+            <div className='top-right'>
+              <CreateProject
+                title={this.state.title}
+                description={this.state.description}
+                isPublic={this.state.isPublic}
+                create={this.create}
+                save={this.save}/>
             </div>
           </header>
           <>

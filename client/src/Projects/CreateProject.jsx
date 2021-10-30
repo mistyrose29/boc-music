@@ -14,8 +14,8 @@ const CreateProject = ({title, description, isPublic, create, save }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Create New Project
+      <Button variant="primary" onClick={handleShow} style={{borderRadius: '100px'}}>
+        +
       </Button>
 
       <Modal show={show} onHide={handleClose}>
