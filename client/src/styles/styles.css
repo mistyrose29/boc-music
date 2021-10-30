@@ -12,6 +12,14 @@
   justify-content: space-evenly;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
+.center-items {
+  align-items: center;
+}
+
 .grow {
   flex-grow: 1
 }

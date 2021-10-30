@@ -125,6 +125,8 @@ class Projects extends React.Component {
                   key={index}
                   style={{ margin: '0 10px 10px 10px'}}>
                   <ProjectView
+                    reload={this.loadProjectList}
+                    projectId={project.id}
                     project={project}
                     loadProject={this.loadProject}/>
                 </div>

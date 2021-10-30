@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
-import { query, where, addDoc, getDocs, collection } from 'firebase/firestore';
+import { query, where, addDoc, getDocs, collection, doc, deleteDoc } from 'firebase/firestore';
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
@@ -40,4 +40,19 @@ export const getProject = (projectId) => {
   return db.collection('projects')
     .doc(projectId)
     .get();
+};
+
+export const deleteProject = (projectId) => {
+  return deleteDoc(doc(db, 'projects', projectId));
+
+  //implement deleting all files in folder and folder
+  // Create a reference to the file to delete
+  // const desertRef = ref(storage, 'images/desert.jpg');
+
+  // // Delete the file
+  // deleteObject(desertRef).then(() => {
+  //   // File deleted successfully
+  // }).catch((error) => {
+  //   // Uh-oh, an error occurred!
+  // });
 };

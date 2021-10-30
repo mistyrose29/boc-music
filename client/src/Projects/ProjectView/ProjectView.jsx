@@ -1,11 +1,17 @@
 import React from 'react';
+import ConfirmModal from './ConfirmModal.jsx';
 import { Card, Button } from 'react-bootstrap';
 
-const ProjectView = ({ project, loadProject }) => {
+const ProjectView = ({ project, loadProject, projectId, reload }) => {
   return (
     <Card>
       <Card.Header>
-        {project.title} - {project.public ? 'Public' : 'Private'}
+        <div className="flex-row justify-between center-items">
+          <span>{project.title} - {project.public ? 'Public' : 'Private'}</span>
+          <ConfirmModal
+            projectId={projectId}
+            reload={reload}/>
+        </div>
       </Card.Header>
       <Card.Body>
         <Card.Subtitle className="mb-2 text-muted">
