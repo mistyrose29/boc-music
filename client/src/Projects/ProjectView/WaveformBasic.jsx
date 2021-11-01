@@ -65,9 +65,5 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
     wavesurfer.current.setCurrentTime(time);
   }, [time]);
 
-  return (
-    <div className='padding-top'>
-      <div className='waveform' ref={waveformRef} />
-    </div>
-  );
+  return <div className='waveform' ref={waveformRef} />;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, ButtonToolbar, ButtonGroup, Button, useAccordionButton, Accordion } from 'react-bootstrap';
 import WaveformBasic from './WaveformBasic.jsx';
+import ConfirmModal from './ConfirmModal.jsx';
 import { getFileUrl, deleteFile } from '../../../../database/controllers.js';
 import { Icon } from '@iconify/react';
 
@@ -22,7 +23,6 @@ class Track extends React.Component {
     this.buildWaveform = this.buildWaveform.bind(this);
     this.handleMute = this.handleMute.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
   }
 
@@ -65,17 +65,6 @@ class Track extends React.Component {
     window.alert('Need to implement');
   }
 
-  handleDelete() {
-    deleteFile(this.props.path)
-      .then((res) => {
-        console.log('File deleted');
-        this.props.reload();
-      })
-      .catch((error) => {
-        console.log('Error occured: ', error);
-      });
-  }
-
   toggleDisplay() {
     this.setState({
       display: !this.state.display
@@ -103,9 +92,13 @@ class Track extends React.Component {
             <div className='center-self'>
               {`${this.props.index} ${this.props.name}`}
             </div>
-            <Button size='sm' variant='outline-danger' onClick={this.handleDelete}>
-              <Icon icon={trashcan}/>
-            </Button>
+            <ConfirmModal
+              deleteTitle='Delete Track'
+              deleteText='Are you sure you want to delete this track? You will not be able to recover this track once deleted.'
+              cb={deleteFile}
+              cbValue={this.props.path}
+              reload={this.props.reload}
+              outline={true}/>
           </ButtonToolbar>
         </Card.Header>
         <Card.Body style={{ display: this.state.display ? 'block' : 'none' }}>

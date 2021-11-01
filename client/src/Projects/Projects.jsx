@@ -116,7 +116,7 @@ class Projects extends React.Component {
     } else {
       return (
         <div className='main-container'>
-          <header className="sticky-header">
+          <header className="sticky-header header-shadow">
             <div className='flex-row center-content'>
               <div className="center-text projects-header">Projects</div>
               <Filters setFilters={this.loadProjectList}/>

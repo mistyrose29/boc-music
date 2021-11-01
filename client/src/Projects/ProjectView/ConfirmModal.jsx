@@ -1,15 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { deleteProject } from '../../../../database/controllers.js';
+import { Icon } from '@iconify/react';
 
-const ConfirmModal = ({ projectId, reload }) => {
+const trashcan = 'octicon:trash-16';
+
+const ConfirmModal = ({ deleteTitle, deleteText, cb, cbValue, reload, outline }) => {
   const [smShow, setSmShow] = useState(false);
 
   const handleClose = () => setSmShow(false);
   const handleShow = () => setSmShow(true);
   const handleSave = () => {
-    deleteProject(projectId)
+    cb(cbValue)
       .then(() => {
         console.log('deleted doc');
         reload();
@@ -23,24 +25,11 @@ const ConfirmModal = ({ projectId, reload }) => {
   return (
     <>
       <Button
-        onClick={() => setSmShow(true)}
-        style={{
-          width: 'fit-content',
-          height: '100%',
-          backgroundColor: 'transparent',
-          border: 'none',
-          display: 'flex',
-          flexDirection: 'flex-column',
-          padding: '0',
-        }}>
-        <span
-          className="iconify"
-          data-icon="octicon:trash-16"
-          style={{
-            color: 'black',
-            width: '16px',
-            height: '16px',
-          }}/>
+        size='sm'
+        variant='outline-danger'
+        onClick={handleShow}
+        style={{borderColor: outline ? '#dc3545' : 'transparent'}}>
+        <Icon icon={trashcan}/>
       </Button>
       <Modal
         size="sm"
@@ -49,11 +38,9 @@ const ConfirmModal = ({ projectId, reload }) => {
         aria-labelledby="example-modal-sizes-title-sm"
       >
         <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">
-            Delete Project
-          </Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-sm">{deleteTitle}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>This will delete all files associated with this project. Are you sure you want to delete?</Modal.Body>
+        <Modal.Body>{deleteText}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancel

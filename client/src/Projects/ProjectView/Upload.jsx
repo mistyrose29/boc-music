@@ -18,7 +18,7 @@ class Upload extends React.Component {
 
     createFile(event.target.files[0], this.props.projectId)
       .then(() => {
-        window.alert('Successfully uploaded file');
+        // window.alert('Successfully uploaded file');
         this.props.reload();
       })
       .catch((err) => {

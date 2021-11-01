@@ -60,11 +60,14 @@
   top:0;
   z-index: 4;
   background-color: white;
+}
+
+.header-shadow {
   box-shadow: 0px 3px 3px 0 rgb(0 0 0 / 30%);
 }
 
 /* OVERRIDE TO BOOTSTRAP CLASS */
-.card {
+.card-shadow {
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.4);
 }
 
