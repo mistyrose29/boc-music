@@ -22,6 +22,8 @@ const ProjectView = ({ project, loadProject, projectId, reload }) => {
         </Card.Text>
         <Button
           variant="primary"
+          projecttitle={project.title}
+          projectowner={project.owner}
           projectid={project.id}
           onClick={loadProject}>
             Open Project
