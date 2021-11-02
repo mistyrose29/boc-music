@@ -78,7 +78,6 @@ export const getProject = (projectId) => {
 
 export const deleteProject = (projectId) => {
   return deleteDoc(doc(db, 'projects', projectId));
-
   //implement deleting all files in folder and folder
   // Create a reference to the file to delete
   // const desertRef = ref(storage, 'images/desert.jpg');
