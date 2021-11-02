@@ -14,6 +14,15 @@ const formWaveSurferOptions = ref => ({
   normalize: true,
   partialRender: true
 });
+//need to declare extend here to use it to extend wavesurfer options
+let extend =  (dest, ...sources) => {
+  sources.forEach(source => {
+      Object.keys(source).forEach(key => {
+          dest[key] = source[key];
+      });
+  });
+  return dest;
+}
 
 export default function Waveform({ url, id, tracks, setSelectedTrack }) {
   const waveformRef = useRef(null);
@@ -23,6 +32,7 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
   // toggle EQ popup on or off
   
   const [EQToggle, setEQToggle] = useState(false);
+  const [EditEQ, setEditEQ] = useState(true)
   const hideEQ = () => {
     setEQToggle(false);
   };
@@ -64,6 +74,115 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
           }
           document.getElementById('time-current').innerText = ` ${currentMinutes}:${currentSeconds} `;
         });
+             // handles EQ popup window
+  const EQpopup = () => {
+    if (EQToggle === false) {
+      showEQ();
+    } else {
+      hideEQ();
+    }
+    let EQ = [
+      {
+        f: 32,
+        type: 'lowshelf'
+      }, {
+        f: 64,
+        type: 'peaking'
+      }, {
+        f: 125,
+        type: 'peaking'
+      }, {
+        f: 250,
+        type: 'peaking'
+      }, {
+        f: 500,
+        type: 'peaking'
+      }, {
+        f: 1000,
+        type: 'peaking'
+      }, {
+        f: 2000,
+        type: 'peaking'
+      }, {
+        f: 4000,
+        type: 'peaking'
+      }, {
+        f: 8000,
+        type: 'peaking'
+      }, {
+        f: 16000,
+        type: 'highshelf'
+      }
+    ];
+;
+    //create the filters
+    let filters = EQ.map(band => {
+      let filter = wavesurfer.current.backend.ac.createBiquadFilter();
+      filter.type = band.type;
+      filter.gain.value = 0;
+      filter.Q.value = 1;
+      filter.frequency.value = band.f;
+      console.log('wavesurfer', filter)
+      return filter;
+
+    })
+    //connect the filter to wavesurfer instance
+    wavesurfer.current.backend.setFilters(filters);
+    // console.log('wavesurfer backend?', wavesurfer)
+    wavesurfer.current.setVolume(0.4);
+
+    //bind filters to vertical range sliders
+    
+  
+    filters.forEach(filter => {
+      let input = document.createElement('input');
+        console.log(
+        wavesurfer.current.util
+        )
+        extend(input, {
+          type: 'range',
+          min: -40,
+          max: 40,
+          value: 0,
+          title: filter.frequency.value
+        });
+        input.style.display = 'inline-block';
+        input.setAttribute('orient', 'vertical');
+        wavesurfer.current.drawer.style(input, {'webkitAppearance': 'slider-vertical',
+      width: '1em', height: '2em'});
+      let container = document.querySelector('#waveform'); //was #eq-popup
+      console.log('container', container)
+      //it runs this before #eq-popup actually loads so do this
+      if (container) {
+        console.log(
+          'container exists'
+        )
+        container.appendChild(input);
+      }
+  
+      let onChange = (e) => {
+        filter.gain.value = e.target.value;
+
+      };
+      input.addEventListener('input', onChange);
+      input.addEventListener('change', onChange)
+ 
+    });
+    
+    setEQToggle(
+    <div id = 'eq-popup'>
+          
+      <p>insert EQ controls here</p>
+      <button onClick = {hideEQ}>Close</button>
+      
+      </div>)
+
+  }
+  setEditEQ (<button onClick={() => {
+    EQpopup()
+  }}>Edit Audio</button>)
+
+
       }
     });
 
@@ -147,12 +266,12 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         <button onClick={() => { previous(id) }}>Previous</button>
         <button onClick={() => { next(id) }}>Next</button>
         <button onClick={mute}>Mute</button>
-        {/* Add EQ edit functionality */}
-        <button onClick={() => {
-          EQpopup()
-        }}>Edit Audio</button>
+          {/* Add EQ edit functionality */}
+          {EditEQ}
         {/* EQ TOGGLE */}
         {EQToggle}
+       
+
        
 
         <input
