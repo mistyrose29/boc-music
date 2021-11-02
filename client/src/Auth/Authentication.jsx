@@ -13,7 +13,6 @@ export default function Authentication(props) {
     firebase.auth().onAuthStateChanged(user => {
       setUser(user);
       if (user) {
-        // console.log('🦁 current logged in user info: ', user);
         const username = user.multiFactor.user.displayName;
         const email = user.multiFactor.user.email;
         const userPhoto = user.multiFactor.user.photoURL;
@@ -26,11 +25,19 @@ export default function Authentication(props) {
     });
   }, []);
 
+
   return (
     <div id="firebaseui-auth-container">
-
-      {/* if user exists in state, render success module*/}
-      {user ? <LoginSuccess user={user} signOut={props}/> : <Login signing={useEffect}/>}
+      {
+        user
+          ? <LoginSuccess
+            user={user}
+            loginSuccess={props.loginSuccess}
+            logout={props.logout}
+            history={props.history}/>
+          : <Login
+            signing={useEffect}/>
+      }
     </div>
   );
 }

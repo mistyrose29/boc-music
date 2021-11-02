@@ -19,6 +19,9 @@ export default function LoginSuccess(props) {
         src={props.user.photoURL || noPhoto}
         style={{width: '150px', height: '150px'}}
         alt="userPhoto"/>
+      <button onClick={props.loginSuccess}>
+        Go To Home Page
+      </button>
       <button onClick={signOut}>
         Sign out
       </button>
