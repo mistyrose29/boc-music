@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 //import Waveform from './Waveform/Waveform.jsx'
 import WaveformApp from './Waveform/WaveformApp.jsx';
 //import Layers from './Layering/Layer.jsx';
+import LoginSuccess from './Auth/LoginSuccess.jsx'
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,11 +24,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       load: false,
-      testing: false
+      testing: false,
+      loggedInUser: {},
     };
     this.props = props
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.testing = this.testing.bind(this);
   }
 
   login() {
@@ -43,10 +46,31 @@ class App extends React.Component {
     })
   }
 
+  addUserState(userInfo) {
+    // console.log('adding user to state')
+    if (userInfo.task === 'signin') {
+      this.setState({
+        loggedInUser: userInfo,
+      }, () => {
+        console.log('🦊 Current Logged In User Info: ', this.state.loggedInUser);
+      });
+    } else if (userInfo.task === 'signout') {
+      this.setState({
+        loggedInUser: {}
+      }, () => {
+        // console.log(this.state.loggedInUser);
+      });
+    }
+  }
+
+  testing() {
+    this.setState({testing: true})
+  }
+
 
 
   render() {
-    
+
       if (this.state.load) {
         return (
           <Router>
@@ -60,11 +84,14 @@ class App extends React.Component {
               </Route>
 
               <Route path="/home">
-                 <Home history = {history} logout = {this.logout}/>
+                <LoginSuccess />
+                 <Home history = {history} logout = {this.logout} testing = {this.testing}/>
               </Route>
 
               <Route path="/projects">
-                <Projects ownerId={'test'}/>
+              <Projects
+          ownerName={this.state.loggedInUser.username}
+          ownerId={this.state.loggedInUser.userId}/>
               </Route>
 
               <Route path="/waveform">
@@ -84,31 +111,41 @@ class App extends React.Component {
             <Switch>
             
               <Route path="/login">
-                <Authentication />
+                <Authentication goHome = {this.login} history = {history} addUserState={this.addUserState.bind(this)}/>
               </Route>
               <Redirect from="*" to="/login" />
               
             </Switch>
           </Router>
         )
-      }   
+      }  
+    } 
   }
+  
 
-};
+//   render() {
+//     if (this.state.testing) {
+//       return (
+//         <Projects
+//           ownerName={this.state.loggedInUser.username}
+//           ownerId={this.state.loggedInUser.userId}/>
+//       );
+//     } else {
+//       return (
+//         <div>BOC
+//           <WaveformApp />
+//           <hr />
+//           <button onClick={() => this.setState({testing: true})}>View Test User's Projects</button>
+//           <Authentication addUserState={this.addUserState.bind(this)}/>
+//         </div>
+//       );
+//     }
+//   }
+
+// };
 
 ReactDOM.render(<App />, document.getElementById('app'));
 
-// if (this.state.testing) {
-//   return <Projects ownerId={'test'}/>;
-// } else {
-//   return (
-//     <div>BOC
-//       <WaveformApp />
-//       <hr />
-//       <button onClick={() => this.setState({testing: true})}>View Test User's Projects</button>
-//       <Authentication />
-//     </div>
-//   );
-// }
+
 
 

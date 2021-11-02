@@ -1,4 +1,5 @@
 import React from 'react';
+import Filters from './Filters.jsx';
 import CreateProject from './CreateProject.jsx';
 import ProjectView from './ProjectView/ProjectView.jsx';
 import Project from './ProjectView/Project.jsx';
@@ -27,10 +28,10 @@ class Projects extends React.Component {
     this.loadProjectList();
   }
 
-  loadProjectList() {
+  loadProjectList(filters) {
     // get projects
     let projects = [];
-    getAllProjects(this.props.ownerId)
+    getAllProjects(this.props.ownerId, filters)
       .then((docs) => {
         docs.forEach((doc) => {
           let project = doc.data();
@@ -73,6 +74,7 @@ class Projects extends React.Component {
       title: title,
       description: description,
       public: this.state.isPublic,
+      ownerName: this.props.ownerName,
       owner: this.props.ownerId,
       createdAt: new Date(),
       sharedWith: []
@@ -80,7 +82,7 @@ class Projects extends React.Component {
 
     createProject(data)
       .then((res) => {
-        console.log(res);
+        console.log('project created');
       })
       .catch((error) => {
         console.log(error);
@@ -107,7 +109,10 @@ class Projects extends React.Component {
       return (
         <div className='main-container'>
           <header className="sticky-header">
-            <h1 className="center-text projects-header">Projects</h1>
+            <div className='flex-row center-content'>
+              <div className="center-text projects-header">Projects</div>
+              <Filters setFilters={this.loadProjectList}/>
+            </div>
             <div className='bottom-right'>
               <CreateProject
                 title={this.state.title}

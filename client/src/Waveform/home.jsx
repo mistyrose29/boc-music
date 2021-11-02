@@ -12,6 +12,7 @@ const home = (props) => {
              <br></br>
 
         <button  onClick={() => {
+            props.testing({testing: true});
             props.history.push('/projects');
         }}>project</button>
           <button onClick={() => {
