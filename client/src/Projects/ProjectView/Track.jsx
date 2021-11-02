@@ -1,6 +1,6 @@
 import React from 'react';
 import WaveformBasic from './WaveformBasic.jsx';
-import { getFileUrl, deleteFile } from '../../../database/controllers.js';
+import { getFileUrl, deleteFile } from '../../../../database/controllers.js';
 
 class Track extends React.Component {
   constructor(props) {

@@ -1,7 +1,10 @@
-import { storage } from './index.js';
+import { v4 as uuid } from 'uuid';
+import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
+import { query, where, addDoc, getDocs, collection, doc, deleteDoc } from 'firebase/firestore';
 
-export const uploadFile = (file, filepath) => {
+// FIRESTORAGE METHODS
+export const createFile = (file, filepath) => {
   const storageRef = ref(storage, `${filepath}/${file.name}`);
   return uploadBytes(storageRef, file);
 };
@@ -19,4 +22,37 @@ export const getFileUrl = (filepath) => {
 export const getProjectFiles = (projectId) => {
   const listRef = ref(storage, projectId);
   return listAll(listRef);
+};
+
+// FIREBASE DB METHODS
+export const createProject = (data) => {
+  const id = uuid();
+  return addDoc(collection(db, 'projects'), data);
+};
+
+export const getAllProjects = (owner) => {
+  const projectsRef = collection(db, 'projects');
+  const q = query(projectsRef, where('owner', '==', owner));
+  return getDocs(q);
+};
+
+export const getProject = (projectId) => {
+  return db.collection('projects')
+    .doc(projectId)
+    .get();
+};
+
+export const deleteProject = (projectId) => {
+  return deleteDoc(doc(db, 'projects', projectId));
+
+  //implement deleting all files in folder and folder
+  // Create a reference to the file to delete
+  // const desertRef = ref(storage, 'images/desert.jpg');
+
+  // // Delete the file
+  // deleteObject(desertRef).then(() => {
+  //   // File deleted successfully
+  // }).catch((error) => {
+  //   // Uh-oh, an error occurred!
+  // });
 };

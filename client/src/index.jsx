@@ -12,10 +12,11 @@ import {
 
 import Home from './Waveform/home.jsx';
 // import EqualizerWindow from './EditAudio/EQ.jsx';
-import Project from './ProjectView/Project.jsx';
+import Projects from './Projects/Projects.jsx';
 import './styles/styles.css';
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
+import Authentication from './Auth/Authentication.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -62,8 +63,8 @@ class App extends React.Component {
                  <Home history = {history} logout = {this.logout}/>
               </Route>
 
-              <Route path="/project">
-                <Project />
+              <Route path="/projects">
+                <Projects ownerId={'test'}/>
               </Route>
 
               <Route path="/waveform">
@@ -83,7 +84,7 @@ class App extends React.Component {
             <Switch>
             
               <Route path="/login">
-                <button onClick = {this.login}> login </button>
+                <Authentication />
               </Route>
               <Redirect from="*" to="/login" />
               
@@ -96,19 +97,18 @@ class App extends React.Component {
 };
 
 ReactDOM.render(<App />, document.getElementById('app'));
-//     if (this.state.testing) {
-//       return (
-//         <Project projectId={'test'}/>
-//       );
-//     } else {
-//       return (
-//         <div>BOC
-//           <WaveformApp />
-//           <hr />
-//           <button onClick={() => this.setState({testing: true})}>Load Test Project</button>
-//         </div>
-//       );
-//     }
-//   }
+
+// if (this.state.testing) {
+//   return <Projects ownerId={'test'}/>;
+// } else {
+//   return (
+//     <div>BOC
+//       <WaveformApp />
+//       <hr />
+//       <button onClick={() => this.setState({testing: true})}>View Test User's Projects</button>
+//       <Authentication />
+//     </div>
+//   );
 // }
+
 
