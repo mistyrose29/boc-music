@@ -131,7 +131,15 @@
   margin-bottom: 1%
 }
 
-#time-current {
+.waveform {
+  position: relative;
+}
+
+.waveform-timeline {
+  position: relative;
+}
+
+.time-current {
   color: orangered
 }
 

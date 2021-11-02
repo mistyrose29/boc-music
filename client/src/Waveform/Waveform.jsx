@@ -30,7 +30,7 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
   const [playing, setPlay] = useState(false);
   const [volume, setVolume] = useState(0.5);
   // toggle EQ popup on or off
-  
+
   const [EQToggle, setEQToggle] = useState(false);
   const [EditEQ, setEditEQ] = useState(true)
   const hideEQ = () => {
@@ -132,8 +132,8 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
     wavesurfer.current.setVolume(0.4);
 
     //bind filters to vertical range sliders
-    
-  
+
+
     filters.forEach(filter => {
       let input = document.createElement('input');
         console.log(
@@ -159,22 +159,22 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         )
         container.appendChild(input);
       }
-  
+
       let onChange = (e) => {
         filter.gain.value = e.target.value;
 
       };
       input.addEventListener('input', onChange);
       input.addEventListener('change', onChange)
- 
+
     });
-    
+
     setEQToggle(
     <div id = 'eq-popup'>
-          
+
       <p>insert EQ controls here</p>
       <button onClick = {hideEQ}>Close</button>
-      
+
       </div>)
 
   }
@@ -249,7 +249,7 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
     <div id = 'eq-popup'>
       <p>insert EQ controls here</p>
       <button onClick = {hideEQ}>Close</button>
-      
+
       </div>)
 
   }
@@ -259,7 +259,7 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
       <div id="waveform" ref={waveformRef} />
       <div>
         Playing Time
-        <span id="time-current"> 0:00 </span> / <span id="time-total">0:00</span>
+        <span id="time-current" className='time-current'> 0:00 </span> / <span id="time-total">0:00</span>
       </div>
       <div className="controls">
         <button onClick={handlePlayPause}>{!playing ? "Play" : "Pause"}</button>
@@ -270,9 +270,9 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
           {EditEQ}
         {/* EQ TOGGLE */}
         {EQToggle}
-       
 
-       
+
+
 
         <input
           type="range"
