@@ -1,3 +1,10 @@
+#eq-popup {
+  position: static;
+  top: 1em;
+  padding: 1em;
+  background-color: white;
+  border: 1em solid black;
+}
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -12,20 +19,98 @@
   justify-content: space-evenly;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
+.center-items {
+  align-items: center;
+}
+
+.center-self {
+  align-self: center;
+  height: fit-content;
+  justify-items: center;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 140px);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.center-content {
+  align-items: center;
+  justify-content: center;
+}
+
 .grow {
   flex-grow: 1
 }
 
-.project {
+.no-bottom {
+  border-bottom: none;
 }
 
-.upload {
+.no-radius {
+  border-radius: 0;
 }
 
-.project-play-pause {
+.sticky-header{
+  margin-bottom: 10px;
+  position: sticky;
+  top:0;
+  z-index: 4;
+  background-color: white;
 }
 
-.track-list {
+.header-shadow {
+  box-shadow: 0px 3px 3px 0 rgb(0 0 0 / 30%);
+}
+
+/* OVERRIDE TO BOOTSTRAP CLASS */
+.card-shadow {
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.4);
+}
+
+.small-margin-bottom {
+  margin-bottom: 3px;
+}
+
+.filter-btn {
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+}
+
+.mb-3-top {
+  margin-top: 1rem;
+}
+
+/* END OVERRIDE */
+
+.tab-detail {
+  margin: 0 8px 14px 8px;
+  padding: 0 8px 14px 8px;
+  font-style: italic;
+  font-size: smaller;
+  color: gray;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.projects-header {
+  padding: 20px;
+  font-size: 30px;
+}
+
+.bottom-right {
+  position: absolute;
+  top: calc(100vh - 80px);
+  right: 20px;
+  z-index: 4;
 }
 
 .track {
@@ -36,9 +121,6 @@
 
 .padding-top {
   padding-top: 10px;
-}
-
-.basic-waveform {
 }
 
 .waveform-container {
@@ -67,3 +149,10 @@
   margin-bottom: 2.5%;
   border-bottom: 1px solid #ececec;
 }
+
+/*
+
+Used on PROJECTS Page
+https://getbootstrap.com/docs/5.1/components/card/#using-custom-css
+
+*/
