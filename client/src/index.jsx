@@ -1,53 +1,92 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import Waveform from './Waveform/Waveform.jsx'
-import WaveformApp from './Waveform/WaveformApp.jsx';
-// import EqualizerWindow from './EditAudio/EQ.jsx';
-import Projects from './Projects/Projects.jsx';
-import './styles/styles.css';
 import Authentication from './Auth/Authentication.jsx';
+import DisplayUser from './Auth/DisplayUser.jsx';
+import Home from './Waveform/home.jsx';
+import WaveformApp from './Waveform/WaveformApp.jsx';
+import Projects from './Projects/Projects.jsx';
+
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import './styles/styles.css';
+
+const history = createBrowserHistory();
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      testing: false,
       loggedInUser: {},
+      load: false,
     };
+
+    this.loginLogout = this.loginLogout.bind(this);
   }
 
-  addUserState(userInfo) {
-    // console.log('adding user to state')
-    if (userInfo.task === 'signin') {
-      this.setState({
-        loggedInUser: userInfo,
-      }, () => {
-        console.log('🦊 Current Logged In User Info: ', this.state.loggedInUser);
-      });
-    } else if (userInfo.task === 'signout') {
-      this.setState({
-        loggedInUser: {}
-      }, () => {
-        // console.log(this.state.loggedInUser);
-      });
-    }
+  loginLogout(loggedIn, loggedInUser) {
+    this.setState({
+      load: loggedIn,
+      loggedInUser: loggedInUser
+    });
   }
 
   render() {
-    if (this.state.testing) {
+    if (this.state.load) {
       return (
-        <Projects
-          ownerName={this.state.loggedInUser.username}
-          ownerId={this.state.loggedInUser.userId}/>
+        <Router>
+          <Switch>
+            <Route path='/login'>
+              <Redirect to={'/home'} />
+            </Route>
+
+            <Route path='/' exact>
+              <Redirect to={'/home'} />
+            </Route>
+
+            <Route path='/home'>
+              <DisplayUser
+                user={{
+                  displayName: this.state.loggedInUser.username || null,
+                  photoURL: this.state.loggedInUser.userPhoto || null
+                }}
+                loginLogout={this.loginLogout}
+                history={history}/>
+              <Home
+                history={history}
+                loginLogout={this.loginLogout}/>
+            </Route>
+
+            <Route path='/projects'>
+              <Projects
+                ownerName={this.state.loggedInUser.username}
+                ownerId={this.state.loggedInUser.userId} />
+            </Route>
+
+            <Route path='/waveform'>
+              <WaveformApp />
+            </Route>
+
+            <Route path='/friends'>
+
+            </Route>
+
+          </Switch>
+        </Router>
       );
     } else {
       return (
-        <div>BOC
-          <WaveformApp />
-          <hr />
-          <button onClick={() => this.setState({testing: true})}>View Test User's Projects</button>
-          <Authentication addUserState={this.addUserState.bind(this)}/>
-        </div>
+        <Router>
+          <Switch>
+
+            <Route path='/login'>
+              <Authentication
+                loginLogout={this.loginLogout}
+                history={history}/>
+            </Route>
+            <Redirect from='*' to='/login'/>
+
+          </Switch>
+        </Router>
       );
     }
   }

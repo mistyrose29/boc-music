@@ -4,10 +4,10 @@ import { auth } from '../../../database/index.js';
 const noUser = 'Anonymous';
 const noPhoto = './anonymous.png';
 
-export default function LoginSuccess(props) {
+export default function DisplayUser(props) {
   const signOut = () => {
     auth.signOut();
-    props.signOut.addUserState({ task: 'signout' });
+    props.loginLogout(false, null);
   };
 
   return (
