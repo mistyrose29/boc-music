@@ -87,6 +87,10 @@
   margin-top: 1rem;
 }
 
+.offcanvas-start {
+  width: 250px;
+}
+
 /* END OVERRIDE */
 
 .tab-detail {

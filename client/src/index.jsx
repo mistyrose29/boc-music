@@ -5,6 +5,7 @@ import DisplayUser from './Auth/DisplayUser.jsx';
 import Home from './Waveform/home.jsx';
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
+import NavPane from './NavPane/NavPane.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -18,6 +19,7 @@ class App extends React.Component {
     this.state = {
       loggedInUser: {},
       load: false,
+      route: null
     };
 
     this.loginLogout = this.loginLogout.bind(this);
@@ -44,12 +46,14 @@ class App extends React.Component {
             </Route>
 
             <Route path='/home'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
               <DisplayUser
                 user={{
                   displayName: this.state.loggedInUser.username || null,
                   photoURL: this.state.loggedInUser.userPhoto || null
                 }}
-                loginLogout={this.loginLogout}
                 history={history}/>
               <Home
                 history={history}
@@ -57,16 +61,25 @@ class App extends React.Component {
             </Route>
 
             <Route path='/projects'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
               <Projects
                 ownerName={this.state.loggedInUser.username}
                 ownerId={this.state.loggedInUser.userId} />
             </Route>
 
             <Route path='/waveform'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
               <WaveformApp />
             </Route>
 
             <Route path='/friends'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
 
             </Route>
 
