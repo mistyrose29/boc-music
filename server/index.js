@@ -9,10 +9,10 @@ app.use(express.static(`${__dirname} /../client/dist`));
 app.get('/*', function(req, res) {
   res.sendFile(path.resolve(__dirname, '../client/dist/index.html'), function(err) {
     if (err) {
-      res.status(500).send(err)
+      res.status(500).send(err);
     }
-  })
-})
+  });
+});
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

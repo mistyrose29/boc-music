@@ -1,69 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import Waveform from './Waveform/Waveform.jsx'
-import WaveformApp from './Waveform/WaveformApp.jsx';
-//import Layers from './Layering/Layer.jsx';
-import LoginSuccess from './Auth/LoginSuccess.jsx';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
-
-import Home from './Waveform/home.jsx';
-// import EqualizerWindow from './EditAudio/EQ.jsx';
-import Projects from './Projects/Projects.jsx';
-import './styles/styles.css';
-import { createBrowserHistory } from 'history';
-const history = createBrowserHistory();
 import Authentication from './Auth/Authentication.jsx';
+import DisplayUser from './Auth/DisplayUser.jsx';
+import Home from './Waveform/home.jsx';
+import WaveformApp from './Waveform/WaveformApp.jsx';
+import Projects from './Projects/Projects.jsx';
+
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import './styles/styles.css';
+
+const history = createBrowserHistory();
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      load: false,
-      testing: false,
       loggedInUser: {},
+      load: false,
     };
 
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.testing = this.testing.bind(this);
+    this.loginLogout = this.loginLogout.bind(this);
   }
 
-  login() {
+  loginLogout(loggedIn, loggedInUser) {
     this.setState({
-      load: true
+      load: loggedIn,
+      loggedInUser: loggedInUser
     });
-  }
-
-  logout() {
-    this.setState({
-      load: false
-    });
-  }
-
-  addUserState(userInfo) {
-    // console.log('adding user to state')
-    if (userInfo.task === 'signin') {
-      this.setState({
-        loggedInUser: userInfo,
-      }, () => {
-        console.log('🦊 Current Logged In User Info: ', this.state.loggedInUser);
-      });
-    } else if (userInfo.task === 'signout') {
-      this.setState({
-        loggedInUser: {}
-      }, () => {
-        // console.log(this.state.loggedInUser);
-      });
-    }
-  }
-
-  testing() {
-    this.setState({ testing: true });
   }
 
   render() {
@@ -80,17 +44,16 @@ class App extends React.Component {
             </Route>
 
             <Route path='/home'>
-              <LoginSuccess
+              <DisplayUser
                 user={{
                   displayName: this.state.loggedInUser.username || null,
                   photoURL: this.state.loggedInUser.userPhoto || null
                 }}
-                loginSuccess={this.login}
-                logout={this.logout}
+                loginLogout={this.loginLogout}
                 history={history}/>
               <Home
                 history={history}
-                logout={this.logout}
+                loginLogout={this.loginLogout}
                 testing={this.testing} />
             </Route>
 
@@ -104,7 +67,7 @@ class App extends React.Component {
               <WaveformApp />
             </Route>
 
-            <Route path='/friendslist'>
+            <Route path='/friends'>
 
             </Route>
 
@@ -118,10 +81,8 @@ class App extends React.Component {
 
             <Route path='/login'>
               <Authentication
-                logout={this.logout}
-                loginSuccess={this.login}
-                history={history}
-                addUserState={this.addUserState.bind(this)}/>
+                loginLogout={this.loginLogout}
+                history={history}/>
             </Route>
             <Redirect from='*' to='/login'/>
 

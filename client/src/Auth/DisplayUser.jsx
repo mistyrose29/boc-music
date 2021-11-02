@@ -4,10 +4,10 @@ import { auth } from '../../../database/index.js';
 const noUser = 'Anonymous';
 const noPhoto = './anonymous.png';
 
-export default function LoginSuccess(props) {
+export default function DisplayUser(props) {
   const signOut = () => {
     auth.signOut();
-    props.signOut.addUserState({ task: 'signout' });
+    props.loginLogout(false, null);
   };
 
   return (
@@ -19,9 +19,6 @@ export default function LoginSuccess(props) {
         src={props.user.photoURL || noPhoto}
         style={{width: '150px', height: '150px'}}
         alt="userPhoto"/>
-      <button onClick={props.loginSuccess}>
-        Go To Home Page
-      </button>
       <button onClick={signOut}>
         Sign out
       </button>

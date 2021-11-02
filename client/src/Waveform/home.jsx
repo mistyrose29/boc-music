@@ -1,12 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { auth } from '../../../database/index.js';
 
 const home = (props) => {
 
   return (
     <div>
       <button onClick={() => {
-        props.logout();
+        auth.signOut();
+        props.loginLogout(false, null);
         props.history.push('/login');
       }}>logout</button>
       <br/>

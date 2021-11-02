@@ -1,43 +1,27 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
-import Login from './Login.jsx';
-import LoginSuccess from './LoginSuccess.jsx';
-import firebase from '../../../database/index.js';
+import firebase, { signIn } from '../../../database/index.js';
 import { createUser } from '../../../database/controllers.js';
 
 export default function Authentication(props) {
-  const [user, setUser] = useState(null);
-
   useEffect(() => {
+    signIn();
     firebase.auth().onAuthStateChanged(user => {
-      setUser(user);
       if (user) {
-        const username = user.multiFactor.user.displayName;
-        const email = user.multiFactor.user.email;
-        const userPhoto = user.multiFactor.user.photoURL;
-        const userId = user.multiFactor.user.uid;
-        const userData = {task: 'signin', username: username, email: email, userPhoto: userPhoto, userId: userId};
-        props.addUserState(userData);
+        const userData = {
+          username: user.multiFactor.user.displayName,
+          email: user.multiFactor.user.email,
+          userPhoto: user.multiFactor.user.photoURL,
+          userId: user.multiFactor.user.uid
+        };
 
+        props.loginLogout(true, userData);
         createUser(userData);
       }
     });
-  }, []);
-
+  }, [props]);
 
   return (
-    <div id="firebaseui-auth-container">
-      {
-        user
-          ? <LoginSuccess
-            user={user}
-            loginSuccess={props.loginSuccess}
-            logout={props.logout}
-            history={props.history}/>
-          : <Login
-            signing={useEffect}/>
-      }
-    </div>
+    <div id="firebaseui-auth-container"/>
   );
 }
