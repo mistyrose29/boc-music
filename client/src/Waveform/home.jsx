@@ -13,7 +13,6 @@ const home = (props) => {
       }}>logout</button>
       <br/>
       <button onClick={() => {
-        props.testing({testing: true});
         props.history.push('/projects');
       }}>
         project

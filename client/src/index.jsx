@@ -53,8 +53,7 @@ class App extends React.Component {
                 history={history}/>
               <Home
                 history={history}
-                loginLogout={this.loginLogout}
-                testing={this.testing} />
+                loginLogout={this.loginLogout}/>
             </Route>
 
             <Route path='/projects'>
