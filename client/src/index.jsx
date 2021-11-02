@@ -80,8 +80,18 @@ class App extends React.Component {
             </Route>
 
             <Route path='/home'>
-              <LoginSuccess />
-              <Home history={history} logout={this.logout} testing={this.testing} />
+              <LoginSuccess
+                user={{
+                  displayName: this.state.loggedInUser.username || null,
+                  photoURL: this.state.loggedInUser.userPhoto || null
+                }}
+                loginSuccess={this.login}
+                logout={this.logout}
+                history={history}/>
+              <Home
+                history={history}
+                logout={this.logout}
+                testing={this.testing} />
             </Route>
 
             <Route path='/projects'>
@@ -122,30 +132,4 @@ class App extends React.Component {
   }
 }
 
-
-//   render() {
-//     if (this.state.testing) {
-//       return (
-//         <Projects
-//           ownerName={this.state.loggedInUser.username}
-//           ownerId={this.state.loggedInUser.userId}/>
-//       );
-//     } else {
-//       return (
-//         <div>BOC
-//           <WaveformApp />
-//           <hr />
-//           <button onClick={() => this.setState({testing: true})}>View Test User's Projects</button>
-//           <Authentication addUserState={this.addUserState.bind(this)}/>
-//         </div>
-//       );
-//     }
-//   }
-
-// };
-
 ReactDOM.render(<App />, document.getElementById('app'));
-
-
-
-
