@@ -1,7 +1,13 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import Track from './Track.jsx';
 import Upload from './Upload.jsx';
 import { getProjectFiles } from '../../../../database/controllers.js';
+import { Icon } from '@iconify/react';
+
+const headphones = ['tabler:headphones-off', 'tabler:headphones'];
+const trashcan = 'octicon:trash-16';
+const eq = 'file-icons:eq';
 
 class Project extends React.Component {
   constructor(props) {
@@ -9,15 +15,24 @@ class Project extends React.Component {
     this.state = {
       loaded: false,
       isPlaying: false,
-      tracks: []
+      tracks: [],
+      time: 0
     };
 
     this.reload = this.reload.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
+    this.saveTime = this.saveTime.bind(this);
   }
 
   componentDidMount() {
     this.reload();
+  }
+
+  saveTime(time) {
+    console.log(time);
+    this.setState({
+      time: time
+    });
   }
 
   reload() {
@@ -39,48 +54,51 @@ class Project extends React.Component {
       });
   }
 
-  handlePlay(event) {
-    const bool = event.target.getAttribute('play') === 'true' ? true : false;
+  handlePlay() {
     this.setState({
-      isPlaying: bool
+      isPlaying: !this.state.isPlaying,
     });
   }
 
   render() {
     return (
-      <div className='project flex-column'>
-        <h1>Project Selected</h1>
-        <Upload
-          projectId={this.props.projectId}
-          reload={this.reload}/>
-        <div className='project-play-pause flex-row justify-evenly'>
-          <button
-            className='grow'
-            play='true'
-            onClick={this.handlePlay}>
-              Play
-          </button>
-          <button
-            className='grow'
-            play='false'
-            onClick={this.handlePlay}>
-              Pause
-          </button>
-        </div>
-        <div>
-          <h2 className='track-list flex-column'>Track List</h2>
+      <div className='main-container'>
+        <header className='sticky-header' style={{marginBottom: 0}}>
+          <div className='flex-row center-content'>
+            <div className='center-text projects-header'>
+              {this.props.title}
+            </div>
+            <Button
+              className='filter-btn'
+              variant='primary'
+              onClick={this.handlePlay}>
+              <Icon icon={this.state.isPlaying ? 'fe:pause' : 'akar-icons:play'}/>
+            </Button>
+          </div>
+          <div className='bottom-right'>
+            <Upload
+              projectId={this.props.projectId}
+              reload={this.reload}/>
+          </div>
+        </header>
+        <>
           {this.state.tracks.map((track, index) => {
             return (
-              <Track
-                key={index}
-                index={index}
-                path={track.path}
-                name={track.name}
-                isPlaying={this.state.isPlaying}
-                reload={this.reload}/>
+              <div
+                key={index}>
+                <Track
+                  key={index}
+                  index={index}
+                  path={track.path}
+                  name={track.name}
+                  isPlaying={this.state.isPlaying}
+                  reload={this.reload}
+                  time={this.state.time}
+                  saveTime={this.saveTime}/>
+              </div>
             );
           })}
-        </div>
+        </>
       </div>
     );
   }

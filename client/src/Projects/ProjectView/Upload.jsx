@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { createFile } from '../../../../database/controllers.js';
 
 class Upload extends React.Component {
@@ -17,7 +18,7 @@ class Upload extends React.Component {
 
     createFile(event.target.files[0], this.props.projectId)
       .then(() => {
-        window.alert('Successfully uploaded file');
+        // window.alert('Successfully uploaded file');
         this.props.reload();
       })
       .catch((err) => {
@@ -33,10 +34,24 @@ class Upload extends React.Component {
 
   render() {
     return (
-      <div className='upload flex-row'>
+      // <div className='upload flex-row'>
+      //   <button className="grow" onClick={this.onFileUpload}>Upload!</button>
+      // </div>
+      <>
         <input style={{display: 'none'}} id='file-upload' type='file' onChange={this.onFileChange}/>
-        <button className="grow" onClick={this.onFileUpload}>Upload!</button>
-      </div>
+        <Button
+          variant="primary"
+          onClick={this.onFileUpload}
+          style={{
+            borderRadius: '100px',
+            width: '60px',
+            height: '60px',
+            fontSize: '30px',
+            boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.4)'
+          }}>
+          ＋
+        </Button>
+      </>
     );
   }
 }

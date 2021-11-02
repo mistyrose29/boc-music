@@ -12,6 +12,8 @@ class Projects extends React.Component {
     this.state = {
       projects: [],
       projectId: null,
+      projectTitle: null,
+      projectOwner: null,
       title: '',
       description: '',
       isPublic: false,
@@ -50,8 +52,12 @@ class Projects extends React.Component {
 
   loadProject(event) {
     let projectId = event.target.getAttribute('projectid');
+    let projectTitle = event.target.getAttribute('projecttitle');
+    let projectOwner = event.target.getAttribute('projectowner');
     this.setState({
-      projectId: projectId
+      projectId: projectId,
+      projectTitle: projectTitle,
+      projectOwner: projectOwner
     });
   }
 
@@ -103,12 +109,14 @@ class Projects extends React.Component {
     if (this.state.projectId !== null) {
       return (
         <Project
-          projectId={this.state.projectId}/>
+          projectId={this.state.projectId}
+          title={this.state.projectTitle}
+          owner={this.state.projectOwner}/>
       );
     } else {
       return (
         <div className='main-container'>
-          <header className="sticky-header">
+          <header className="sticky-header header-shadow">
             <div className='flex-row center-content'>
               <div className="center-text projects-header">Projects</div>
               <Filters setFilters={this.loadProjectList}/>

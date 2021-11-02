@@ -1,6 +1,14 @@
 import React from 'react';
+import { Card, ButtonToolbar, ButtonGroup, Button, useAccordionButton, Accordion } from 'react-bootstrap';
 import WaveformBasic from './WaveformBasic.jsx';
+import ConfirmModal from './ConfirmModal.jsx';
 import { getFileUrl, deleteFile } from '../../../../database/controllers.js';
+import { Icon } from '@iconify/react';
+
+const headphones = ['tabler:headphones-off', 'tabler:headphones'];
+const trashcan = 'octicon:trash-16';
+const eq = 'file-icons:eq';
+const wav = 'fluent:device-eq-24-regular';
 
 class Track extends React.Component {
   constructor(props) {
@@ -8,13 +16,14 @@ class Track extends React.Component {
     this.state = {
       isMuted: false,
       wavesurfer: null,
-      url: null
+      url: null,
+      display: false
     };
 
     this.buildWaveform = this.buildWaveform.bind(this);
     this.handleMute = this.handleMute.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.toggleDisplay = this.toggleDisplay.bind(this);
   }
 
   componentDidMount() {
@@ -38,7 +47,10 @@ class Track extends React.Component {
         <WaveformBasic
           url={this.state.url}
           isPlaying={this.props.isPlaying}
-          isMuted={this.state.isMuted}/>
+          isMuted={this.state.isMuted}
+          visible={this.state.display}
+          time={this.props.time}
+          saveTime={this.props.saveTime}/>
       );
     }
   }
@@ -53,38 +65,46 @@ class Track extends React.Component {
     window.alert('Need to implement');
   }
 
-  handleDelete() {
-    deleteFile(this.props.path)
-      .then((res) => {
-        console.log('File deleted');
-        this.props.reload();
-      })
-      .catch((error) => {
-        console.log('Error occured: ', error);
-      });
+  toggleDisplay() {
+    this.setState({
+      display: !this.state.display
+    });
+
+    this.buildWaveform();
   }
 
   render() {
     return (
-      <div className='track flex-column'>
-        <div className='flex-row justify-evenly'>
-          <button onClick={this.handleMute}>
-            {this.state.isMuted ? 'UnMute' : 'Mute'}
-          </button>
-          <div>
-            {`${this.props.index} ${this.props.name}`}
-          </div>
-          <button onClick={this.handleEdit}>
-            edit track
-          </button>
-          <button onClick={this.handleDelete}>
-            delete
-          </button>
-        </div>
-        <div className="basic-waveform">
+      <Card className="no-bottom no-radius">
+        <Card.Header>
+          <ButtonToolbar className='justify-between' aria-label='Toolbar with button groups'>
+            <ButtonGroup className='me-2'>
+              <Button size='sm' variant='outline-primary' onClick={this.handleMute}>
+                <Icon icon={this.state.isMuted ? headphones[0] : headphones[1]}/>
+              </Button>
+              <Button size='sm' variant='outline-secondary' onClick={this.handleEdit}>
+                <Icon icon={eq}/>
+              </Button>
+              <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
+                <Icon icon={wav}/>
+              </Button>
+            </ButtonGroup>
+            <div className='center-self'>
+              {`${this.props.index} ${this.props.name}`}
+            </div>
+            <ConfirmModal
+              deleteTitle='Delete Track'
+              deleteText='Are you sure you want to delete this track? You will not be able to recover this track once deleted.'
+              cb={deleteFile}
+              cbValue={this.props.path}
+              reload={this.props.reload}
+              outline={true}/>
+          </ButtonToolbar>
+        </Card.Header>
+        <Card.Body style={{ display: this.state.display ? 'block' : 'none' }}>
           {this.buildWaveform()}
-        </div>
-      </div>
+        </Card.Body>
+      </Card>
     );
   }
 }
