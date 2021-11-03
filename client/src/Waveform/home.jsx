@@ -1,27 +1,24 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { auth } from '../../../database/index.js';
+
 
 const home = (props) => {
 
   return (
     <div>
-      <button onClick={() => {
-        auth.signOut();
-        props.loginLogout(false, null);
-        props.history.push('/login');
-      }}>logout</button>
       <br/>
-      <button onClick={() => {
+      <div className = "row">
+      <button className = "col-md-6" onClick={() => {
         props.history.push('/projects');
       }}>
         project
       </button>
-      <button onClick={() => {
+      <button className = "col-md-6" onClick={() => {
         props.history.push('/waveform');
       }}>
         waveform
       </button>
+      </div>
       <br/>
       <h3>Friendslist</h3>
       <div>Friend 1</div>
