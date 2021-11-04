@@ -103,14 +103,15 @@ export const getUserData = (userId) => {
 export const updateFriendInFriendsList = (updaterId, friendId) => {
   getUserData(friendId)
     .then((userDoc) => {
-      const { name, userId } = userDoc.data();
+      const { name, userId, photo } = userDoc.data();
       const docRef = doc(db, 'users', updaterId);
       const friendPath = `friends.${friendId}`;
       return updateDoc(docRef,
         {
           [friendPath]: {
             name: name,
-            id: userId
+            id: userId,
+            photo: photo,
           }
         });
     });
