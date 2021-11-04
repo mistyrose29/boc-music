@@ -10,7 +10,7 @@ export default function DisplayUser(props) {
     <Card className="text-center" style={{border: 'none'}}>
       <Card.Body>
         <Image
-          src={props.user.photoURL || noPhoto}
+          src={props.photo || noPhoto}
           roundedCircle
           alt='user photo'/>
         <Card.Title>
@@ -18,7 +18,7 @@ export default function DisplayUser(props) {
           Hello
         </Card.Title>
         <Card.Text>
-          {props.user.displayName || noUser}
+          {props.name || noUser}
         </Card.Text>
       </Card.Body>
     </Card>

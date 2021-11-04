@@ -97,15 +97,6 @@ const NavPane = (props) => {
             onClick={handleClose}>
             Logout
           </Button>
-          <br/>
-          <br/>
-          <Button
-            route='/share'
-            variant='outline-primary'
-            style={{ border: 'none' }}
-            onClick={handleClose}>
-            Share
-          </Button>
         </Offcanvas.Body>
       </Offcanvas>
     </>
