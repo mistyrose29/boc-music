@@ -30,8 +30,8 @@ const Share = ({ friends }) => {
         <Multiselect
           options={friends}
           displayValue='username'
-          onSelect={onSelect}
-          onRemove={onRemove}/>
+          onSelect={onChange}
+          onRemove={onChange}/>
         <Modal.Footer>
           <Button variant='secondary' onClick={handleClose}>
             Close

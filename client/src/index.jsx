@@ -93,13 +93,14 @@ class App extends React.Component {
                 { username: 'jason', id: 1 },
                 { username: 'louis', id: 2 },
               ]}/>
+            </Route>
 
             <Route path='/profile'>
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
               <Profile loginLogout={this.loginLogout}
-              state = {this.state}/>
+                state = {this.state}/>
             </Route>
 
           </Switch>
