@@ -12,7 +12,7 @@ export default function DisplayUser(props) {
         <Image
           src={props.user.photoURL || noPhoto}
           roundedCircle
-          alt='userPhoto'/>
+          alt='user photo'/>
         <Card.Title>
           <br/>
           Hello

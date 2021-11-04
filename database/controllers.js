@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
-import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc } from 'firebase/firestore';
+import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
@@ -95,13 +95,16 @@ export const createUser = (userData) => {
   const userInfo = {
     name: userData.username,
     email: userData.email,
-    userId: userData.userId
+    userId: userData.userId,
+    friends: {}
   };
+
   const docRef = doc(db, 'users', userData.userId);
   const docSnap = getDoc(docRef).then(results => {
     if (results.exists()) {
       // console.log('Document data:', results.data());
       // do nothing
+
     } else {
       // doc.data() will be undefined in this case
       // console.log('No such document! New Record CREATED!');
@@ -110,4 +113,28 @@ export const createUser = (userData) => {
     }
   });
 
+};
+
+export const getUserData = (userId) => {
+  const docRef = doc(db, 'users', userId);
+  return getDoc(docRef);
+};
+
+export const updateFriendInFriendsList = (userId, friendId) => {
+  return getUserData(friendId)
+    .then((doc) => {
+      const friendData = doc.data();
+      console.log(friendData);
+      // const docRef = doc(db, 'users', userId);
+      // const friendPath = `friends.${friendId}`;
+      // return updateDoc(docRef, { friendPath: friendData });
+    })
+    .catch((err) => {
+      console.log('Error occurred updating friend', err);
+    });
+};
+
+export const shareProjectWith = (projectId, friendId) => {
+  const docRef = doc(db, 'projects', projectId);
+  return updateDoc(docRef, { sharedWith: arrayUnion(friendId) });
 };
