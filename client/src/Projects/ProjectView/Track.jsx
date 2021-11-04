@@ -32,6 +32,8 @@ class Track extends React.Component {
       .then((url) => {
         this.setState({
           url: url
+        }, () => {
+          this.props.storeUrl(url)
         });
       })
       .catch((error) => {
