@@ -34,7 +34,7 @@ const NavPane = (props) => {
       <Button
         style={{
           // borderRadius: '100px',
-          position: 'absolute',
+          position: 'sticky',
           top: '10px',
           left: '10px',
           zIndex: 5
@@ -96,15 +96,6 @@ const NavPane = (props) => {
             style={{ border: 'none' }}
             onClick={handleClose}>
             Logout
-          </Button>
-          <br/>
-          <br/>
-          <Button
-            route='/share'
-            variant='outline-primary'
-            style={{ border: 'none' }}
-            onClick={handleClose}>
-            Share
           </Button>
         </Offcanvas.Body>
       </Offcanvas>

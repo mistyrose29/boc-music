@@ -1,21 +1,30 @@
 import React from 'react';
+import Share from '../../Share/Share.jsx';
 import ConfirmModal from './ConfirmModal.jsx';
 import { Card, Button } from 'react-bootstrap';
 import { deleteProject } from '../../../../database/controllers.js';
 
-const ProjectView = ({ project, loadProject, projectId, reload }) => {
+const ProjectView = ({ userId, friends, project, loadProject, projectId, reload }) => {
   return (
     <Card className='card-shadow'>
       <Card.Header>
         <div className="flex-row justify-between center-items">
           <span>{project.title} - {project.public ? 'Public' : 'Private'}</span>
-          <ConfirmModal
-            deleteTitle='Delete Project'
-            deleteText='Are you sure you want to delete this project? All associated files with this project will be deleted as well.'
-            cb={deleteProject}
-            cbValue={projectId}
-            reload={reload}
-            outline={false}/>
+          <div>
+            <Share
+              userId={userId}
+              projectId={projectId}
+              friends={friends}
+              sharedWith={project.sharedWith}
+              reload={reload}/>
+            <ConfirmModal
+              deleteTitle='Delete Project'
+              deleteText='Are you sure you want to delete this project? All associated files with this project will be deleted as well.'
+              cb={deleteProject}
+              cbValue={projectId}
+              reload={reload}
+              outline={false}/>
+          </div>
         </div>
       </Card.Header>
       <Card.Body>

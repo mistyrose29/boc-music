@@ -5,7 +5,6 @@ import DisplayUser from './Auth/DisplayUser.jsx';
 import Home from './Waveform/home.jsx';
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
-import Share from './Share/Share.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 
@@ -52,10 +51,8 @@ class App extends React.Component {
                 history={history}
                 loginLogout={this.loginLogout}/>
               <DisplayUser
-                user={{
-                  displayName: this.state.loggedInUser.username || null,
-                  photoURL: this.state.loggedInUser.userPhoto || null
-                }}
+                photo={this.state.loggedInUser.photo || null}
+                name={this.state.loggedInUser.name || null}
                 history={history}/>
               <Home
                 history={history}
@@ -67,7 +64,8 @@ class App extends React.Component {
                 history={history}
                 loginLogout={this.loginLogout}/>
               <Projects
-                ownerName={this.state.loggedInUser.username}
+                friends={Object.values(this.state.loggedInUser.friends)}
+                ownerName={this.state.loggedInUser.name}
                 ownerId={this.state.loggedInUser.userId} />
             </Route>
 
@@ -82,17 +80,6 @@ class App extends React.Component {
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
-
-            </Route>
-
-            <Route path='/Share'>
-              <NavPane
-                history={history}
-                loginLogout={this.loginLogout}/>
-              <Share friends={[
-                { username: 'jason', id: 1 },
-                { username: 'louis', id: 2 },
-              ]}/>
             </Route>
 
             <Route path='/profile'>
@@ -100,7 +87,7 @@ class App extends React.Component {
                 history={history}
                 loginLogout={this.loginLogout}/>
               <Profile loginLogout={this.loginLogout}
-                state = {this.state}/>
+                state={this.state}/>
             </Route>
 
           </Switch>

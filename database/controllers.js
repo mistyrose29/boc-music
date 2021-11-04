@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
-import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc, updateDoc } from 'firebase/firestore';
+import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
@@ -78,41 +78,21 @@ export const getProject = (projectId) => {
 
 export const deleteProject = (projectId) => {
   return deleteDoc(doc(db, 'projects', projectId));
-  //implement deleting all files in folder and folder
-  // Create a reference to the file to delete
-  // const desertRef = ref(storage, 'images/desert.jpg');
-
-  // // Delete the file
-  // deleteObject(desertRef).then(() => {
-  //   // File deleted successfully
-  // }).catch((error) => {
-  //   // Uh-oh, an error occurred!
-  // });
 };
 
 // Checks Firestore if logged in user exists, if not add
 export const createUser = (userData) => {
-  const userInfo = {
-    name: userData.username,
-    email: userData.email,
-    userId: userData.userId,
-    friends: {}
-  };
-
   const docRef = doc(db, 'users', userData.userId);
-  const docSnap = getDoc(docRef).then(results => {
-    if (results.exists()) {
-      // console.log('Document data:', results.data());
-      // do nothing
-
-    } else {
-      // doc.data() will be undefined in this case
-      // console.log('No such document! New Record CREATED!');
-      // create doc but don't log it
-      setDoc(doc(db, 'users', userData.userId), userInfo);
-    }
-  });
-
+  return getDoc(docRef)
+    .then(results => {
+      let data = results.data();
+      if (data) {
+        return data;
+      } else {
+        setDoc(doc(db, 'users', userData.userId), userData);
+        return false;
+      }
+    });
 };
 
 export const getUserData = (userId) => {
@@ -120,21 +100,37 @@ export const getUserData = (userId) => {
   return getDoc(docRef);
 };
 
-export const updateFriendInFriendsList = (userId, friendId) => {
-  return getUserData(friendId)
-    .then((doc) => {
-      const friendData = doc.data();
-      console.log(friendData);
-      // const docRef = doc(db, 'users', userId);
-      // const friendPath = `friends.${friendId}`;
-      // return updateDoc(docRef, { friendPath: friendData });
-    })
-    .catch((err) => {
-      console.log('Error occurred updating friend', err);
+export const updateFriendInFriendsList = (updaterId, friendId) => {
+  getUserData(friendId)
+    .then((userDoc) => {
+      const { name, userId, photo } = userDoc.data();
+      const docRef = doc(db, 'users', updaterId);
+      const friendPath = `friends.${friendId}`;
+      return updateDoc(docRef,
+        {
+          [friendPath]: {
+            name: name,
+            id: userId,
+            photo: photo,
+          }
+        });
     });
 };
 
-export const shareProjectWith = (projectId, friendId) => {
+export const shareProjectWith = (userId, projectId, friendIds) => {
+  friendIds.forEach((friendId) => {
+    updateFriendInFriendsList(userId, friendId);
+  });
+
+  console.log(friendIds);
+
   const docRef = doc(db, 'projects', projectId);
-  return updateDoc(docRef, { sharedWith: arrayUnion(friendId) });
+  updateDoc(docRef, { sharedWith: friendIds })
+    .then(() => {
+      return;
+    })
+    .catch((err) => {
+      console.log('error occured: ', err);
+      return;
+    });
 };
