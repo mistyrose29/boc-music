@@ -7,6 +7,7 @@ import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
 import Share from './Share/Share.jsx';
 import NavPane from './NavPane/NavPane.jsx';
+import Profile from './Profile/Profile.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -92,6 +93,13 @@ class App extends React.Component {
                 { username: 'jason', id: 1 },
                 { username: 'louis', id: 2 },
               ]}/>
+
+            <Route path='/profile'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
+              <Profile loginLogout={this.loginLogout}
+              state = {this.state}/>
             </Route>
 
           </Switch>

@@ -135,7 +135,15 @@
   margin-bottom: 1%
 }
 
-#time-current {
+.waveform {
+  position: relative;
+}
+
+.waveform-timeline {
+  position: relative;
+}
+
+.time-current {
   color: orangered
 }
 
@@ -152,6 +160,15 @@
   padding-bottom: 2.5%;
   margin-bottom: 2.5%;
   border-bottom: 1px solid #ececec;
+}
+
+.profile-div {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-left: 20%;
+  
+  
 }
 
 /*

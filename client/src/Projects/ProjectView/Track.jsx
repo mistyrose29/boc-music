@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, ButtonToolbar, ButtonGroup, Button, useAccordionButton, Accordion } from 'react-bootstrap';
 import WaveformBasic from './WaveformBasic.jsx';
 import ConfirmModal from './ConfirmModal.jsx';
@@ -27,9 +27,9 @@ class Track extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.name)
     getFileUrl(this.props.path)
       .then((url) => {
-        console.log(url);
         this.setState({
           url: url
         });
@@ -45,12 +45,13 @@ class Track extends React.Component {
     } else {
       return (
         <WaveformBasic
+          index={this.props.index}
           url={this.state.url}
           isPlaying={this.props.isPlaying}
           isMuted={this.state.isMuted}
           visible={this.state.display}
           time={this.props.time}
-          saveTime={this.props.saveTime}/>
+          saveTime={this.props.saveTime} />
       );
     }
   }
@@ -69,24 +70,22 @@ class Track extends React.Component {
     this.setState({
       display: !this.state.display
     });
-
-    this.buildWaveform();
   }
 
   render() {
     return (
-      <Card className="no-bottom no-radius">
+      <Card className='no-bottom no-radius' id={`card${this.props.index}`}>
         <Card.Header>
           <ButtonToolbar className='justify-between' aria-label='Toolbar with button groups'>
             <ButtonGroup className='me-2'>
               <Button size='sm' variant='outline-primary' onClick={this.handleMute}>
-                <Icon icon={this.state.isMuted ? headphones[0] : headphones[1]}/>
+                <Icon icon={this.state.isMuted ? headphones[0] : headphones[1]} />
               </Button>
               <Button size='sm' variant='outline-secondary' onClick={this.handleEdit}>
-                <Icon icon={eq}/>
+                <Icon icon={eq} />
               </Button>
               <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
-                <Icon icon={wav}/>
+                <Icon icon={wav} />
               </Button>
             </ButtonGroup>
             <div className='center-self'>
@@ -98,11 +97,20 @@ class Track extends React.Component {
               cb={deleteFile}
               cbValue={this.props.path}
               reload={this.props.reload}
-              outline={true}/>
+              outline={true} />
           </ButtonToolbar>
         </Card.Header>
-        <Card.Body style={{ display: this.state.display ? 'block' : 'none' }}>
-          {this.buildWaveform()}
+        <Card.Body className={this.props.name} style={{ display: this.state.display ? 'block' : 'none' }}>
+          {this.state.url &&
+            <WaveformBasic
+              index={this.props.index}
+              url={this.state.url}
+              isPlaying={this.props.isPlaying}
+              isMuted={this.state.isMuted}
+              visible={this.state.display}
+              time={this.props.time}
+              saveTime={this.props.saveTime} />
+          }
         </Card.Body>
       </Card>
     );
