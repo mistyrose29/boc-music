@@ -162,6 +162,15 @@
   border-bottom: 1px solid #ececec;
 }
 
+.profile-div {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-left: 20%;
+  
+  
+}
+
 /*
 
 Used on PROJECTS Page
