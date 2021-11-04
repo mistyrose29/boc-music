@@ -5,6 +5,7 @@ import DisplayUser from './Auth/DisplayUser.jsx';
 import Home from './Waveform/home.jsx';
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
+import Share from './Share/Share.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -81,6 +82,16 @@ class App extends React.Component {
                 history={history}
                 loginLogout={this.loginLogout}/>
 
+            </Route>
+
+            <Route path='/Share'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
+              <Share friends={[
+                { username: 'jason', id: 1 },
+                { username: 'louis', id: 2 },
+              ]}/>
             </Route>
 
           </Switch>

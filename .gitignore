@@ -4,9 +4,5 @@
 #Node Modules
 node_modules
 
-#packages
-# package-lock.json
-
+#bundles
 bundle.js
-
-package-lock.json
