@@ -34,7 +34,7 @@ const NavPane = (props) => {
       <Button
         style={{
           // borderRadius: '100px',
-          position: 'sticky',
+          position: 'fixed',
           top: '10px',
           left: '10px',
           zIndex: 5
