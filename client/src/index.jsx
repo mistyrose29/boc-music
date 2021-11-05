@@ -7,6 +7,8 @@ import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
+import Friends from './Friends/Friends.jsx';
+import HomePage from './HomePage/projects.jsx'
 import AddFriend from './Share/AddFriend.jsx';
 import RemoveFriend from './Share/RemoveFriend.jsx';
 
@@ -27,6 +29,8 @@ class App extends React.Component {
     };
 
     this.loginLogout = this.loginLogout.bind(this);
+    this.addFriend = this.addFriend.bind(this);
+    this.removeFriend = this.removeFriend.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
   }
 
@@ -37,6 +41,17 @@ class App extends React.Component {
     });
   }
 
+  addFriend (username, email) {
+    console.log(username, email)
+    AddFriend(username, email)
+
+  }
+
+  removeFriend (username) {
+    console.log(username)
+  }
+
+    //remove this friend from friendslist
   reloadUser() {
     getUserData(this.state.loggedInUser.userId)
       .then((user) => {
@@ -69,7 +84,12 @@ class App extends React.Component {
                 history={history}/>
               <Home
                 history={history}
-                loginLogout={this.loginLogout}/>
+                loginLogout={this.loginLogout}
+                ownerName={this.state.loggedInUser.username}
+                ownerId={this.state.loggedInUser.userId}/>
+                <HomePage
+                ownerName={this.state.loggedInUser.username}
+                ownerId={this.state.loggedInUser.userId} />
             </Route>
 
             <Route path='/projects'>
@@ -93,6 +113,10 @@ class App extends React.Component {
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
+              <Friends
+                state={this.state}
+                addFriend={this.addFriend}
+                removeFriend={this.removeFriend}/>
             </Route>
 
             <Route path='/profile'>
