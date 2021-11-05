@@ -33,6 +33,7 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
 
   const [EQToggle, setEQToggle] = useState(false);
   const [EditEQ, setEditEQ] = useState(true)
+  const [filterObj, setfilterObj] = useState({})
   const hideEQ = () => {
     setEQToggle(false);
   };
@@ -76,6 +77,15 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         });
              // handles EQ popup window
   const EQpopup = () => {
+    //wipe the input
+    let allSliders = document.getElementsByClassName('slider');
+    if (allSliders) {
+      console.log('allsliders' ,allSliders)
+      while(allSliders.length > 0) {
+        allSliders[0].parentNode.removeChild(allSliders[0])
+      }
+    }
+   
     if (EQToggle === false) {
       showEQ();
     } else {
@@ -141,23 +151,44 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         )
         extend(input, {
           type: 'range',
+          className: 'slider',
           min: -40,
           max: 40,
+          //this value is what we want
           value: 0,
-          title: filter.frequency.value
+          title: filter.frequency.value,
+          //grab the value by putting onchange
+          onchange: (e) => {
+          let value = e.target.value;
+        //title
+      let title = e.target.title;
+    console.log('value ', value, title);
+      //save this value in our filterObj
+ setfilterObj({...filterObj, title:value})
+          }
         });
+  
+
         input.style.display = 'inline-block';
         input.setAttribute('orient', 'vertical');
         wavesurfer.current.drawer.style(input, {'webkitAppearance': 'slider-vertical',
       width: '1em', height: '2em'});
-      let container = document.querySelector('#waveform'); //was #eq-popup
-      console.log('container', container)
+      //put the eq sliders inside the eq popup
+      //you have to click edit audio twice to get it to show up. issue with page loading
+      let container = document.querySelector('#eq-popup'); 
+
       //it runs this before #eq-popup actually loads so do this
       if (container) {
         console.log(
-          'container exists'
+          'container exists', container.childNodes
         )
-        container.appendChild(input);
+        //and if there isn't currently an eq on the screen. right now it's adding multiple eq sliders if you click 'edit audio' twice
+        //but it changes the active sliders to the newly generated ones
+        //just remove current sliders and let it add a new one
+
+            container.appendChild(input);
+          
+  
       }
 
       let onChange = (e) => {
@@ -179,6 +210,7 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
 
   }
   setEditEQ (<button onClick={() => {
+
     EQpopup()
   }}>Edit Audio</button>)
 
