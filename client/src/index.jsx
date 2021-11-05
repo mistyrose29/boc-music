@@ -87,7 +87,7 @@ class App extends React.Component {
                 loginLogout={this.loginLogout}
                 ownerName={this.state.loggedInUser.username}
                 ownerId={this.state.loggedInUser.userId}/>
-                <HomePage
+              <HomePage
                 ownerName={this.state.loggedInUser.username}
                 ownerId={this.state.loggedInUser.userId} />
             </Route>
