@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
-import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc, updateDoc, arrayUnion, deleteField } from 'firebase/firestore';
 import { getAuth, updateProfile } from 'firebase/auth';
 const auth = getAuth();
 
@@ -33,6 +33,7 @@ export const createProject = (data) => {
 };
 
 export const getAllProjects = (owner, filters) => {
+  console.log(filters)
   let primary = ['owner', '==', owner];
   let secondary;
 
@@ -135,6 +136,35 @@ export const shareProjectWith = (userId, projectId, friendIds) => {
       console.log('error occured: ', err);
       return;
     });
+};
+
+export const addFriend = (userId, email) => {
+  const conditions = ['email', '==', email];
+  const usersRef = collection(db, 'users');
+
+  const q = query(usersRef, where(...conditions));
+  getDocs(q)
+    .then((users) => {
+      users.forEach((user) => {
+        let data = user.data();
+        if (data) {
+          const friendId = data.userId;
+          updateFriendInFriendsList(userId, friendId);
+        } else {
+          return;
+        }
+      });
+    });
+};
+
+export const removeFriend = (userId, friendId) => {
+  const cityRef = doc(db, 'users', userId);
+
+  updateDoc(cityRef, {
+    friends: {
+      [friendId]: deleteField()
+    }
+  });
 };
 
 // Updating a User's profile
