@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import firebase, { signIn } from '../../../database/index.js';
-import { createUser } from '../../../database/controllers.js';
+import { createUser, getUserData } from '../../../database/controllers.js';
 
 export default function Authentication(props) {
   useEffect(() => {
@@ -9,14 +9,21 @@ export default function Authentication(props) {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         const userData = {
-          username: user.multiFactor.user.displayName,
+          userId: user.multiFactor.user.uid,
           email: user.multiFactor.user.email,
-          userPhoto: user.multiFactor.user.photoURL,
-          userId: user.multiFactor.user.uid
+          name: user.multiFactor.user.displayName,
+          photo: user.multiFactor.user.photoURL,
+          friends: {},
         };
 
-        props.loginLogout(true, userData);
-        createUser(userData);
+        createUser(userData)
+          .then((data) => {
+            if (data) {
+              props.loginLogout(true, data);
+            } else {
+              props.loginLogout(true, userData);
+            }
+          });
       }
     });
   }, [props]);

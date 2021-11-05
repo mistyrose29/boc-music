@@ -29,7 +29,6 @@ class Project extends React.Component {
   }
 
   saveTime(time) {
-    console.log(time);
     this.setState({
       time: time
     });
@@ -45,9 +44,16 @@ class Project extends React.Component {
           };
         });
 
-        this.setState({
-          tracks: tracks
-        });
+        // flush out previous tracks and set updated tracks
+        this.setState(() => ({
+          tracks: []
+        }),
+        () => {
+          this.setState({
+            tracks: tracks
+          })
+        }
+        );
       })
       .catch((error) => {
         console.log('Error occured: ', error);
@@ -63,7 +69,7 @@ class Project extends React.Component {
   render() {
     return (
       <div className='main-container'>
-        <header className='sticky-header' style={{marginBottom: 0}}>
+        <header className='sticky-header' style={{ marginBottom: 0 }}>
           <div className='flex-row center-content'>
             <div className='center-text projects-header'>
               {this.props.title}
@@ -72,17 +78,18 @@ class Project extends React.Component {
               className='filter-btn'
               variant='primary'
               onClick={this.handlePlay}>
-              <Icon icon={this.state.isPlaying ? 'fe:pause' : 'akar-icons:play'}/>
+              <Icon icon={this.state.isPlaying ? 'fe:pause' : 'akar-icons:play'} />
             </Button>
           </div>
           <div className='bottom-right'>
             <Upload
               projectId={this.props.projectId}
-              reload={this.reload}/>
+              reload={this.reload} />
           </div>
         </header>
         <>
           {this.state.tracks.map((track, index) => {
+            console.log(index, track.name, track.path)
             return (
               <div
                 key={index}>
@@ -94,7 +101,7 @@ class Project extends React.Component {
                   isPlaying={this.state.isPlaying}
                   reload={this.reload}
                   time={this.state.time}
-                  saveTime={this.saveTime}/>
+                  saveTime={this.saveTime} />
               </div>
             );
           })}

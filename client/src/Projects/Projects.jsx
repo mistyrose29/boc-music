@@ -141,7 +141,9 @@ class Projects extends React.Component {
                     reload={this.loadProjectList}
                     projectId={project.id}
                     project={project}
-                    loadProject={this.loadProject}/>
+                    loadProject={this.loadProject}
+                    userId={this.props.ownerId}
+                    friends={this.props.friends}/>
                 </div>
               );
             })}
