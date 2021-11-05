@@ -110,7 +110,6 @@ class App extends React.Component {
                 loginLogout={this.loginLogout}/>
               <Profile loginLogout={this.loginLogout}
                 changeProfileImage={this.changeProfileImage}
-                uploadProfile={this.uploadProfile}
                 state={this.state}/>
             </Route>
 
