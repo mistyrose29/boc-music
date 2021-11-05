@@ -7,10 +7,13 @@ import { Button, Modal, Tabs, Tab, Form } from 'react-bootstrap';
 
 
 const Friends = (props) => {
+
+  console.log(props.state.loggedInUser)
   const [show, setShow] = useState(false);
   const [showFriend, setShowFriend] = useState(false);
   const [clickedFriend, setClickedFriend] = useState('');
   const [search, setSearch] = useState('');
+  const [searchEmail, setSearchEmail] = useState('');
   const [firstFriendIndex, setFirstFriendIndex] = useState(0);
 
 const handleShow = () => setShow(true);
@@ -23,13 +26,18 @@ const handleChange = (event) => {
     setSearch(term);
   };
 
+  const handleChangeEmail = (event) => {
+    let term = event.target.value;
+    setSearchEmail(term);
+  };
+
 const handleClickedFriend = (event) => {
     let friend = event.target.innerText
     setClickedFriend(friend)
     handleShowFriend()
 }
 const sendFriendRequest = () => {
-    props.addFriend(search)
+    props.addFriend(search, searchEmail)
 }
 
 const removeFriend = () => {
@@ -97,8 +105,6 @@ var friendsList = [{username: 'Frankenstein', email: 'quinnlima1@gmail.com', use
         <Modal.Header closeButton>
           <Modal.Title>{clickedFriend}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-        </Modal.Body>
         <Modal.Footer>
         <Button variant="primary" onClick={removeFriend}>
             Remove Friend
@@ -116,7 +122,12 @@ var friendsList = [{username: 'Frankenstein', email: 'quinnlima1@gmail.com', use
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3-top" controlId="formBasicEmail">
-              <Form.Control type="title" placeholder="Search Username" onChange={handleChange} />
+              <Form.Control type="title" placeholder="Enter Username" onChange={handleChange} />
+            </Form.Group>
+          </Form>
+          <Form>
+            <Form.Group className="mb-3-top" controlId="formBasicEmail">
+              <Form.Control type="title" placeholder="Enter Email" onChange={handleChangeEmail} />
             </Form.Group>
           </Form>
         </Modal.Body>

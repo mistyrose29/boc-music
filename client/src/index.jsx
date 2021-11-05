@@ -40,11 +40,9 @@ class App extends React.Component {
     });
   }
 
-  addFriend (username) {
-    console.log(username)
-
-    //look up username
-    //if exist send requests to that user 
+  addFriend (username, email) {
+    console.log(username, email)
+    AddFriend(username, email)
 
   }
 
