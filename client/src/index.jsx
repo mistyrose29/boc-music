@@ -7,9 +7,11 @@ import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
+import AddFriend from './Share/AddFriend.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import { getUserData } from '../../database/controllers.js';
 import './styles/styles.css';
 
 const history = createBrowserHistory();
@@ -24,6 +26,7 @@ class App extends React.Component {
     };
 
     this.loginLogout = this.loginLogout.bind(this);
+    this.reloadUser = this.reloadUser.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser) {
@@ -31,6 +34,15 @@ class App extends React.Component {
       load: loggedIn,
       loggedInUser: loggedInUser
     });
+  }
+
+  reloadUser() {
+    getUserData(this.state.loggedInUser.userId)
+      .then((user) => {
+        this.setState({
+          loggedInUser: user.data()
+        });
+      });
   }
 
   render() {
@@ -80,6 +92,9 @@ class App extends React.Component {
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
+              {/* <AddFriend
+                userId={this.state.loggedInUser.userId}
+                cb={this.reloadUser}/> */}
             </Route>
 
             <Route path='/profile'>
