@@ -44,7 +44,7 @@ const formWaveSurferOptions = ref => ({
   ]
 });
 
-export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, saveTime, index, filterGains }) {
+export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, saveTime, index, storeWS, filterGains }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
@@ -99,6 +99,7 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
         // wavesurfer.current.setVolume(volume);
         // setVolume(volume);
 
+        storeWS(wavesurfer.current)
         const total = wavesurfer.current.getDuration().toFixed();
         const totalMinutes = Math.floor(total / 60);
         let totalSeconds = total % 60;
