@@ -10,21 +10,24 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload 
       <Card.Header>
         <div className="flex-row justify-between center-items">
           <span>{project.title} - {project.public ? 'Public' : 'Private'}</span>
-          <div>
-            <Share
-              userId={userId}
-              projectId={projectId}
-              friends={friends}
-              sharedWith={project.sharedWith}
-              reload={reload}/>
-            <ConfirmModal
-              deleteTitle='Delete Project'
-              deleteText='Are you sure you want to delete this project? All associated files with this project will be deleted as well.'
-              cb={deleteProject}
-              cbValue={projectId}
-              reload={reload}
-              outline={false}/>
-          </div>
+          {project.owner === userId
+            ? <div>
+              <Share
+                userId={userId}
+                projectId={projectId}
+                friends={friends}
+                sharedWith={project.sharedWith}
+                reload={reload}/>
+              <ConfirmModal
+                deleteTitle='Delete Project'
+                deleteText='Are you sure you want to delete this project? All associated files with this project will be deleted as well.'
+                cb={deleteProject}
+                cbValue={projectId}
+                reload={reload}
+                outline={false}/>
+            </div>
+            : null
+          }
         </div>
       </Card.Header>
       <Card.Body>
