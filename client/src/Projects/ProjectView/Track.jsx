@@ -26,6 +26,7 @@ class Track extends React.Component {
     this.handleMute = this.handleMute.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
     this.setFilterGains = this.setFilterGains.bind(this);
+    this.resetFilterGains = this.resetFilterGains.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +72,12 @@ class Track extends React.Component {
     });
   }
 
+  resetFilterGains() {
+    this.setState({
+      filterGains: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    });
+  }
+
   toggleDisplay() {
     this.setState({
       display: !this.state.display
@@ -88,7 +95,8 @@ class Track extends React.Component {
               </Button>
               <EQOffcanvas
                 filterGains={this.state.filterGains}
-                setFilterGains={this.setFilterGains}/>
+                setFilterGains={this.setFilterGains}
+                resetFilterGains={this.resetFilterGains}/>
               <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
                 <Icon icon={wav} />
               </Button>

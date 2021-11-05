@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 const eq = 'file-icons:eq';
 const frequency = ['32', '64', '125', '250', '500', '1K', '2K', '4K', '8K', '16K'];
 
-const EQOffcanvas = ({ filterGains, setFilterGains }) => {
+const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -35,13 +35,23 @@ const EQOffcanvas = ({ filterGains, setFilterGains }) => {
           height: 'fit-content'
         }}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Equalizer</Offcanvas.Title>
+          <Offcanvas.Title>
+            Equalizer
+          </Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body style={{display: 'flex', flexDirection: 'column' }}>
-          <div style={{ textAlign: 'center', paddingBottom: '5px' }}>
-            Frequencies (Hz)
-          </div>
-          <div style={{ display: 'flex', textAlign: 'center', fontSize: 'small', fontStyle: 'italic', color: 'darkgray', paddingBottom: '5px' }}>
+        <Offcanvas.Body style={{
+          display: 'flex',
+          flexDirection: 'column',
+          paddingTop: 0
+        }}>
+          <div style={{
+            display: 'flex',
+            textAlign: 'center',
+            fontSize: 'small',
+            fontStyle: 'italic',
+            color: 'darkgray',
+            paddingBottom: '5px'
+          }}>
             {frequency.map((freq, index) => {
               return <div key={`freq${index}`} style={{ width: '10%'}}>{freq}</div>;
             })}
@@ -65,6 +75,20 @@ const EQOffcanvas = ({ filterGains, setFilterGains }) => {
                   onChange={handleChange}/>
               );
             })}
+          </div>
+          <div style={{
+            textAlign: 'center',
+            marginTop: '15px',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around'}}>
+            <div>Frequencies (Hz)</div>
+            <Button
+              size='sm'
+              variant='outline-danger'
+              onClick={resetFilterGains}>
+                Reset
+            </Button>
           </div>
         </Offcanvas.Body>
       </Offcanvas>
