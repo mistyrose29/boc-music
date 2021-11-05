@@ -7,6 +7,8 @@ import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
+import Friends from './Friends/Friends.jsx';
+import HomePage from './HomePage/projects.jsx'
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -24,6 +26,8 @@ class App extends React.Component {
     };
 
     this.loginLogout = this.loginLogout.bind(this);
+    this.addFriend = this.addFriend.bind(this);
+    this.removeFriend = this.removeFriend.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser) {
@@ -31,6 +35,20 @@ class App extends React.Component {
       load: loggedIn,
       loggedInUser: loggedInUser
     });
+  }
+
+  addFriend (username) {
+    console.log(username)
+
+    //look up username
+    //if exist send requests to that user 
+
+  }
+
+  removeFriend (username) {
+    console.log(username)
+
+    //remove this friend from friendslist
   }
 
   render() {
@@ -58,7 +76,12 @@ class App extends React.Component {
                 history={history}/>
               <Home
                 history={history}
-                loginLogout={this.loginLogout}/>
+                loginLogout={this.loginLogout}
+                ownerName={this.state.loggedInUser.username}
+                ownerId={this.state.loggedInUser.userId}/>
+                <HomePage
+                ownerName={this.state.loggedInUser.username}
+                ownerId={this.state.loggedInUser.userId} />
             </Route>
 
             <Route path='/projects'>
@@ -81,7 +104,7 @@ class App extends React.Component {
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
-
+                <Friends state = {this.state} addFriend = {this.addFriend} removeFriend = {this.removeFriend}/>
             </Route>
 
             <Route path='/profile'>
