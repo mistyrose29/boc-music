@@ -7,9 +7,13 @@ import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
+import Friends from './Friends/Friends.jsx';
+import HomePage from './HomePage/projects.jsx'
+import AddFriend from './Share/AddFriend.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import { getUserData } from '../../database/controllers.js';
 import './styles/styles.css';
 
 const history = createBrowserHistory();
@@ -24,6 +28,9 @@ class App extends React.Component {
     };
 
     this.loginLogout = this.loginLogout.bind(this);
+    this.addFriend = this.addFriend.bind(this);
+    this.removeFriend = this.removeFriend.bind(this);
+    this.reloadUser = this.reloadUser.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser) {
@@ -31,6 +38,26 @@ class App extends React.Component {
       load: loggedIn,
       loggedInUser: loggedInUser
     });
+  }
+
+  addFriend (username, email) {
+    console.log(username, email)
+    AddFriend(username, email)
+
+  }
+
+  removeFriend (username) {
+    console.log(username)
+  }
+
+    //remove this friend from friendslist
+  reloadUser() {
+    getUserData(this.state.loggedInUser.userId)
+      .then((user) => {
+        this.setState({
+          loggedInUser: user.data()
+        });
+      });
   }
 
   render() {
@@ -56,7 +83,12 @@ class App extends React.Component {
                 history={history}/>
               <Home
                 history={history}
-                loginLogout={this.loginLogout}/>
+                loginLogout={this.loginLogout}
+                ownerName={this.state.loggedInUser.username}
+                ownerId={this.state.loggedInUser.userId}/>
+                <HomePage
+                ownerName={this.state.loggedInUser.username}
+                ownerId={this.state.loggedInUser.userId} />
             </Route>
 
             <Route path='/projects'>
@@ -80,6 +112,10 @@ class App extends React.Component {
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
+                <Friends state = {this.state} addFriend = {this.addFriend} removeFriend = {this.removeFriend}/>
+              {/* <AddFriend
+                userId={this.state.loggedInUser.userId}
+                cb={this.reloadUser}/> */}
             </Route>
 
             <Route path='/profile'>
