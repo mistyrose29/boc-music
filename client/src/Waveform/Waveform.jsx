@@ -15,11 +15,11 @@ const formWaveSurferOptions = ref => ({
   partialRender: true
 });
 //need to declare extend here to use it to extend wavesurfer options
-let extend =  (dest, ...sources) => {
+let extend = (dest, ...sources) => {
   sources.forEach(source => {
-      Object.keys(source).forEach(key => {
-          dest[key] = source[key];
-      });
+    Object.keys(source).forEach(key => {
+      dest[key] = source[key];
+    });
   });
   return dest;
 }
@@ -60,7 +60,7 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         const total = wavesurfer.current.getDuration().toFixed();
         const totalMinutes = Math.floor(total / 60)
         let totalSeconds = total % 60
-        if ((totalSeconds/10) < 1) {
+        if ((totalSeconds / 10) < 1) {
           totalSeconds = `0${totalSeconds}`
         }
         document.getElementById('time-total').innerText = ` ${totalMinutes}:${totalSeconds}`;
@@ -68,151 +68,153 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         // update & display current playing time
         wavesurfer.current.on('audioprocess', () => {
           const current = wavesurfer.current.getCurrentTime().toFixed();
-          const currentMinutes = Math.floor(current/60)
+          const currentMinutes = Math.floor(current / 60)
           let currentSeconds = current % 60
-          if ((currentSeconds/10) < 1) {
+          if ((currentSeconds / 10) < 1) {
             currentSeconds = `0${currentSeconds}`
           }
           document.getElementById('time-current').innerText = ` ${currentMinutes}:${currentSeconds} `;
         });
-             // handles EQ popup window
-  const EQpopup = () => {
-    //wipe the input
-    let allSliders = document.getElementsByClassName('slider');
-    if (allSliders) {
-      console.log('allsliders' ,allSliders)
-      while(allSliders.length > 0) {
-        allSliders[0].parentNode.removeChild(allSliders[0])
-      }
-    }
-   
-    if (EQToggle === false) {
-      showEQ();
-    } else {
-      hideEQ();
-    }
-    let EQ = [
-      {
-        f: 32,
-        type: 'lowshelf'
-      }, {
-        f: 64,
-        type: 'peaking'
-      }, {
-        f: 125,
-        type: 'peaking'
-      }, {
-        f: 250,
-        type: 'peaking'
-      }, {
-        f: 500,
-        type: 'peaking'
-      }, {
-        f: 1000,
-        type: 'peaking'
-      }, {
-        f: 2000,
-        type: 'peaking'
-      }, {
-        f: 4000,
-        type: 'peaking'
-      }, {
-        f: 8000,
-        type: 'peaking'
-      }, {
-        f: 16000,
-        type: 'highshelf'
-      }
-    ];
-;
-    //create the filters
-    let filters = EQ.map(band => {
-      let filter = wavesurfer.current.backend.ac.createBiquadFilter();
-      filter.type = band.type;
-      filter.gain.value = 0;
-      filter.Q.value = 1;
-      filter.frequency.value = band.f;
-      console.log('wavesurfer', filter)
-      return filter;
-
-    })
-    //connect the filter to wavesurfer instance
-    wavesurfer.current.backend.setFilters(filters);
-    // console.log('wavesurfer backend?', wavesurfer)
-    wavesurfer.current.setVolume(0.4);
-
-    //bind filters to vertical range sliders
-
-
-    filters.forEach(filter => {
-      let input = document.createElement('input');
-        console.log(
-        wavesurfer.current.util
-        )
-        extend(input, {
-          type: 'range',
-          className: 'slider',
-          min: -40,
-          max: 40,
-          //this value is what we want
-          value: 0,
-          title: filter.frequency.value,
-          //grab the value by putting onchange
-          onchange: (e) => {
-          let value = e.target.value;
-        //title
-      let title = e.target.title;
-    console.log('value ', value, title);
-      //save this value in our filterObj
- setfilterObj({...filterObj, title:value})
+        // handles EQ popup window
+        const EQpopup = () => {
+          //wipe the input
+          let allSliders = document.getElementsByClassName('slider');
+          if (allSliders) {
+            console.log('allsliders', allSliders)
+            while (allSliders.length > 0) {
+              allSliders[0].parentNode.removeChild(allSliders[0])
+            }
           }
-        });
-  
 
-        input.style.display = 'inline-block';
-        input.setAttribute('orient', 'vertical');
-        wavesurfer.current.drawer.style(input, {'webkitAppearance': 'slider-vertical',
-      width: '1em', height: '2em'});
-      //put the eq sliders inside the eq popup
-      //you have to click edit audio twice to get it to show up. issue with page loading
-      let container = document.querySelector('#eq-popup'); 
+          if (EQToggle === false) {
+            showEQ();
+          } else {
+            hideEQ();
+          }
+          let EQ = [
+            {
+              f: 32,
+              type: 'lowshelf'
+            }, {
+              f: 64,
+              type: 'peaking'
+            }, {
+              f: 125,
+              type: 'peaking'
+            }, {
+              f: 250,
+              type: 'peaking'
+            }, {
+              f: 500,
+              type: 'peaking'
+            }, {
+              f: 1000,
+              type: 'peaking'
+            }, {
+              f: 2000,
+              type: 'peaking'
+            }, {
+              f: 4000,
+              type: 'peaking'
+            }, {
+              f: 8000,
+              type: 'peaking'
+            }, {
+              f: 16000,
+              type: 'highshelf'
+            }
+          ];
+          ;
+          //create the filters
+          let filters = EQ.map(band => {
+            let filter = wavesurfer.current.backend.ac.createBiquadFilter();
+            filter.type = band.type;
+            filter.gain.value = 0;
+            filter.Q.value = 1;
+            filter.frequency.value = band.f;
+            console.log('wavesurfer', filter)
+            return filter;
 
-      //it runs this before #eq-popup actually loads so do this
-      if (container) {
-        console.log(
-          'container exists', container.childNodes
-        )
-        //and if there isn't currently an eq on the screen. right now it's adding multiple eq sliders if you click 'edit audio' twice
-        //but it changes the active sliders to the newly generated ones
-        //just remove current sliders and let it add a new one
+          })
+          //connect the filter to wavesurfer instance
+          wavesurfer.current.backend.setFilters(filters);
+          // console.log('wavesurfer backend?', wavesurfer)
+          wavesurfer.current.setVolume(0.4);
 
-            container.appendChild(input);
-          
-  
-      }
+          //bind filters to vertical range sliders
 
-      let onChange = (e) => {
-        filter.gain.value = e.target.value;
 
-      };
-      input.addEventListener('input', onChange);
-      input.addEventListener('change', onChange)
+          filters.forEach(filter => {
+            let input = document.createElement('input');
+            console.log(
+              wavesurfer.current.util
+            )
+            extend(input, {
+              type: 'range',
+              className: 'slider',
+              min: -40,
+              max: 40,
+              //this value is what we want
+              value: 0,
+              title: filter.frequency.value,
+              //grab the value by putting onchange
+              onchange: (e) => {
+                let value = e.target.value;
+                //title
+                let title = e.target.title;
+                console.log('value ', value, title);
+                //save this value in our filterObj
+                setfilterObj({ ...filterObj, title: value })
+              }
+            });
 
-    });
 
-    setEQToggle(
-    <div id = 'eq-popup'>
+            input.style.display = 'inline-block';
+            input.setAttribute('orient', 'vertical');
+            wavesurfer.current.drawer.style(input, {
+              'webkitAppearance': 'slider-vertical',
+              width: '1em', height: '2em'
+            });
+            //put the eq sliders inside the eq popup
+            //you have to click edit audio twice to get it to show up. issue with page loading
+            let container = document.querySelector('#eq-popup');
 
-      <p>insert EQ controls here</p>
-      <button onClick = {hideEQ}>Close</button>
+            //it runs this before #eq-popup actually loads so do this
+            if (container) {
+              console.log(
+                'container exists', container.childNodes
+              )
+              //and if there isn't currently an eq on the screen. right now it's adding multiple eq sliders if you click 'edit audio' twice
+              //but it changes the active sliders to the newly generated ones
+              //just remove current sliders and let it add a new one
 
-      </div>)
+              container.appendChild(input);
 
-  }
-  setEditEQ (<button onClick={() => {
 
-    EQpopup()
-  }}>Edit Audio</button>)
+            }
+
+            let onChange = (e) => {
+              filter.gain.value = e.target.value;
+
+            };
+            input.addEventListener('input', onChange);
+            input.addEventListener('change', onChange)
+
+          });
+
+          setEQToggle(
+            <div id='eq-popup'>
+
+              <p>insert EQ controls here</p>
+              <button onClick={hideEQ}>Close</button>
+
+            </div>)
+
+        }
+        setEditEQ(<button onClick={() => {
+
+          EQpopup()
+        }}>Edit Audio</button>)
 
 
       }
@@ -278,9 +280,9 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
       hideEQ();
     }
     setEQToggle(
-    <div id = 'eq-popup'>
-      <p>insert EQ controls here</p>
-      <button onClick = {hideEQ}>Close</button>
+      <div id='eq-popup'>
+        <p>insert EQ controls here</p>
+        <button onClick={hideEQ}>Close</button>
 
       </div>)
 
@@ -298,8 +300,8 @@ export default function Waveform({ url, id, tracks, setSelectedTrack }) {
         <button onClick={() => { previous(id) }}>Previous</button>
         <button onClick={() => { next(id) }}>Next</button>
         <button onClick={mute}>Mute</button>
-          {/* Add EQ edit functionality */}
-          {EditEQ}
+        {/* Add EQ edit functionality */}
+        {EditEQ}
         {/* EQ TOGGLE */}
         {EQToggle}
 

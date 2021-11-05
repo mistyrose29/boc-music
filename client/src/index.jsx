@@ -8,7 +8,7 @@ import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
-import HomePage from './HomePage/projects.jsx'
+import HomePage from './HomePage/Projects.jsx'
 import AddFriend from './Share/AddFriend.jsx';
 import RemoveFriend from './Share/RemoveFriend.jsx';
 
