@@ -30,7 +30,7 @@ exports.sendInvitationEmail = function({email, name}) {
     html: `
       <h3> Hello ${name} </h3>
       <p>You have friends on MusicShare who want to share files with you...</p>
-      <p>Register an an account today at: <a target="_" href="${process.env.DOMAIN}/api/activate/user/${hash}">${process.env.DOMAIN}/activate </a></p>
+      <p>Register an an account today at: <a target="_" href="${process.env.DOMAIN}">${process.env.DOMAIN}/activate </a></p>
       <p>Cheers</p>
       <p>MusicShare Team</p>
     `

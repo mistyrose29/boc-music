@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Invite from '../Message/email.jsx';
 
 
 const home = (props) => {
@@ -8,16 +9,16 @@ const home = (props) => {
     <div>
       <br/>
       <div className = "row">
-      <button className = "col-md-6" onClick={() => {
-        props.history.push('/projects');
-      }}>
+        <button className = "col-md-6" onClick={() => {
+          props.history.push('/projects');
+        }}>
         project
-      </button>
-      <button className = "col-md-6" onClick={() => {
-        props.history.push('/waveform');
-      }}>
+        </button>
+        <button className = "col-md-6" onClick={() => {
+          props.history.push('/waveform');
+        }}>
         waveform
-      </button>
+        </button>
       </div>
       <br/>
       <h3>Friendslist</h3>
@@ -25,6 +26,9 @@ const home = (props) => {
       <div>Friend 2</div>
       <div>Friend 3</div>
       <button>Add Friend</button>
+      <div>
+        <Invite />
+      </div>
     </div>
   );
 };
