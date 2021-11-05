@@ -16,6 +16,8 @@ import { createBrowserHistory } from 'history';
 import { getUserData } from '../../database/controllers.js';
 import './styles/styles.css';
 
+import { createFile, getFileUrl, changeAvatar } from '../../database/controllers.js';
+
 const history = createBrowserHistory();
 
 class App extends React.Component {
