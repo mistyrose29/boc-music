@@ -4,7 +4,7 @@ import { Button, Offcanvas } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 
 const eq = 'file-icons:eq';
-const frequency = ['32', '64', '125', '250', '500', '1K', '2K', '4K', '8K', '16K'];
+const frequency = ['32', '64', '125', '250', '500', '1K', '2K', '4K', '8K', '16K', ' '];
 
 const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
   const [show, setShow] = useState(false);
@@ -64,7 +64,7 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
                   type='range'
                   style={{
                     WebkitAppearance: 'slider-vertical',
-                    width: '10%'
+                    width: '9%'
                   }}
                   className='slider'
                   orient='vertical'
@@ -75,6 +75,18 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
                   onChange={handleChange}/>
               );
             })}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              fontSize: 'x-small',
+              fontStyle: 'italic',
+              color: 'darkgray'
+            }}>
+              <div>40</div>
+              <div>0 (dB)</div>
+              <div>-40</div>
+            </div>
           </div>
           <div style={{
             textAlign: 'center',
