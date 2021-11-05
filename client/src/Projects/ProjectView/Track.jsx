@@ -27,13 +27,10 @@ class Track extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.name)
     getFileUrl(this.props.path)
       .then((url) => {
         this.setState({
           url: url
-        }, () => {
-          this.props.storeUrl(url)
         });
       })
       .catch((error) => {
@@ -111,7 +108,9 @@ class Track extends React.Component {
               isMuted={this.state.isMuted}
               visible={this.state.display}
               time={this.props.time}
-              saveTime={this.props.saveTime} />
+              saveTime={this.props.saveTime}
+              storeWS={this.props.storeWS}
+              />
           }
         </Card.Body>
       </Card>

@@ -17,13 +17,14 @@ class Project extends React.Component {
       isPlaying: false,
       tracks: [],
       time: 0,
-      urls: []
+      wavesurfers: []
     };
 
     this.reload = this.reload.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.saveTime = this.saveTime.bind(this);
-    this.storeUrl = this.storeUrl.bind(this)
+    this.storeWS = this.storeWS.bind(this)
+    this.mix = this.mix.bind(this)
   }
 
   componentDidMount() {
@@ -36,164 +37,90 @@ class Project extends React.Component {
     });
   }
 
-  storeUrl(url) {
-    let urls = this.state.urls
-    urls.push(url)
+  storeWS(WS) {
+    let wavesurfers = this.state.wavesurfers
+    wavesurfers.push(WS)
     this.setState({
-      urls: urls
-    }, () => console.log(this.state.urls))
+      wavesurfers: wavesurfers
+    }, () => console.log(this.state.wavesurfers))
   }
 
-  async mix(sources) {
-    const Acontext = new AudioContext();
-    console.log(Acontext,'con')
+  async mix(soundSources) {
+    const audioContext = new AudioContext();
 
-    function BufferLoader(context, urlList, callback) {
-      this.context = context;
-        this.urlList = urlList;
-        this.onload = callback;
-        this.bufferList = new Array();
-        this.loadCount = 0;
-    }
+    let maxDuration = 0;
+    let maxChannels = 2;
 
-    BufferLoader.prototype.loadBuffer = function(url, index) {
-        var request = new XMLHttpRequest();
-        request.open("GET", url, true);
-        request.responseType = "arraybuffer";
+    soundSources.map((src) => {
+      const duration = src.getDuration()
+      const channels = src.backend.buffer.numberOfChannels
+      if (maxChannels < channels) {
+        maxChannels = channels
+      }
+      if (maxDuration < duration) {
+        maxDuration = duration + 1
+      }
+    })
+    let offlineCtx = new OfflineAudioContext({
+      numberOfChannels: maxChannels,
+      length: 48000 * maxDuration,
+      sampleRate: 48000
+    });
+    let mixedAudio = audioContext.createMediaStreamDestination();
 
-        var loader = this;
+    soundSources.map((src) => {
+      let source = offlineCtx.createBufferSource();
+      source.buffer = src.backend.buffer
+      source.connect(offlineCtx.destination)
+      source.start()
+    })
 
-        request.onload = function() {
-            loader.context.decodeAudioData(
-                request.response,
-                function(buffer) {
-                    if (!buffer) {
-                        alert('error decoding file data: ' + url);
-                        return;
-                    }
-                    loader.bufferList[index] = buffer;
-                    if (++loader.loadCount == loader.urlList.length)
-                        loader.onload(loader.bufferList);
-                }
-            );
+    offlineCtx.startRendering().then((rend) => {
+      let chunks = [];
+      let blob;
+      let song = audioContext.createBufferSource();
+      song.buffer = rend;
+      song.connect(mixedAudio)
+      song.connect(audioContext.destination)
+
+      const recorder = new MediaRecorder(mixedAudio.stream);
+      recorder.start(0)
+      song.start(0)
+
+      setTimeout(() => {
+        console.log('stopped')
+        song.stop()
+        recorder.stop()
+      }, maxDuration*1000);
+      recorder.ondataavailable = function (event) {
+        if (event.data.size > 0) {
+          chunks.push(event.data);
         }
+      };
 
-        request.onerror = function() {
-            alert('BufferLoader: XHR error');
-        }
+      let btn = document.getElementById('mix')
+      btn.disabled = true
+      btn.innerHTML = 'Mixing in progress...'
 
-        request.send();
-    }
+      recorder.onstop = function (event) {
+        console.log('finished mixing')
+        blob = new Blob(chunks, {
+          "type": "audio/ogg; codecs=opus"
+        });
 
-    BufferLoader.prototype.load = function() {
-        for (var i = 0; i < this.urlList.length; ++i)
-            this.loadBuffer(this.urlList[i], i);
-    }
+        const audioDownload = URL.createObjectURL(blob);
+        let description = 'download'
 
+        let downloadLink = document.getElementById('download')
+        downloadLink.download = description + "." + blob.type.replace(/.+\/|;.+/g, "");
+        downloadLink.href = audioDownload
+        downloadLink.innerHTML = downloadLink.download;
+        btn.disabled = false
+        btn.innerHTML = 'Mix'
+      }
 
-    function finishedLoading(bufferList) {
-      // Create the two buffer sources and play them both together.
-      var source1 = context.createBufferSource();
-      var source2 = context.createBufferSource();
-      var source3 = context.createBufferSource();
-
-      source1.buffer = bufferList[0];
-      source2.buffer = bufferList[1];
-      source3.buffer = bufferList[2]
-
-      source1.connect(context.destination);
-      source2.connect(context.destination);
-      source3.connect(context.destination);
-      source1.start(0);
-      source2.start(0);
-      source2.start(0);
-    }
-    const context = new AudioContext();
-    const bufferLoader = new BufferLoader(context, [this.state.urls], finishedLoading);
-
-    bufferLoader.load()
-
+    })
   }
-
-  // async mix(source) {
-  //   var sources = source
-
-  //   var description = "mix";
-  //   var chunks = [];
-  //   var channels = [[0, 1], [1, 0]];
-  //   var audio = new AudioContext();
-  //   var player = new Audio();
-  //   var merger = audio.createChannelMerger(3);
-  //   var splitter = audio.createChannelSplitter(2);
-  //   var mixedAudio = audio.createMediaStreamDestination();
-  //   var duration = 60000;
-  //   var context;
-  //   var recorder;
-  //   var audioDownload;
-  //   player.controls = "controls";
-
-  //   function get(src) {
-  //     return fetch(src)
-  //       .then(function (response) {
-  //         return response.arrayBuffer()
-  //       })
-  //   }
-
-  //   function stopMix(duration, ...media) {
-  //     setTimeout(function (media) {
-  //       media.forEach(function (node) {
-  //         node.stop()
-  //       })
-  //     }, duration, media)
-  //   }
-
-  //   Promise.all(sources.map(get)).then(function (data) {
-  //     return Promise.all(data.map(function (buffer, index) {
-  //       return audio.decodeAudioData(buffer)
-  //         .then(function (bufferSource) {
-  //           var channel = channels[index];
-  //           console.log(index)
-  //           var source = audio.createBufferSource();
-  //           source.buffer = bufferSource;
-  //           source.connect(merger);
-  //           splitter.connect(merger, channel[0], channel[1]);
-  //           return source
-  //         })
-  //     }))
-  //       .then(function (audionodes) {
-  //         merger.connect(mixedAudio);
-  //         merger.connect(audio.destination);
-  //         recorder = new MediaRecorder(mixedAudio.stream);
-  //         recorder.start(0);
-  //         audionodes.forEach(function (node) {
-  //           node.start(0)
-  //         });
-
-  //         stopMix(duration, ...audionodes, recorder);
-
-  //         recorder.ondataavailable = function (event) {
-  //           chunks.push(event.data);
-  //         };
-
-  //         recorder.onstop = function (event) {
-  //           var blob = new Blob(chunks, {
-  //             "type": "audio/mp3; codecs=opus"
-  //           });
-  //           audioDownload = URL.createObjectURL(blob);
-  //           var a = document.createElement("a");
-  //           a.download = description + "." + blob.type.replace(/.+\/|;.+/g, "");
-  //           a.href = audioDownload;
-  //           a.innerHTML = a.download;
-  //           player.src = audioDownload;
-  //           document.body.appendChild(a);
-  //           document.body.appendChild(player);
-  //         };
-  //       })
-  //   })
-  //     .catch(function (e) {
-  //       console.log('error', e)
-  //     });
-  // }
 
   reload() {
     getProjectFiles(this.props.projectId)
@@ -250,7 +177,6 @@ class Project extends React.Component {
         </header>
         <>
           {this.state.tracks.map((track, index) => {
-            console.log(index, track.name, track.path)
             return (
               <div
                 key={index}>
@@ -263,7 +189,7 @@ class Project extends React.Component {
                   reload={this.reload}
                   time={this.state.time}
                   saveTime={this.saveTime}
-                  storeUrl={this.storeUrl}
+                  storeWS={this.storeWS}
                 />
               </div>
             );
@@ -271,10 +197,12 @@ class Project extends React.Component {
         </>
         <div id='mixing'></div>
         <button
-          onClick={() => this.mix(this.state.urls)}
+          id='mix'
+          onClick={() => this.mix(this.state.wavesurfers)}
         >
           mix
         </button>
+        <a id="download"></a>
       </div>
     );
   }
