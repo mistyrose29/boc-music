@@ -19,7 +19,7 @@ export default function Authentication(props) {
         createUser(userData)
           .then((data) => {
             if (data) {
-              props.loginLogout(true, data);
+              props.loginLogout(true, userData);
             } else {
               props.loginLogout(true, userData);
             }

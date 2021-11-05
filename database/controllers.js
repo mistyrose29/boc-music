@@ -2,6 +2,8 @@ import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
 import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getAuth, updateProfile } from 'firebase/auth';
+const auth = getAuth();
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
@@ -132,5 +134,15 @@ export const shareProjectWith = (userId, projectId, friendIds) => {
     .catch((err) => {
       console.log('error occured: ', err);
       return;
+    });
+};
+
+// Updating a User's profile
+export const changeAvatar = (imageUrl) => {
+  updateProfile(auth.currentUser, { photoURL: imageUrl })
+    .then(() => {
+      return;
+    }).catch((error) => {
+      console.log('Error occurred when updating the current user profile', error);
     });
 };

@@ -167,8 +167,47 @@
   flex-direction: column;
   width: 30%;
   margin-left: 20%;
-  
-  
+
+
+}
+
+/* CSS for changing User Photo */
+
+#profile-image-upload {
+  visibility: hidden;
+}
+
+.avatar {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.avatarBox {
+  transition: .5s ease;
+  opacity: 0;
+
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.avatarContainer:hover .avatar {
+  opacity: 0.3;
+}
+
+.avatarContainer:hover .avatarBox {
+  opacity: 1;
+}
+
+.changeAvatarText {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
 }
 
 /*
