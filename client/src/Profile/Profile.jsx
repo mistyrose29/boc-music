@@ -14,7 +14,7 @@ const Profile = (props) => {
           src={props.state.loggedInUser.userPhoto || noPhoto}
           roundedCircle
           alt='userPhoto'/>
-        <div className = "friends-title">Username: {props.state.loggedInUser.username}</div>
+        <div className = "friends-title">Username: {props.state.loggedInUser.name}</div>
         <button className = "up-and-down-arrow">Change Username</button>
         <br></br>
         <div className = "friends-title">Email: {props.state.loggedInUser.email}</div> 

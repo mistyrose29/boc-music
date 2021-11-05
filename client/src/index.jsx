@@ -9,11 +9,11 @@ import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
 import HomePage from './HomePage/projects.jsx'
-import AddFriend from './Share/AddFriend.jsx';
+//import AddFriend from './Share/AddFriend.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { getUserData } from '../../database/controllers.js';
+import { getUserData, addFriend, removeFriend as RemoveFriend } from '../../database/controllers.js';
 import './styles/styles.css';
 
 const history = createBrowserHistory();
@@ -40,14 +40,13 @@ class App extends React.Component {
     });
   }
 
-  addFriend (username, email) {
-    console.log(username, email)
-    AddFriend(username, email)
-
+  addFriend (email) {
+    addFriend(this.state.loggedInUser.userId, email);
   }
 
-  removeFriend (username) {
-    console.log(username)
+  removeFriend (id) {
+    RemoveFriend(this.state.loggedInUser.userId, id)
+   
   }
 
     //remove this friend from friendslist
