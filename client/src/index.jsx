@@ -8,6 +8,7 @@ import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import AddFriend from './Share/AddFriend.jsx';
+import RemoveFriend from './Share/RemoveFriend.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -92,9 +93,6 @@ class App extends React.Component {
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
-              {/* <AddFriend
-                userId={this.state.loggedInUser.userId}
-                cb={this.reloadUser}/> */}
             </Route>
 
             <Route path='/profile'>
