@@ -2,6 +2,8 @@ import { v4 as uuid } from 'uuid';
 import { storage, db } from './index.js';
 import { ref, uploadBytes, deleteObject, getDownloadURL, listAll } from 'firebase/storage';
 import { query, where, addDoc, getDocs, collection, doc, deleteDoc, orderBy, startAt, limit, setDoc, getDoc, updateDoc, arrayUnion, deleteField } from 'firebase/firestore';
+import { getAuth, updateProfile } from 'firebase/auth';
+const auth = getAuth();
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
@@ -166,5 +168,18 @@ export const removeFriend = (userId, friendId) => {
       updateDoc(cityRef, {
         friends: friends
       });
+    });
+};
+
+// Updating a User's profile
+export const changeAvatar = (userId, imageUrl) => {
+  updateProfile(auth.currentUser, { photoURL: imageUrl })
+    .then(() => {
+      const userRef = doc(db, 'users', userId);
+      updateDoc(userRef, {
+        photo: imageUrl
+      });
+    }).catch((error) => {
+      console.log('Error occurred when updating the current user profile', error);
     });
 };
