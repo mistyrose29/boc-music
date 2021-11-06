@@ -7,10 +7,15 @@ import curveTo from './curveTo.js';
 const eq = 'file-icons:eq';
 const frequency = ['32', '64', '125', '250', '500', '1K', '2K', '4K', '8K', '16K', ' '];
 
-const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
+const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setEq }) => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setEq(name, filterGains);
+    console.log('closed');
+  };
+
   const handleShow = () => {
     setShow(true);
     curveTo(filterGains);

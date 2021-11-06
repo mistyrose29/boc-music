@@ -171,14 +171,13 @@ export const removeFriend = (userId, friendId) => {
     });
 };
 
-<<<<<<< HEAD
 export const updateEq = (projectId, eq) => {
   const projectRef = doc(db, 'projects', projectId);
   updateDoc(projectRef, {
     eq: eq
   });
 };
-=======
+
 // Updating a User's profile
 export const changeAvatar = (userId, imageUrl) => {
   updateProfile(auth.currentUser, { photoURL: imageUrl })
@@ -191,4 +190,3 @@ export const changeAvatar = (userId, imageUrl) => {
       console.log('Error occurred when updating the current user profile', error);
     });
 };
->>>>>>> c4c73e7a42dfdb56af00863691fafe2c6e74c96a

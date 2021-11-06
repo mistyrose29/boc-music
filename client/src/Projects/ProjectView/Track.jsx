@@ -96,7 +96,9 @@ class Track extends React.Component {
               <EQOffcanvas
                 filterGains={this.state.filterGains}
                 setFilterGains={this.setFilterGains}
-                resetFilterGains={this.resetFilterGains}/>
+                resetFilterGains={this.resetFilterGains}
+                name={this.props.name}
+                setEq={this.props.setEq}/>
               <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
                 <Icon icon={wav} />
               </Button>
