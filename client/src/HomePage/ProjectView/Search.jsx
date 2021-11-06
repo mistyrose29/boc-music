@@ -5,7 +5,7 @@ import { Button, Modal, Tabs, Tab, Form, Card, Dropdown } from 'react-bootstrap'
 const Search = ({ setFilters, searchTab }) => {
     const [key, setKey] = useState('mine');
     const [search, setSearch] = useState('');
-    const [dropDown, setDropDown] = useState('All')
+    const [dropDown, setDropDown] = useState('Mine')
 
 
     const handleSearch = () => {
@@ -45,7 +45,6 @@ const Search = ({ setFilters, searchTab }) => {
         <Dropdown.Menu >
           <Dropdown.Item onClick = {changeDropDown}>All</Dropdown.Item>
           <Dropdown.Item onClick = {changeDropDown}>Mine</Dropdown.Item>
-          <Dropdown.Item onClick = {changeDropDown}>Friends</Dropdown.Item>
           <Dropdown.Item onClick = {changeDropDown}>Shared</Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>

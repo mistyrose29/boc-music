@@ -182,11 +182,11 @@
   margin-top: 10px;
 }
 .friends-list-ol {
-  border: 2px solid purple;
   border-radius: 6%;
   background-color: #C7E8F3;
   color: #8E4162;
   cursor: pointer;
+
 
 }
 .friends-title {
@@ -217,6 +217,14 @@
   justify-content: row;
   margin-top: 10px;
 }
+
+
+.friends-list-photo {
+  border-radius: 50%;
+  height: 30px;
+}
+
+
 
 #profile-image-upload {
   visibility: hidden;

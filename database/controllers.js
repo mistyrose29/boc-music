@@ -33,7 +33,7 @@ export const createProject = (data) => {
 };
 
 export const getAllProjects = (owner, filters) => {
-  console.log(filters)
+
   let primary = ['owner', '==', owner];
   let secondary;
 
