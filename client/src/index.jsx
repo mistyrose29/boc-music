@@ -8,7 +8,7 @@ import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
-import HomePage from './HomePage/Projects.jsx'
+import HomePage from './HomePage/Projects.jsx';
 import AddFriend from './Share/AddFriend.jsx';
 import RemoveFriend from './Share/RemoveFriend.jsx';
 
@@ -49,11 +49,11 @@ class App extends React.Component {
   }
 
   removeFriend (id) {
-    RemoveFriends(this.state.loggedInUser.userId, id)
-   
+    RemoveFriends(this.state.loggedInUser.userId, id);
+
   }
 
-    //remove this friend from friendslist
+  //remove this friend from friendslist
   reloadUser() {
     getUserData(this.state.loggedInUser.userId)
       .then((user) => {
@@ -109,7 +109,7 @@ class App extends React.Component {
                 ownerId={this.state.loggedInUser.userId}/>
               <HomePage
                 ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId} 
+                ownerId={this.state.loggedInUser.userId}
                 friends={Object.values(this.state.loggedInUser.friends)}/>
             </Route>
 
