@@ -187,7 +187,6 @@
   color: #8E4162;
   cursor: pointer;
 
-
 }
 .friends-title {
   color: #8E4162
@@ -218,12 +217,10 @@
   margin-top: 10px;
 }
 
-
 .friends-list-photo {
   border-radius: 50%;
   height: 30px;
 }
-
 
 
 #profile-image-upload {

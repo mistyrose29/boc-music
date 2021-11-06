@@ -3,6 +3,7 @@ import ConfirmModal from './ConfirmModal.jsx';
 import Search from './Search.jsx'
 import { Card, Button } from 'react-bootstrap';
 import { deleteProject } from '../../../../database/controllers.js';
+import { Icon } from '@iconify/react';
 
 const ProjectView = ({ project, loadProject, projectId, reload }) => {
   return (
@@ -34,7 +35,7 @@ const ProjectView = ({ project, loadProject, projectId, reload }) => {
           onClick={loadProject}>
             Open Project
         </Button>
-        
+        <Button style = {{margin: '0 0 0 10px'}}><Icon icon={'akar-icons:play'} /></Button>
       </Card.Body>
     </Card>
   );
