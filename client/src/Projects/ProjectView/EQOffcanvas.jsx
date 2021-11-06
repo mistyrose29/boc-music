@@ -1,7 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Offcanvas } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
+import curveTo from './curveTo.js';
 
 const eq = 'file-icons:eq';
 const frequency = ['32', '64', '125', '250', '500', '1K', '2K', '4K', '8K', '16K', ' '];
@@ -10,13 +11,26 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+    curveTo(filterGains);
+  };
+
+  useEffect(() => {
+    if (show) {
+      curveTo(filterGains);
+    }
+  }, [show]);
 
   const handleChange = (event) => {
     const gain = event.target.value;
     const index = parseInt(event.target.getAttribute('title'));
     setFilterGains(index, gain);
   };
+
+  useEffect(() => {
+    curveTo(filterGains);
+  }, [filterGains]);
 
   return (
     <>
@@ -56,16 +70,14 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
               return <div key={`freq${index}`} style={{ width: '10%'}}>{freq}</div>;
             })}
           </div>
-          <div style={{ display: 'flex' }}>
+          <div id='eq' style={{ display: 'flex' }}>
+            <canvas id='eq-draw' style={{ position: 'fixed', zIndex: '6' }}/>
             {filterGains.map((filter, index) => {
               return (
                 <input
                   key={`slider${index}`}
                   type='range'
-                  style={{
-                    WebkitAppearance: 'slider-vertical',
-                    width: '9%'
-                  }}
+                  style={{ zIndex: '7' }}
                   className='slider'
                   orient='vertical'
                   min={-40}
@@ -75,6 +87,7 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains }) => {
                   onChange={handleChange}/>
               );
             })}
+
             <div style={{
               display: 'flex',
               flexDirection: 'column',

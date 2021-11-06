@@ -34,11 +34,11 @@ class App extends React.Component {
     this.reloadUser = this.reloadUser.bind(this);
   }
 
-  loginLogout(loggedIn, loggedInUser) {
+  loginLogout(loggedIn, loggedInUser, cb) {
     this.setState({
       load: loggedIn,
       loggedInUser: loggedInUser
-    });
+    }, cb);
   }
 
   addFriend (username, email) {

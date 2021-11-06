@@ -167,8 +167,8 @@
   flex-direction: column;
   width: 30%;
   margin-left: 20%;
-  
-  
+
+
 }
 
 .friends-list {
@@ -219,10 +219,16 @@
   margin-top: 10px;
 }
 
-
 /*
 
 Used on PROJECTS Page
 https://getbootstrap.com/docs/5.1/components/card/#using-custom-css
 
 */
+
+.slider {
+  -webkit-appearance: slider-vertical;
+  opacity: 0;
+  width: 9%;
+  height: 100%;
+}

@@ -168,3 +168,10 @@ export const removeFriend = (userId, friendId) => {
       });
     });
 };
+
+export const updateEq = (projectId, eq) => {
+  const projectRef = doc(db, 'projects', projectId);
+  updateDoc(projectRef, {
+    eq: eq
+  });
+};
