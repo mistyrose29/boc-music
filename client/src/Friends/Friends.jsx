@@ -2,8 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Modal, Tabs, Tab, Form, ListGroup, Image} from 'react-bootstrap';
-import {EInvite} from '../Message/Email.jsx';
-import {SMSInvite} from '../Message/SMS.jsx';
+import EInvite from '../Message/Email.jsx';
+import SMSInvite from '../Message/SMS.jsx';
 
 
 

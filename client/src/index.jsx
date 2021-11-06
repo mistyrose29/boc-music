@@ -44,24 +44,13 @@ class App extends React.Component {
     }, cb);
   }
 
-<<<<<<< HEAD
-  addFriend (username, email) {
-    console.log(username, email);
-    AddFriend(username, email);
-
-  }
-
-  removeFriend (username) {
-    console.log(username);
-=======
   addFriend (email) {
     addFriend(this.state.loggedInUser.userId, email);
   }
 
   removeFriend (id) {
-    RemoveFriends(this.state.loggedInUser.userId, id)
-   
->>>>>>> 29bbd4552e63a5b24c200eddc6ffc97bcdfab2a1
+    RemoveFriends(this.state.loggedInUser.userId, id);
+
   }
 
   //remove this friend from friendslist
@@ -120,7 +109,7 @@ class App extends React.Component {
                 ownerId={this.state.loggedInUser.userId}/>
               <HomePage
                 ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId} 
+                ownerId={this.state.loggedInUser.userId}
                 friends={Object.values(this.state.loggedInUser.friends)}/>
             </Route>
 
