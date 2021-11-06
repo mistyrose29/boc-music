@@ -33,7 +33,8 @@ class Track extends React.Component {
     getFileUrl(this.props.path)
       .then((url) => {
         this.setState({
-          url: url
+          url: url,
+          filterGains: this.props.initialEq || this.state.filterGains
         });
       })
       .catch((error) => {
