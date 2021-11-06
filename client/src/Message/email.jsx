@@ -29,7 +29,7 @@ const EmailInvite = (props) => {
 
 };
 
-const Invite = (props) => {
+const EInvite = (props) => {
   const [modalShow, setModalShow] = useState(false);
 
   const handleSubmit = (name, email) => {
@@ -50,4 +50,4 @@ const Invite = (props) => {
   );
 };
 
-export default Invite;
+export default EInvite;
