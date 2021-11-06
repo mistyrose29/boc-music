@@ -33,7 +33,8 @@ class Track extends React.Component {
     getFileUrl(this.props.path)
       .then((url) => {
         this.setState({
-          url: url
+          url: url,
+          filterGains: this.props.initialEq || this.state.filterGains
         });
       })
       .catch((error) => {
@@ -96,7 +97,9 @@ class Track extends React.Component {
               <EQOffcanvas
                 filterGains={this.state.filterGains}
                 setFilterGains={this.setFilterGains}
-                resetFilterGains={this.resetFilterGains}/>
+                resetFilterGains={this.resetFilterGains}
+                name={this.props.name}
+                setEq={this.props.setEq}/>
               <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
                 <Icon icon={wav} />
               </Button>
