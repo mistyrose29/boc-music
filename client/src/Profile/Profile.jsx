@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Card, Image } from 'react-bootstrap';
-// import { MDBRipple } from 'mdb-react-ui-kit';
 
 const noUser = 'Anonymous';
 const noPhoto = './anonymous.png';
