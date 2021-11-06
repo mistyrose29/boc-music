@@ -167,8 +167,8 @@
   flex-direction: column;
   width: 30%;
   margin-left: 20%;
-  
-  
+
+
 }
 
 .friends-list {
@@ -223,6 +223,12 @@
   border-radius: 50%;
   height: 30px;
 }
+
+
+#profile-image-upload {
+  visibility: hidden;
+}
+
 
 /*
 
