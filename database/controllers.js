@@ -31,7 +31,7 @@ export const createProject = (data) => {
 };
 
 export const getAllProjects = (owner, filters) => {
-  console.log(filters)
+
   let primary = ['owner', '==', owner];
   let secondary;
 
@@ -156,11 +156,15 @@ export const addFriend = (userId, email) => {
 };
 
 export const removeFriend = (userId, friendId) => {
-  const cityRef = doc(db, 'users', userId);
+  getUserData(userId)
+    .then(user => {
+      let data = user.data();
+      let friends = data.friends;
+      delete friends[friendId];
 
-  updateDoc(cityRef, {
-    friends: {
-      [friendId]: deleteField()
-    }
-  });
+      const cityRef = doc(db, 'users', userId);
+      updateDoc(cityRef, {
+        friends: friends
+      });
+    });
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Modal, Tabs, Tab, Form } from 'react-bootstrap';
 
-const Filters = ({ setFilters, setSearchTabTrue, setSearchTabFalse }) => {
+const Filters = ({ setFilters, setSearchTabTrue, setSearchTabFalse, setFriendsTabFalse, setFriendsTabTrue }) => {
   const [key, setKey] = useState('mine');
   const [search, setSearch] = useState('');
 
@@ -29,7 +29,11 @@ const Filters = ({ setFilters, setSearchTabTrue, setSearchTabFalse }) => {
   };
 
   const selectTab = (key) => {
-    console.log('key', key)
+    if (key == 'friends') {
+      setFriendsTabTrue()
+    } else {
+      setFriendsTabFalse()
+    }
     if (key == 'search') {
       setSearchTabTrue()
     } else {
@@ -37,7 +41,7 @@ const Filters = ({ setFilters, setSearchTabTrue, setSearchTabFalse }) => {
     }
 
     setKey(key);
-    if (key == 'Global') {
+    if (key == 'Global' || key == 'friends') {
       setFilters({
         key: 'all',
         query: ''

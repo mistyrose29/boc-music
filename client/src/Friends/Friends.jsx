@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useState } from 'react';
-import { Button, Modal, Tabs, Tab, Form, ListGroup} from 'react-bootstrap';
+import { Button, Modal, Tabs, Tab, Form, ListGroup, Image} from 'react-bootstrap';
 
 
 
@@ -39,10 +39,12 @@ const handleClickedFriend = (event) => {
 }
 const sendFriendRequest = () => {
     props.addFriend(searchEmail)
+    handleClose()
 }
 
 const removeFriend = () => {
     props.removeFriend(clickedFriendId)
+    handleCloseFriend()
 }
 
 const upArrow = () => {
@@ -90,7 +92,10 @@ console.log(friendsList)
                     lastFriendIndex = friendsList.length;
                   }
                   for (let i = firstFriendIndex; i < lastFriendIndex; i++) {
-                    list.push(<ListGroup.Item className = "friends-list-ol" value = {friendsList[i].id} key = {i} onClick = {handleClickedFriend}>{friendsList[i].name}</ListGroup.Item>)
+                    if (friendsList[i].photo === '') {
+                      friendsList[i].photo = 'anonymous.png'
+                    }
+                    list.push(<ListGroup.Item className = "friends-list-ol" value = {friendsList[i].id} key = {i} onClick = {handleClickedFriend}><Image src = {friendsList[i].photo} className = "friends-list-photo" /> {friendsList[i].name}</ListGroup.Item>)
                   }
                   return list;
                 }
@@ -120,7 +125,7 @@ console.log(friendsList)
         <Button variant="primary" onClick={removeFriend}>
             Remove Friend
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleCloseFriend}>
             Cancel
           </Button>
         </Modal.Footer>

@@ -10,6 +10,8 @@ import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
 import HomePage from './HomePage/projects.jsx'
 //import AddFriend from './Share/AddFriend.jsx';
+// import AddFriend from './Share/AddFriend.jsx';
+// import RemoveFriend from './Share/RemoveFriend.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -87,7 +89,8 @@ class App extends React.Component {
                 ownerId={this.state.loggedInUser.userId}/>
                 <HomePage
                 ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId} />
+                ownerId={this.state.loggedInUser.userId} 
+                friends={Object.values(this.state.loggedInUser.friends)}/>
             </Route>
 
             <Route path='/projects'>
@@ -111,10 +114,10 @@ class App extends React.Component {
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
-                <Friends state = {this.state} addFriend = {this.addFriend} removeFriend = {this.removeFriend}/>
-              {/* <AddFriend
-                userId={this.state.loggedInUser.userId}
-                cb={this.reloadUser}/> */}
+              <Friends
+                state={this.state}
+                addFriend={this.addFriend}
+                removeFriend={this.removeFriend}/>
             </Route>
 
             <Route path='/profile'>
