@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import Track from './Track.jsx';
 import Upload from './Upload.jsx';
-import { getProjectFiles } from '../../../../database/controllers.js';
+import { getProjectFiles, updateEq } from '../../../../database/controllers.js';
 import { Icon } from '@iconify/react';
 
 const headphones = ['tabler:headphones-off', 'tabler:headphones'];
@@ -17,14 +17,16 @@ class Project extends React.Component {
       isPlaying: false,
       tracks: [],
       time: 0,
-      wavesurfers: []
+      wavesurfers: [],
+      eq: {}
     };
 
     this.reload = this.reload.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.saveTime = this.saveTime.bind(this);
-    this.storeWS = this.storeWS.bind(this)
-    this.mix = this.mix.bind(this)
+    this.storeWS = this.storeWS.bind(this);
+    this.mix = this.mix.bind(this);
+    this.setEq = this.setEq.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +36,24 @@ class Project extends React.Component {
   saveTime(time) {
     this.setState({
       time: time
+    });
+  }
+
+  setEq(key, values) {
+    console.log(key);
+    console.log(values);
+    let tempEq = {}
+    for (name in this.state.eq) {
+      tempEq[name] = this.state.eq[name];
+    }
+
+    tempEq[key] = values;
+
+    // save changes to db
+    updateEq(this.props.projectId, tempEq);
+
+    this.setState({
+      eq: tempEq
     });
   }
 
@@ -241,6 +261,8 @@ class Project extends React.Component {
                   time={this.state.time}
                   saveTime={this.saveTime}
                   storeWS={this.storeWS}
+                  setEq={this.setEq}
+                  initialEq={this.props.eq[track.name]}
                 />
               </div>
             );

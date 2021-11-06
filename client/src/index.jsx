@@ -37,11 +37,11 @@ class App extends React.Component {
     this.changeProfileImage = this.changeProfileImage.bind(this);
   }
 
-  loginLogout(loggedIn, loggedInUser) {
+  loginLogout(loggedIn, loggedInUser, cb) {
     this.setState({
       load: loggedIn,
       loggedInUser: loggedInUser
-    });
+    }, cb);
   }
 
   addFriend (email) {

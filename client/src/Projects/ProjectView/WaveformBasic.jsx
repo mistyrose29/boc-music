@@ -51,7 +51,6 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
   const [filters, setFilters] = useState({});
 
   const setGain = (index, value) => {
-    console.log(`index: ${index}, value: ${value}`);
     filters[index].gain.value = value;
   };
 
@@ -139,7 +138,6 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
     if (wavesurfer.current.isReady) {
       wavesurfer.current.toggleMute();
     }
-    console.log(filters);
   }, [isMuted]);
 
   useEffect(() => {
