@@ -17,6 +17,8 @@ import { createBrowserHistory } from 'history';
 import { getUserData } from '../../database/controllers.js';
 import './styles/styles.css';
 
+import { createFile, getFileUrl, changeAvatar } from '../../database/controllers.js';
+
 const history = createBrowserHistory();
 
 class App extends React.Component {
@@ -32,6 +34,7 @@ class App extends React.Component {
     this.addFriend = this.addFriend.bind(this);
     this.removeFriend = this.removeFriend.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
+    this.changeProfileImage = this.changeProfileImage.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser, cb) {
@@ -58,6 +61,24 @@ class App extends React.Component {
         this.setState({
           loggedInUser: user.data()
         });
+      });
+  }
+
+  changeProfileImage(event) {
+    createFile(event.target.files[0], `useravatars/${this.state.loggedInUser.userId}`)
+      .then((results) => {
+        getFileUrl(results.metadata.fullPath)
+          .then((imageUrl) => {
+            changeAvatar(this.state.loggedInUser.userId, imageUrl);
+            let current = this.state.loggedInUser;
+            current.photo = imageUrl;
+            this.setState({
+              loggedInUser: current
+            });
+          });
+      })
+      .catch((error) => {
+        console.log('Error in updating the Users profile image', error);
       });
   }
 
@@ -124,6 +145,7 @@ class App extends React.Component {
                 history={history}
                 loginLogout={this.loginLogout}/>
               <Profile loginLogout={this.loginLogout}
+                changeProfileImage={this.changeProfileImage}
                 state={this.state}/>
             </Route>
 
