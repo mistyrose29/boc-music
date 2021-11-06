@@ -1,8 +1,9 @@
 import React from 'react';
 import Share from '../../Share/Share.jsx';
 import ConfirmModal from './ConfirmModal.jsx';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button} from 'react-bootstrap';
 import { deleteProject } from '../../../../database/controllers.js';
+import { Icon } from '@iconify/react';
 
 const ProjectView = ({ userId, friends, project, loadProject, projectId, reload }) => {
   return (
@@ -45,6 +46,7 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload 
           onClick={loadProject}>
             Open Project
         </Button>
+        <Button><Icon icon={'akar-icons:play'} /></Button>
       </Card.Body>
     </Card>
   );
