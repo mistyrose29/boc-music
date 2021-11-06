@@ -276,6 +276,7 @@ class Project extends React.Component {
             mix
           </button>
           <a id="download"></a>
+          <Button>Voice Record</Button>
         </div>
       </div>
     );
