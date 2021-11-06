@@ -33,7 +33,7 @@ export const createProject = (data) => {
 };
 
 export const getAllProjects = (owner, filters) => {
-  console.log(filters)
+
   let primary = ['owner', '==', owner];
   let secondary;
 
@@ -169,6 +169,13 @@ export const removeFriend = (userId, friendId) => {
         friends: friends
       });
     });
+};
+
+export const updateEq = (projectId, eq) => {
+  const projectRef = doc(db, 'projects', projectId);
+  updateDoc(projectRef, {
+    eq: eq
+  });
 };
 
 // Updating a User's profile

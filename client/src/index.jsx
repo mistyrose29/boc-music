@@ -14,7 +14,7 @@ import RemoveFriend from './Share/RemoveFriend.jsx';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { getUserData } from '../../database/controllers.js';
+import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
 import './styles/styles.css';
 
 import { createFile, getFileUrl, changeAvatar } from '../../database/controllers.js';
@@ -37,13 +37,14 @@ class App extends React.Component {
     this.changeProfileImage = this.changeProfileImage.bind(this);
   }
 
-  loginLogout(loggedIn, loggedInUser) {
+  loginLogout(loggedIn, loggedInUser, cb) {
     this.setState({
       load: loggedIn,
       loggedInUser: loggedInUser
-    });
+    }, cb);
   }
 
+<<<<<<< HEAD
   addFriend (username, email) {
     console.log(username, email);
     AddFriend(username, email);
@@ -52,6 +53,15 @@ class App extends React.Component {
 
   removeFriend (username) {
     console.log(username);
+=======
+  addFriend (email) {
+    addFriend(this.state.loggedInUser.userId, email);
+  }
+
+  removeFriend (id) {
+    RemoveFriends(this.state.loggedInUser.userId, id)
+   
+>>>>>>> 29bbd4552e63a5b24c200eddc6ffc97bcdfab2a1
   }
 
   //remove this friend from friendslist
@@ -110,7 +120,8 @@ class App extends React.Component {
                 ownerId={this.state.loggedInUser.userId}/>
               <HomePage
                 ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId} />
+                ownerId={this.state.loggedInUser.userId} 
+                friends={Object.values(this.state.loggedInUser.friends)}/>
             </Route>
 
             <Route path='/projects'>

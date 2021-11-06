@@ -1,18 +1,18 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useState } from 'react';
-import { Button, Modal, Tabs, Tab, Form } from 'react-bootstrap';
-import EInvite from '../Message/Email.jsx';
-import SMSInvite from '../Message/SMS.jsx';
+import { Button, Modal, Tabs, Tab, Form, ListGroup, Image} from 'react-bootstrap';
+import {EInvite} from '../Message/Email.jsx';
+import {SMSInvite} from '../Message/SMS.jsx';
 
 
 
 const Friends = (props) => {
 
-  console.log(props.state.loggedInUser);
   const [show, setShow] = useState(false);
   const [showFriend, setShowFriend] = useState(false);
   const [clickedFriend, setClickedFriend] = useState('');
+  const [clickedFriendId, setClickedFriendId] = useState('');
   const [search, setSearch] = useState('');
   const [searchEmail, setSearchEmail] = useState('');
   const [firstFriendIndex, setFirstFriendIndex] = useState(0);
@@ -35,14 +35,17 @@ const Friends = (props) => {
   const handleClickedFriend = (event) => {
     let friend = event.target.innerText;
     setClickedFriend(friend);
+    setClickedFriendId(event.target.attributes[0].value);
     handleShowFriend();
   };
   const sendFriendRequest = () => {
-    props.addFriend(search, searchEmail);
+    props.addFriend(searchEmail);
+    handleClose();
   };
 
   const removeFriend = () => {
-    props.removeFriend(clickedFriend);
+    props.removeFriend(clickedFriendId);
+    handleCloseFriend();
   };
 
   const upArrow = () => {
@@ -55,11 +58,13 @@ const Friends = (props) => {
     setFirstFriendIndex(newIndex);
   };
 
-  var friendsList = [{username: 'Frankenstein', email: 'quinnlima1@gmail.com', userPhoto: 'https://lh3.googleusercontent.com/a/AATXAJxn3fSR2qsoN7YOjH4Q6_dCmJuyoNeMTqcmAkTR=s96-c', userId: 'AKCtFiHxrcbZifYQTEkstmvR0ym2'},
-    {username: 'Dracula', email: 'quinnlima1@gmail.com', userPhoto: 'https://lh3.googleusercontent.com/a/AATXAJxn3fSR2qsoN7YOjH4Q6_dCmJuyoNeMTqcmAkTR=s96-c', userId: 'AKCtFiHxrcbZifYQTEkstmvR0ym2'},
-    {username: 'Drake', email: 'quinnlima1@gmail.com', userPhoto: 'https://lh3.googleusercontent.com/a/AATXAJxn3fSR2qsoN7YOjH4Q6_dCmJuyoNeMTqcmAkTR=s96-c', userId: 'AKCtFiHxrcbZifYQTEkstmvR0ym2'},
-    {username: 'Drake'}, {username: 'Drake'}, {username: 'Drake'}, {username: 'Drake'},
-    {username: 'Drake'}, {username: 'Drake'}, {username: 'Drake'}, {username: 'Drake'}, {username: 'Drake'}, {username: 'Drake'}, {username: 'Drake'}, {username: 'and Josh'}];
+  var friendsList = Object.values(props.state.loggedInUser.friends);
+  console.log(friendsList);
+  // var friendsList = [{username: 'Frankenstein', email: 'quinnlima1@gmail.com', userPhoto: 'https://lh3.googleusercontent.com/a/AATXAJxn3fSR2qsoN7YOjH4Q6_dCmJuyoNeMTqcmAkTR=s96-c', userId: 'AKCtFiHxrcbZifYQTEkstmvR0ym2'},
+  // {username: 'Dracula', email: 'quinnlima1@gmail.com', userPhoto: 'https://lh3.googleusercontent.com/a/AATXAJxn3fSR2qsoN7YOjH4Q6_dCmJuyoNeMTqcmAkTR=s96-c', userId: 'AKCtFiHxrcbZifYQTEkstmvR0ym2'},
+  // {username: 'Drake', email: 'quinnlima1@gmail.com', userPhoto: 'https://lh3.googleusercontent.com/a/AATXAJxn3fSR2qsoN7YOjH4Q6_dCmJuyoNeMTqcmAkTR=s96-c', userId: 'AKCtFiHxrcbZifYQTEkstmvR0ym2'},
+  // {username: 'Drake', email: 'quinnlima1@gmail.com'}, {username: 'Drake', email: 'quinnlima1@gmail.com'}, {username: 'Drake', email: 'quinnlima1@gmail.com'}, {username: 'Drake', email: 'quinnlima1@gmail.com'},
+  // {username: 'Drake', email: 'quinnlima1@gmail.com'},{username: 'Drake', email: 'quinnlima1@gmail.com'},{username: 'Drake', email: 'quinnlima1@gmail.com'},{username: 'Drake', email: 'quinnlima1@gmail.com'},{username: 'Drake', email: 'quinnlima1@gmail.com'},{username: 'Drake', email: 'quinnlima1@gmail.com'},{username: 'Drake', email: 'quinnlima1@gmail.com'},{username: 'and Josh', email: 'quinnlima1@gmail.com'}];
 
   return (
     <div>
@@ -70,62 +75,73 @@ const Friends = (props) => {
           //console.log('number of photos', props.state.styles[props.OverviewState.styleIndex].photos.length)
           if (firstFriendIndex > 0) {
             return (
-              <button className="up-and-down-arrow" onClick={upArrow}>
+              <Button className="up-and-down-arrow" onClick={upArrow}>
                   ^
-              </button>
+              </Button>
             );
           }
         })()}
-        <ol className = "friends-list-ol">
+        <ListGroup >
           {function() {
-            let list = [];
-            let lastFriendIndex = firstFriendIndex + 10;
-            if (firstFriendIndex + 10 > friendsList.length) {
-              lastFriendIndex = friendsList.length;
+            if (friendsList.length == 0) {
+              return null;
+            } else {
+
+              let list = [];
+              let lastFriendIndex = firstFriendIndex + 10;
+              if (firstFriendIndex + 10 > friendsList.length) {
+                lastFriendIndex = friendsList.length;
+              }
+              for (let i = firstFriendIndex; i < lastFriendIndex; i++) {
+                if (friendsList[i].photo === '') {
+                  friendsList[i].photo = 'anonymous.png';
+                }
+                list.push(<ListGroup.Item className = "friends-list-ol" value = {friendsList[i].id} key = {i} onClick = {handleClickedFriend}><Image src = {friendsList[i].photo} className = "friends-list-photo" /> {friendsList[i].name}</ListGroup.Item>);
+              }
+              return list;
             }
-            for (let i = firstFriendIndex; i < lastFriendIndex; i++) {
-              list.push(<li value = {i + 1} key = {i} onClick = {handleClickedFriend}>{friendsList[i].username}</li>);
-            }
-            return list;
           }()}
-        </ol>
+        </ListGroup>
         {(function () {
           if (
             firstFriendIndex + 10 < friendsList.length) {
             return (
-              <button className="up-and-down-arrow" onClick={downArrow}>
+              <Button className="up-and-down-arrow" onClick={downArrow}>
                   v
-              </button>
+              </Button>
             );
           }
         })()}
 
-        <button className = "up-and-down-arrow" onClick = {handleShow}>Add Friend</button>
+        <Button className = "up-and-down-arrow" onClick = {handleShow}>Add Friend</Button>
+        {function () {
+          if (friendsList.length > 0) {
+            return (
 
-        <Modal show={showFriend} onHide={handleCloseFriend}>
-          <Modal.Header closeButton>
-            <Modal.Title>{clickedFriend}</Modal.Title>
-          </Modal.Header>
-          <Modal.Footer>
-            <Button variant="primary" onClick={removeFriend}>
+              <Modal show={showFriend} onHide={handleCloseFriend}>
+                <Modal.Header closeButton>
+                  <Modal.Title>{clickedFriend}</Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                  <Button variant="primary" onClick={removeFriend}>
             Remove Friend
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
+                  </Button>
+                  <Button variant="secondary" onClick={handleCloseFriend}>
             Cancel
-            </Button>
-          </Modal.Footer>
-        </Modal>
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            );
+          } else {
+            return null;
+          }
+        }()}
 
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Send Friend Request</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3-top" controlId="formBasicEmail">
-                <Form.Control type="title" placeholder="Enter Username" onChange={handleChange} />
-              </Form.Group>
-            </Form>
             <Form>
               <Form.Group className="mb-3-top" controlId="formBasicEmail">
                 <Form.Control type="title" placeholder="Enter Email" onChange={handleChangeEmail} />
@@ -149,3 +165,11 @@ const Friends = (props) => {
 };
 
 export default withRouter(Friends);
+
+<ListGroup>
+  <ListGroup.Item>Cras justo odio</ListGroup.Item>
+  <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+  <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+  <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+  <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+</ListGroup>;

@@ -20,8 +20,9 @@ const NavPane = (props) => {
 
     if (route === '/login') {
       auth.signOut();
-      props.loginLogout(false, null);
-      props.history.push('/login');
+      props.loginLogout(false, null, () => {
+        props.history.push('/login');
+      });
     } else {
       props.history.push(route);
       setShow(false);

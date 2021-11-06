@@ -18,7 +18,9 @@ class HomePage extends React.Component {
       title: '',
       description: '',
       isPublic: false,
-      searchTab: false
+      searchTab: false,
+      friendsTab: false,
+      friendString: ''
     };
 
     this.loadProjectList = this.loadProjectList.bind(this);
@@ -28,10 +30,26 @@ class HomePage extends React.Component {
     this.clear = this.clear.bind(this);
     this.setSearchTabTrue = this.setSearchTabTrue.bind(this);
     this.setSearchTabFalse = this.setSearchTabFalse.bind(this);
+    this.setFriendsTabTrue = this.setFriendsTabTrue.bind(this);
+    this.setFriendsTabFalse = this.setFriendsTabFalse.bind(this);
   }
 
   componentDidMount() {
+    
+    
+    let friendsString = '';
+    for (let i = 0; i < this.props.friends.length; i++) {
+      friendsString = friendsString + this.props.friends[i].id
+      
+                  
+    }
+    this.setState({
+      friendString: friendsString
+    })
+
+
     this.loadProjectList();
+    
   }
 
   loadProjectList(filters) {
@@ -122,6 +140,20 @@ class HomePage extends React.Component {
     
   }
 
+  setFriendsTabTrue() {
+    
+    this.setState({
+      friendsTab: true,
+      friendsString: ''
+    })
+  }
+  
+  setFriendsTabFalse() {
+    this.setState({
+      friendsTab: false
+    })
+  }
+
   render() {
     if (this.state.projectId !== null) {
       return (
@@ -135,7 +167,9 @@ class HomePage extends React.Component {
         <div className='main-container'>
           <header className="sticky-header header-shadow">
             <div className='flex-row center-content'>
-              <Filters setFilters={this.loadProjectList} setSearchTabTrue = {this.setSearchTabTrue} setSearchTabFalse = {this.setSearchTabFalse}/>
+              <Filters setFilters={this.loadProjectList} setSearchTabTrue = {this.setSearchTabTrue} 
+              setSearchTabFalse = {this.setSearchTabFalse} setFriendsTabFalse = {this.setFriendsTabFalse}
+              setFriendsTabTrue = {this.setFriendsTabTrue}/>
             </div>
 
                 
@@ -155,10 +189,26 @@ class HomePage extends React.Component {
             <Search setFilters={this.loadProjectList} searchTab = {this.state.searchTab}/>
           
             {this.state.projects.map((project, index) => {
+              if (this.state.friendsTab) {
+                if (this.state.friendString.includes(project.owner)) {
+                  return (
+                    <div
+                      key={index}
+                      style={{ margin: '0 10px 10px 10px'}}>
+                      <ProjectView
+                        reload={this.loadProjectList}
+                        projectId={project.id}
+                        project={project}
+                        loadProject={this.loadProject}/>
+                    </div>
+                  );
+              }
+            } else {
+
               return (
                 <div
-                  key={index}
-                  style={{ margin: '0 10px 10px 10px'}}>
+                key={index}
+                style={{ margin: '0 10px 10px 10px'}}>
                   <ProjectView
                     reload={this.loadProjectList}
                     projectId={project.id}
@@ -166,6 +216,7 @@ class HomePage extends React.Component {
                     loadProject={this.loadProject}/>
                 </div>
               );
+            }
             })}
           </>
         </div>

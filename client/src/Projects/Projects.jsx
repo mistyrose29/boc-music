@@ -51,13 +51,13 @@ class Projects extends React.Component {
   }
 
   loadProject(event) {
-    let projectId = event.target.getAttribute('projectid');
-    let projectTitle = event.target.getAttribute('projecttitle');
-    let projectOwner = event.target.getAttribute('projectowner');
+    let index = event.target.getAttribute('index');
+    let project = this.state.projects[index];
     this.setState({
-      projectId: projectId,
-      projectTitle: projectTitle,
-      projectOwner: projectOwner
+      projectId: project.id,
+      projectTitle: project.title,
+      projectOwner: project.owner,
+      projectEq: project.eq
     });
   }
 
@@ -111,7 +111,8 @@ class Projects extends React.Component {
         <Project
           projectId={this.state.projectId}
           title={this.state.projectTitle}
-          owner={this.state.projectOwner}/>
+          owner={this.state.projectOwner}
+          eq={this.state.projectEq}/>
       );
     } else {
       return (
@@ -138,6 +139,7 @@ class Projects extends React.Component {
                   key={index}
                   style={{ margin: '0 10px 10px 10px'}}>
                   <ProjectView
+                    index={index}
                     reload={this.loadProjectList}
                     projectId={project.id}
                     project={project}

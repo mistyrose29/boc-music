@@ -182,11 +182,11 @@
   margin-top: 10px;
 }
 .friends-list-ol {
-  border: 2px solid purple;
-    border-radius: 6%;
-    background-color: #C7E8F3;
-    color: #8E4162;
-    cursor: pointer;
+  border-radius: 6%;
+  background-color: #C7E8F3;
+  color: #8E4162;
+  cursor: pointer;
+
 
 }
 .friends-title {
@@ -194,24 +194,23 @@
 }
 
 .up-and-down-arrow {
-	background:linear-gradient(to bottom, #8e4162 5%, #eda2c0 100%);
-	background-color:#8e4162;
-	border-radius:7px;
-	border:1px solid #566963;
-	display:inline-block;
-	cursor:pointer;
-	color:#c7e8f3;
-	font-family:Arial;
-	font-size:17px;
-	padding:5px 29px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #2b665e;
+  background:linear-gradient(to bottom, #8e4162 5%, #eda2c0 100%);
+  background-color:#8e4162;
+  border-radius:7px;
+  border:1px solid #566963;
+  display:inline-block;
+  cursor:pointer;
+  color:#c7e8f3;
+  font-family:Arial;
+  font-size:17px;
+  padding:5px 29px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #2b665e;
 }
 .up-and-down-arrow:hover {
 	background:linear-gradient(to bottom, #eda2c0 5%, #8e4162 100%);
 	background-color:#eda2c0;
 }
-
 
 .search-bar-bottom {
   display:flex;
@@ -220,11 +219,16 @@
 }
 
 
+.friends-list-photo {
+  border-radius: 50%;
+  height: 30px;
+}
+
+
 
 #profile-image-upload {
   visibility: hidden;
 }
-
 
 /*
 
@@ -232,3 +236,10 @@ Used on PROJECTS Page
 https://getbootstrap.com/docs/5.1/components/card/#using-custom-css
 
 */
+
+.slider {
+  -webkit-appearance: slider-vertical;
+  opacity: 0;
+  width: 9%;
+  height: 100%;
+}

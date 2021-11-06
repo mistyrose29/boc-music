@@ -4,7 +4,7 @@ import ConfirmModal from './ConfirmModal.jsx';
 import { Card, Button } from 'react-bootstrap';
 import { deleteProject } from '../../../../database/controllers.js';
 
-const ProjectView = ({ userId, friends, project, loadProject, projectId, reload }) => {
+const ProjectView = ({ userId, friends, project, loadProject, projectId, reload, index }) => {
   return (
     <Card className='card-shadow'>
       <Card.Header>
@@ -39,9 +39,7 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload 
         </Card.Text>
         <Button
           variant="primary"
-          projecttitle={project.title}
-          projectowner={project.owner}
-          projectid={project.id}
+          index={index}
           onClick={loadProject}>
             Open Project
         </Button>
