@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Modal, Tabs, Tab, Form } from 'react-bootstrap';
 import EInvite from '../Message/Email.jsx';
-
+import SMSInvite from '../Message/SMS.jsx';
 
 
 
@@ -143,7 +143,7 @@ const Friends = (props) => {
         </Modal>
 
       </div>
-      <EInvite />
+      <EInvite /> <SMSInvite />
     </div>
   );
 };
