@@ -171,6 +171,13 @@ export const removeFriend = (userId, friendId) => {
     });
 };
 
+export const updateEq = (projectId, eq) => {
+  const projectRef = doc(db, 'projects', projectId);
+  updateDoc(projectRef, {
+    eq: eq
+  });
+};
+
 // Updating a User's profile
 export const changeAvatar = (userId, imageUrl) => {
   updateProfile(auth.currentUser, { photoURL: imageUrl })
