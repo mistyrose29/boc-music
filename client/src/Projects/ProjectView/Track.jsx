@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Card, ButtonToolbar, ButtonGroup, Button, useAccordionButton, Accordion } from 'react-bootstrap';
 import WaveformBasic from './WaveformBasic.jsx';
+import EQOffcanvas from './EQOffcanvas.jsx';
 import ConfirmModal from './ConfirmModal.jsx';
 import { getFileUrl, deleteFile } from '../../../../database/controllers.js';
 import { Icon } from '@iconify/react';
@@ -17,13 +18,15 @@ class Track extends React.Component {
       isMuted: false,
       wavesurfer: null,
       url: null,
-      display: false
+      display: false,
+      filterGains: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     };
 
     this.buildWaveform = this.buildWaveform.bind(this);
     this.handleMute = this.handleMute.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
+    this.setFilterGains = this.setFilterGains.bind(this);
+    this.resetFilterGains = this.resetFilterGains.bind(this);
   }
 
   componentDidMount() {
@@ -61,8 +64,18 @@ class Track extends React.Component {
     });
   }
 
-  handleEdit() {
-    window.alert('Need to implement');
+  setFilterGains(index, value) {
+    let filterGains = this.state.filterGains.slice();
+    filterGains[index] = value;
+    this.setState({
+      filterGains: filterGains
+    });
+  }
+
+  resetFilterGains() {
+    this.setState({
+      filterGains: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    });
   }
 
   toggleDisplay() {
@@ -80,9 +93,10 @@ class Track extends React.Component {
               <Button size='sm' variant='outline-primary' onClick={this.handleMute}>
                 <Icon icon={this.state.isMuted ? headphones[0] : headphones[1]} />
               </Button>
-              <Button size='sm' variant='outline-secondary' onClick={this.handleEdit}>
-                <Icon icon={eq} />
-              </Button>
+              <EQOffcanvas
+                filterGains={this.state.filterGains}
+                setFilterGains={this.setFilterGains}
+                resetFilterGains={this.resetFilterGains}/>
               <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
                 <Icon icon={wav} />
               </Button>
@@ -109,8 +123,8 @@ class Track extends React.Component {
               visible={this.state.display}
               time={this.props.time}
               saveTime={this.props.saveTime}
-              storeWS={this.props.storeWS}
-              />
+              filterGains={this.state.filterGains}
+              storeWS={this.props.storeWS}/>
           }
         </Card.Body>
       </Card>

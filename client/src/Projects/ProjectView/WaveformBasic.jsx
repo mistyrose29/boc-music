@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import WaveSurfer from 'wavesurfer.js';
-import CursorPlugin from 'wavesurfer.js/src/plugin/cursor/index.js'
-import TimelinePlugin from 'wavesurfer.js/src/plugin/timeline/index.js'
+import CursorPlugin from 'wavesurfer.js/src/plugin/cursor/index.js';
+import TimelinePlugin from 'wavesurfer.js/src/plugin/timeline/index.js';
 
 
 const formWaveSurferOptions = ref => ({
@@ -19,7 +19,7 @@ const formWaveSurferOptions = ref => ({
   plugins: [
     // timeline not rendering properly
     TimelinePlugin.create({
-      container: `.waveform-timeline`,
+      container: '.waveform-timeline',
       primaryColor: 'blue',
       secondaryColor: 'orangered',
       primaryFontColor: 'blue',
@@ -44,11 +44,16 @@ const formWaveSurferOptions = ref => ({
   ]
 });
 
-export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, saveTime, index, storeWS }) {
+export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, saveTime, index, storeWS, filterGains }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
+  const [filters, setFilters] = useState({});
 
+  const setGain = (index, value) => {
+    console.log(`index: ${index}, value: ${value}`);
+    filters[index].gain.value = value;
+  };
 
   // setup wavesurfer
   useEffect(() => {
@@ -56,6 +61,37 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
     const options = formWaveSurferOptions(waveformRef.current);
     wavesurfer.current = WaveSurfer.create(options);
     wavesurfer.current.load(url);
+
+    // SETUP EQ
+    // EQ filters
+    const EQ = [
+      { f: 32, type: 'lowshelf' },
+      { f: 64, type: 'peaking' },
+      { f: 125, type: 'peaking' },
+      { f: 250, type: 'peaking' },
+      { f: 500, type: 'peaking' },
+      { f: 1000, type: 'peaking' },
+      { f: 2000, type: 'peaking' },
+      { f: 4000, type: 'peaking' },
+      { f: 8000, type: 'peaking' },
+      { f: 16000, type: 'highshelf' }
+    ];
+
+    //create the filters
+    let bands = EQ.map(band => {
+      let filter = wavesurfer.current.backend.ac.createBiquadFilter();
+      filter.type = band.type;
+      filter.gain.value = 0;
+      filter.Q.value = 1;
+      filter.frequency.value = band.f;
+      return filter;
+    });
+
+    //connect the filter to wavesurfer instance
+    wavesurfer.current.backend.setFilters(bands);
+    setFilters(bands);
+    // END EQ SETUP
+
     wavesurfer.current.on('ready', () => {
       if (wavesurfer.current) {
 
@@ -65,10 +101,10 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
 
         storeWS(wavesurfer.current)
         const total = wavesurfer.current.getDuration().toFixed();
-        const totalMinutes = Math.floor(total / 60)
-        let totalSeconds = total % 60
-        if ((totalSeconds/10) < 1) {
-          totalSeconds = `0${totalSeconds}`
+        const totalMinutes = Math.floor(total / 60);
+        let totalSeconds = total % 60;
+        if ((totalSeconds / 10) < 1) {
+          totalSeconds = `0${totalSeconds}`;
         }
         document.getElementById(`time-total${index}`).innerText = ` ${totalMinutes}:${totalSeconds}`;
       }
@@ -76,10 +112,10 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
 
     wavesurfer.current.on('audioprocess', () => {
       const current = wavesurfer.current.getCurrentTime().toFixed();
-      const currentMinutes = Math.floor(current/60)
-      let currentSeconds = current % 60
-      if ((currentSeconds/10) < 1) {
-        currentSeconds = `0${currentSeconds}`
+      const currentMinutes = Math.floor(current/60);
+      let currentSeconds = current % 60;
+      if ((currentSeconds / 10) < 1) {
+        currentSeconds = `0${currentSeconds}`;
       }
       document.getElementById(`time-current${index}`).innerText = ` ${currentMinutes}:${currentSeconds} `;
     });
@@ -103,6 +139,7 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
     if (wavesurfer.current.isReady) {
       wavesurfer.current.toggleMute();
     }
+    console.log(filters);
   }, [isMuted]);
 
   useEffect(() => {
@@ -117,6 +154,14 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
     }
   }, [time]);
 
+  useEffect(() => {
+    if (wavesurfer.current.isReady) {
+      filterGains.forEach((gainValue, index) => {
+        setGain(index, gainValue);
+      });
+    }
+  }, [filterGains]);
+
   return (
     <div>
       <div className={`waveform track${index}`} ref={waveformRef} />
@@ -127,5 +172,5 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
         <span id={`time-total${index}`}>0:00</span>
       </div>
     </div>
-  )
+  );
 }
