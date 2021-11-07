@@ -48,7 +48,6 @@ const NavPane = (props) => {
 
       <Offcanvas size='sm' show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          {/* <Offcanvas.Title>Music Share</Offcanvas.Title> */}
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Image
