@@ -108,9 +108,9 @@ class App extends React.Component {
                 ownerName={this.state.loggedInUser.username}
                 ownerId={this.state.loggedInUser.userId}/>
               <HomePage
-                ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId} 
-                friends={Object.values(this.state.loggedInUser.friends)}/>
+                friends={Object.values(this.state.loggedInUser.friends)}
+                ownerName={this.state.loggedInUser.name}
+                ownerId={this.state.loggedInUser.userId} />
             </Route>
 
             <Route path='/projects'>

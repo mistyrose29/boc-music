@@ -1,9 +1,9 @@
 import React from 'react';
 import Filters from './Filters.jsx';
 import Search from './ProjectView/Search.jsx';
-import CreateProject from './CreateProject.jsx';
-import ProjectView from './ProjectView/ProjectView.jsx';
-import Project from './ProjectView/Project.jsx';
+import CreateProject from '../Projects/CreateProject.jsx';
+import ProjectView from '../Projects//ProjectView/ProjectView.jsx';
+import Project from '../Projects/ProjectView/Project.jsx';
 import { getAllProjects, createProject, getProject } from '../../../database/controllers.js';
 import { Nav } from 'react-bootstrap';
 
@@ -73,13 +73,13 @@ class HomePage extends React.Component {
   }
 
   loadProject(event) {
-    let projectId = event.target.getAttribute('projectid');
-    let projectTitle = event.target.getAttribute('projecttitle');
-    let projectOwner = event.target.getAttribute('projectowner');
+    let index = event.target.getAttribute('index');
+    let project = this.state.projects[index];
     this.setState({
-      projectId: projectId,
-      projectTitle: projectTitle,
-      projectOwner: projectOwner
+      projectId: project.id,
+      projectTitle: project.title,
+      projectOwner: project.owner,
+      projectEq: project.eq
     });
   }
 
@@ -158,9 +158,10 @@ class HomePage extends React.Component {
     if (this.state.projectId !== null) {
       return (
         <Project
-          projectId={this.state.projectId}
-          title={this.state.projectTitle}
-          owner={this.state.projectOwner}/>
+        projectId={this.state.projectId}
+        title={this.state.projectTitle}
+        owner={this.state.projectOwner}
+        eq={this.state.projectEq}/>
       );
     } else {
       return (
@@ -196,10 +197,13 @@ class HomePage extends React.Component {
                       key={index}
                       style={{ margin: '0 10px 10px 10px'}}>
                       <ProjectView
+                        index={index}
                         reload={this.loadProjectList}
                         projectId={project.id}
                         project={project}
-                        loadProject={this.loadProject}/>
+                        loadProject={this.loadProject}
+                        userId={this.props.ownerId}
+                        friends={this.props.friends}/>
                     </div>
                   );
               }
@@ -210,10 +214,13 @@ class HomePage extends React.Component {
                 key={index}
                 style={{ margin: '0 10px 10px 10px'}}>
                   <ProjectView
+                    index={index}
                     reload={this.loadProjectList}
                     projectId={project.id}
                     project={project}
-                    loadProject={this.loadProject}/>
+                    loadProject={this.loadProject}
+                    userId={this.props.ownerId}
+                    friends={this.props.friends}/>
                 </div>
               );
             }
