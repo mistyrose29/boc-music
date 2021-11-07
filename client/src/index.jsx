@@ -17,7 +17,8 @@ import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
 import './styles/styles.css';
 
-import { createFile, getFileUrl, changeAvatar } from '../../database/controllers.js';
+import { createFile, getFileUrl, changeAvatar, changeUserDisplayName } from '../../database/controllers.js';
+
 
 const history = createBrowserHistory();
 
@@ -35,6 +36,7 @@ class App extends React.Component {
     this.removeFriend = this.removeFriend.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
     this.changeProfileImage = this.changeProfileImage.bind(this);
+    this.changeDisplayName = this.changeDisplayName.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser, cb) {
@@ -79,6 +81,17 @@ class App extends React.Component {
       .catch((error) => {
         console.log('Error in updating the Users profile image', error);
       });
+  }
+
+  changeDisplayName(newName, cb) {
+    changeUserDisplayName(this.state.loggedInUser.userId, newName);
+    let current = this.state.loggedInUser;
+    current.name = newName;
+    this.setState({
+      loggedInUser: current
+    }, () => {
+      cb();
+    });
   }
 
   render() {
@@ -146,6 +159,7 @@ class App extends React.Component {
                 loginLogout={this.loginLogout}/>
               <Profile loginLogout={this.loginLogout}
                 changeProfileImage={this.changeProfileImage}
+                changeDisplayName={this.changeDisplayName}
                 state={this.state}/>
             </Route>
 

@@ -10,9 +10,16 @@ export default function DisplayUser(props) {
     <Card className="text-center" style={{border: 'none'}}>
       <Card.Body>
         <Image
+          src={'./musicsharelogo1.png'}
+          fluid
+        />
+        <br/>
+        <Image
           src={props.photo || noPhoto}
           roundedCircle
-          alt='user photo'/>
+          alt='user photo'
+          fluid
+        />
         <Card.Title>
           <br/>
           Hello
