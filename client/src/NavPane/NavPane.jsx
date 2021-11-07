@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, Offcanvas, ListGroup } from 'react-bootstrap';
+import { Button, Offcanvas, ListGroup, Image } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { auth } from '../../../database/index.js';
 import { withRouter } from 'react-router-dom';
@@ -48,9 +48,13 @@ const NavPane = (props) => {
 
       <Offcanvas size='sm' show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Music Share</Offcanvas.Title>
+          {/* <Offcanvas.Title>Music Share</Offcanvas.Title> */}
         </Offcanvas.Header>
         <Offcanvas.Body>
+          <Image
+            src={'./musicsharelogo2.png'}
+            fluid
+          />
           <Button
             route='/home'
             variant='outline-primary'
