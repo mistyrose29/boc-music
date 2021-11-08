@@ -21,10 +21,10 @@ const getPoints = (filters) => {
   });
 };
 
-const drawPoint = (ctx, x, y) => {
-  ctx.fillStyle = '#dc354684'; // Red color
+const drawPoint = (ctx, x, y, size, color) => {
+  ctx.fillStyle = color;
   ctx.beginPath();
-  ctx.arc(x, y, 5, 0, Math.PI * 2, true);
+  ctx.arc(x, y, size, 0, Math.PI * 2, true);
   ctx.fill();
 };
 
@@ -39,7 +39,8 @@ const curveTo = (filters, f = 0.3, t = 0.6) => {
   ctx.clearRect(0, 0, cv.width, cv.height);
 
   for (let j = 0; j < points.length; j++) {
-    drawPoint(ctx, points[j].x, points[j].y);
+    drawPoint(ctx, points[j].x, points[j].y, 5, '#dc354684'); // light red
+    drawPoint(ctx, points[j].x, points[j].y, 2, '#DD3444'); // dark red
   }
 
   ctx.beginPath();

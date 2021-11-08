@@ -17,7 +17,7 @@ import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
 import './styles/styles.css';
 
-import { createFile, getFileUrl, changeAvatar, changeUserDisplayName } from '../../database/controllers.js';
+import { createFile, getFileUrl, changeAvatar, changeUserDisplayName, changeUserBio } from '../../database/controllers.js';
 
 
 const history = createBrowserHistory();
@@ -37,6 +37,7 @@ class App extends React.Component {
     this.reloadUser = this.reloadUser.bind(this);
     this.changeProfileImage = this.changeProfileImage.bind(this);
     this.changeDisplayName = this.changeDisplayName.bind(this);
+    this.changeBio = this.changeBio.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser, cb) {
@@ -87,6 +88,17 @@ class App extends React.Component {
     changeUserDisplayName(this.state.loggedInUser.userId, newName);
     let current = this.state.loggedInUser;
     current.name = newName;
+    this.setState({
+      loggedInUser: current
+    }, () => {
+      cb();
+    });
+  }
+
+  changeBio(bio, cb) {
+    changeUserBio(this.state.loggedInUser.userId, bio);
+    let current = this.state.loggedInUser;
+    current.bio = bio;
     this.setState({
       loggedInUser: current
     }, () => {
@@ -160,6 +172,7 @@ class App extends React.Component {
               <Profile loginLogout={this.loginLogout}
                 changeProfileImage={this.changeProfileImage}
                 changeDisplayName={this.changeDisplayName}
+                changeBio={this.changeBio}
                 state={this.state}/>
             </Route>
 

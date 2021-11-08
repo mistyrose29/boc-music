@@ -202,3 +202,10 @@ export const changeUserDisplayName = (userId, newName) => {
       console.log('Error occurred when updating the current user display name', error);
     });
 };
+
+export const changeUserBio = (userId, newBio) => {
+  const userRef = doc(db, 'users', userId);
+  updateDoc(userRef, {
+    bio: newBio
+  });
+};
