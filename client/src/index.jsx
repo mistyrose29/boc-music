@@ -17,7 +17,8 @@ import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
 import './styles/styles.css';
 
-import { createFile, getFileUrl, changeAvatar } from '../../database/controllers.js';
+import { createFile, getFileUrl, changeAvatar, changeUserDisplayName } from '../../database/controllers.js';
+
 
 const history = createBrowserHistory();
 
@@ -35,6 +36,7 @@ class App extends React.Component {
     this.removeFriend = this.removeFriend.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
     this.changeProfileImage = this.changeProfileImage.bind(this);
+    this.changeDisplayName = this.changeDisplayName.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser, cb) {
@@ -81,6 +83,17 @@ class App extends React.Component {
       });
   }
 
+  changeDisplayName(newName, cb) {
+    changeUserDisplayName(this.state.loggedInUser.userId, newName);
+    let current = this.state.loggedInUser;
+    current.name = newName;
+    this.setState({
+      loggedInUser: current
+    }, () => {
+      cb();
+    });
+  }
+
   render() {
     if (this.state.load) {
       return (
@@ -108,9 +121,9 @@ class App extends React.Component {
                 ownerName={this.state.loggedInUser.username}
                 ownerId={this.state.loggedInUser.userId}/>
               <HomePage
-                ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId}
-                friends={Object.values(this.state.loggedInUser.friends)}/>
+                friends={Object.values(this.state.loggedInUser.friends)}
+                ownerName={this.state.loggedInUser.name}
+                ownerId={this.state.loggedInUser.userId} />
             </Route>
 
             <Route path='/projects'>
@@ -146,6 +159,7 @@ class App extends React.Component {
                 loginLogout={this.loginLogout}/>
               <Profile loginLogout={this.loginLogout}
                 changeProfileImage={this.changeProfileImage}
+                changeDisplayName={this.changeDisplayName}
                 state={this.state}/>
             </Route>
 

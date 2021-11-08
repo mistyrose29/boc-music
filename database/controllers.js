@@ -29,6 +29,7 @@ export const getProjectFiles = (projectId) => {
 // FIREBASE DB METHODS
 export const createProject = (data) => {
   const id = uuid();
+  console.log('jhdkajhf', data)
   return addDoc(collection(db, 'projects'), data);
 };
 
@@ -188,5 +189,17 @@ export const changeAvatar = (userId, imageUrl) => {
       });
     }).catch((error) => {
       console.log('Error occurred when updating the current user profile', error);
+    });
+};
+
+export const changeUserDisplayName = (userId, newName) => {
+  updateProfile(auth.currentUser, { displayName: newName })
+    .then(() => {
+      const userRef = doc(db, 'users', userId);
+      updateDoc(userRef, {
+        name: newName
+      });
+    }).catch((error) => {
+      console.log('Error occurred when updating the current user display name', error);
     });
 };
