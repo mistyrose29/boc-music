@@ -34,7 +34,7 @@ const NavPane = (props) => {
     <>
       <Button
         style={{
-          // borderRadius: '100px',
+          backgroundColor: 'white',
           position: 'fixed',
           top: '10px',
           left: '10px',
