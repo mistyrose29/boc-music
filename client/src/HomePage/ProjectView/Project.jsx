@@ -246,15 +246,16 @@ class Project extends React.Component {
             );
           })}
         </>
+        <Button>Voice Record</Button>
         <div id='mixing'>
-          <button
-            id='mix'
-            onClick={() => this.mix(this.state.wavesurfers)}
-          >
-            mix
-          </button>
+          <div id='mix-btn'>
+            <Button variant='outline-primary'>
+              <Icon icon='akar-icons:cloud-download' width='24' />
+              Mix and Download
+            </Button>
+
+          </div>
           <a id="download"></a>
-          <Button>Voice Record</Button>
         </div>
       </div>
     );

@@ -227,6 +227,19 @@
   visibility: hidden;
 }
 
+#mixing {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#mix-btn {
+  position: relative;
+  margin: 2rem;
+  bottom: 0;
+  right: 0;
+}
+
 /*
 
 Used on PROJECTS Page
