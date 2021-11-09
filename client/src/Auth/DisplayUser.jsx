@@ -22,11 +22,12 @@ export default function DisplayUser(props) {
         />
         <Card.Title>
           <br/>
-          Hello
+          Hello, 
+          {/* <Card.Text> */}
+          {props.name || noUser} !
+          {/* </Card.Text> */}
         </Card.Title>
-        <Card.Text>
-          {props.name || noUser}
-        </Card.Text>
+
       </Card.Body>
     </Card>
   );

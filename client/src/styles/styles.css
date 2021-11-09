@@ -1,9 +1,23 @@
+* {
+  background-color: #41393E;
+  
+}
+.img-fluid {
+  margin-bottom: .8em;
+  border-style: solid;
+  border-width: .8em;
+  /* border-color: #8e4162; */
+  /* border-color: #c7e8f3; */
+  border-radius: .8em;
+}
+
+
 #eq-popup {
   position: static;
   top: 1em;
   padding: 1em;
   background-color: white;
-  border: 1em solid black;
+  border: 1em solid #41393E;
 }
 .flex-column {
   display: flex;
@@ -40,8 +54,54 @@
 .center-content {
   align-items: center;
   justify-content: center;
+  background: linear-gradient(#bf9aca,#eda2c0 ); 
+
+}
+.nav-pills {
+  height: 100%;
+  box-sizing: border-box;
+  margin-top: .8em;
+  text-align: center;
+  background-color: #bf9aca;
+}
+.nav-item {
+  
+  border-radius: .8em;
+  background-color: #bf9aca;
+
+}
+.nav-item:hover {
+  background-color: #8E4162 ;
 }
 
+.card-title {
+
+  margin: auto;
+  width: 40%;
+  padding-bottom: 1em;
+  background: linear-gradient(#bf9aca,#eda2c0 ); 
+  background-image: linear-gradient(to left, #8E4162 1%, #bf9aca 100%), 
+  linear-gradient(to left, #8E4162 1%, #c7e8f3 50%, #bf9aca 100%);
+background-size: 100% 3px;
+background-position: 0% 0%, 0% 100%;
+background-repeat: no-repeat;
+
+  
+}
+.rounded-circle {
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
+/* .card-text {
+  background: linear-gradient(#8e4162,#41393E )
+
+} */
+
+.card-body {
+  border-style: solid;
+  border-width: .8em;
+  background: linear-gradient(#41393E, #8e4162, #eda2c0 )
+}
 .grow {
   flex-grow: 1
 }
@@ -55,7 +115,7 @@
 }
 
 .sticky-header{
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   position: sticky;
   top:0;
   z-index: 4;
@@ -83,9 +143,9 @@
   margin: 0;
 }
 
-.mb-3-top {
+/* .mb-3-top {
   margin-top: 1rem;
-}
+} */
 
 .offcanvas-start {
   width: 250px;
@@ -94,8 +154,8 @@
 /* END OVERRIDE */
 
 .tab-detail {
-  margin: 0 8px 14px 8px;
-  padding: 0 8px 14px 8px;
+  /* margin: 0 8px 14px 8px; */
+  /* padding: 0 8px 14px 8px; */
   font-style: italic;
   font-size: smaller;
   color: gray;
@@ -217,7 +277,7 @@
 .search-bar-bottom {
   display:flex;
   justify-content: row;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .friends-list-photo {
