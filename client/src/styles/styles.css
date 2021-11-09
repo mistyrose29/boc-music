@@ -54,7 +54,7 @@
 .center-content {
   align-items: center;
   justify-content: center;
-  background-color: #bf9aca;
+  background: linear-gradient(#bf9aca,#eda2c0 ); 
 
 }
 .nav-pills {
@@ -75,13 +75,22 @@
 }
 
 .card-title {
- 
+
   margin: auto;
-  width: 50%;
+  width: 40%;
   padding-bottom: 1em;
-  background: linear-gradient(#bf9aca,#eda2c0 );
-  opacity: 0.5;
+  background: linear-gradient(#bf9aca,#eda2c0 ); 
+  background-image: linear-gradient(to left, #8E4162 1%, #bf9aca 100%), 
+  linear-gradient(to left, #8E4162 1%, #c7e8f3 50%, #bf9aca 100%);
+background-size: 100% 3px;
+background-position: 0% 0%, 0% 100%;
+background-repeat: no-repeat;
+
   
+}
+.rounded-circle {
+  margin-bottom: 2em;
+  margin-top: 1em;
 }
 /* .card-text {
   background: linear-gradient(#8e4162,#41393E )
@@ -91,7 +100,7 @@
 .card-body {
   border-style: solid;
   border-width: .8em;
-  background: linear-gradient(#8e4162,#41393E )
+  background: linear-gradient(#41393E, #8e4162, #eda2c0 )
 }
 .grow {
   flex-grow: 1
