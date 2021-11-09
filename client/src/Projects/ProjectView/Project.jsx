@@ -17,7 +17,7 @@ class Project extends React.Component {
       isPlaying: false,
       tracks: [],
       time: 0,
-      wavesurfers: [],
+      wavesurfers: {},
       eq: {}
     };
 
@@ -39,7 +39,7 @@ class Project extends React.Component {
     });
   }
 
-  setEq(key, values) {
+  setEq(key, values, WS) {
     console.log(key);
     console.log(values);
     let tempEq = {}
@@ -54,28 +54,35 @@ class Project extends React.Component {
 
     this.setState({
       eq: tempEq
-    });
+    }, () => this.storeWS(WS));
+    console.log(this.state.wavesurfers)
   }
 
-  storeWS(WS) {
-    let wavesurfers = this.state.wavesurfers
-    wavesurfers.push(WS)
-    this.setState({
-      wavesurfers: wavesurfers
-    })
+  storeWS(WS, index) {
+    if (index >= 0) {
+      let wavesurfers = this.state.wavesurfers
+      wavesurfers[index] = WS
+      this.setState({
+        wavesurfers: wavesurfers
+      }, () => { console.log(this.state.wavesurfers) })
+    }
   }
 
   async mix(soundSources) {
+    let sources = Object.values(soundSources)
+
+    console.log(sources)
     // display mixing status and disable click
-    let mixBtn = document.getElementById('mix')
-    mixBtn.innerText = 'Mixing and compressing...'
+    let mixBtn = document.getElementById('mix-btn')
     mixBtn.disabled = true;
+    let mixStatus = document.getElementById('mix-status')
+    mixStatus.innerText = 'Mixing and compressing...'
 
     let maxDuration = 0;
     let maxChannels = 0;
 
     // Find maximum duration and channels from the sources
-    soundSources.map((src) => {
+    sources.map((src) => {
       const duration = src.backend.buffer.duration
       const channels = src.backend.buffer.numberOfChannels
       if (maxChannels < channels) {
@@ -92,12 +99,12 @@ class Project extends React.Component {
       sampleRate: 44100,
     });
     // Create buffer source, then set its buffer to the AudioBuffer
-    soundSources.map((src) => {
+    sources.map((src) => {
       let source = offlineCtx.createBufferSource();
       source.buffer = src.backend.buffer
 
       // Create Compressor Node
-      var compressor = offlineCtx.createDynamicsCompressor();
+      let compressor = offlineCtx.createDynamicsCompressor();
 
       compressor.threshold.setValueAtTime(-5, offlineCtx.currentTime); // set value btw -100 and 0
       compressor.knee.setValueAtTime(15, offlineCtx.currentTime); // set value btw 0 and 40
@@ -105,8 +112,27 @@ class Project extends React.Component {
       compressor.attack.setValueAtTime(.005, offlineCtx.currentTime); // set value btw 0 and 1
       compressor.release.setValueAtTime(0.15, offlineCtx.currentTime); // set value btw 0 and 1
 
+      // Create Filter Nodes
+      let eq = src.backend.filters.map((filter, index) => {
+        let eqFilter = offlineCtx.createBiquadFilter();
+        eqFilter.type = filter.type;
+        eqFilter.gain.value = filter.gain.value;
+        eqFilter.Q.value = filter.Q.value;
+        eqFilter.frequency.value = filter.frequency.value;
+        return eqFilter
+      })
+      // connect filter nodes to each other
+      eq.forEach((filter, index) => {
+        if (index === eq.length - 1) {
+          filter.connect(compressor)
+        } else {
+          filter.connect(eq[index + 1])
+        }
+      })
+
+
       // Connect nodes to destination
-      source.connect(compressor)
+      source.connect(eq[0])
       compressor.connect(offlineCtx.destination)
       // Play through the audio buffer to process audio
       source.start()
@@ -127,13 +153,13 @@ class Project extends React.Component {
       let new_file = URL.createObjectURL(bufferToWave(audioBuffer, total_samples));
 
       // Set up downloadable link
-      let download_link = document.getElementById("download");
+      let download_link = document.getElementById("download-link");
       download_link.href = new_file;
       let name = "download.wav";
       download_link.innerText = name;
       download_link.download = name;
       // bring back the mix button
-      mixBtn.innerText = 'mix'
+      mixStatus.innerText = 'Mix and Download'
       mixBtn.disabled = false;
     }
 
@@ -264,22 +290,29 @@ class Project extends React.Component {
                   setEq={this.setEq}
                   initialEq={
                     this.props.eq
-                    ? this.props.eq[track.name] || null
-                    : null}
+                      ? this.props.eq[track.name] || null
+                      : null}
                 />
               </div>
             );
           })}
         </>
+        <div id='download-container'>
+          <div id='download'>
+
+            <a id="download-link"></a>
+          </div>
+        </div>
         <div id='mixing'>
-          <button
-            id='mix'
-            onClick={() => this.mix(this.state.wavesurfers)}
-          >
-            mix
-          </button>
-          <a id="download"></a>
-          <Button>Voice Record</Button>
+          <div id='mixing-container'>
+            <Button id='mix-btn' variant='outline-primary' onClick={() => this.mix(this.state.wavesurfers)}>
+              <Icon icon='akar-icons:cloud-download' width='24' />
+              <span id='mix-status'>
+                Mix and Download
+              </span>
+            </Button>
+
+          </div>
         </div>
       </div>
     );

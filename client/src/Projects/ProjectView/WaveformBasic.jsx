@@ -98,7 +98,7 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
         // wavesurfer.current.setVolume(volume);
         // setVolume(volume);
 
-        storeWS(wavesurfer.current)
+        storeWS(wavesurfer.current, index)
         const total = wavesurfer.current.getDuration().toFixed();
         const totalMinutes = Math.floor(total / 60);
         let totalSeconds = total % 60;
@@ -157,6 +157,8 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
       filterGains.forEach((gainValue, index) => {
         setGain(index, gainValue);
       });
+      console.log(index,wavesurfer.current)
+      storeWS(wavesurfer.current, index)
     }
   }, [filterGains]);
 

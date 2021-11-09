@@ -240,6 +240,17 @@
   right: 0;
 }
 
+#download-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem;
+}
+
+#download {
+
+}
+
 /*
 
 Used on PROJECTS Page

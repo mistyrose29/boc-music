@@ -47,9 +47,10 @@ class Project extends React.Component {
 
   async mix(soundSources) {
     // display mixing status and disable click
-    let mixBtn = document.getElementById('mix')
-    mixBtn.innerText = 'Mixing and compressing...'
+    let mixBtn = document.getElementById('mix-btn')
     mixBtn.disabled = true;
+    let mixStatus = document.getElementById('mix-status')
+    mixStatus.innerText = 'Mixing and compressing...'
 
     let maxDuration = 0;
     let maxChannels = 0;
@@ -107,13 +108,13 @@ class Project extends React.Component {
       let new_file = URL.createObjectURL(bufferToWave(audioBuffer, total_samples));
 
       // Set up downloadable link
-      let download_link = document.getElementById("download");
+      let download_link = document.getElementById("download-link");
       download_link.href = new_file;
       let name = "download.wav";
       download_link.innerText = name;
       download_link.download = name;
       // bring back the mix button
-      mixBtn.innerText = 'mix'
+      mixStatus.innerText = 'Mix and Download'
       mixBtn.disabled = false;
     }
 
@@ -247,15 +248,22 @@ class Project extends React.Component {
           })}
         </>
         <Button>Voice Record</Button>
+        <div id='download-container'>
+          <div id='download'>
+
+          <a id="download-link"></a>
+          </div>
+        </div>
         <div id='mixing'>
-          <div id='mix-btn'>
-            <Button variant='outline-primary'>
+          <div id='mixing-container'>
+            <Button id='mix-btn' variant='outline-primary' onClick={() => this.mix(this.state.wavesurfers)}>
               <Icon icon='akar-icons:cloud-download' width='24' />
-              Mix and Download
+              <span id='mix-status'>
+                Mix and Download
+              </span>
             </Button>
 
           </div>
-          <a id="download"></a>
         </div>
       </div>
     );
