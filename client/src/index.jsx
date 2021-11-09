@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Authentication from './Auth/Authentication.jsx';
 import DisplayUser from './Auth/DisplayUser.jsx';
-import Home from './Waveform/home.jsx';
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
@@ -17,7 +16,7 @@ import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
 import './styles/styles.css';
 
-import { createFile, getFileUrl, changeAvatar, changeUserDisplayName } from '../../database/controllers.js';
+import { createFile, getFileUrl, changeAvatar, changeUserDisplayName, changeUserBio } from '../../database/controllers.js';
 
 
 const history = createBrowserHistory();
@@ -37,6 +36,7 @@ class App extends React.Component {
     this.reloadUser = this.reloadUser.bind(this);
     this.changeProfileImage = this.changeProfileImage.bind(this);
     this.changeDisplayName = this.changeDisplayName.bind(this);
+    this.changeBio = this.changeBio.bind(this);
   }
 
   loginLogout(loggedIn, loggedInUser, cb) {
@@ -94,6 +94,17 @@ class App extends React.Component {
     });
   }
 
+  changeBio(bio, cb) {
+    changeUserBio(this.state.loggedInUser.userId, bio);
+    let current = this.state.loggedInUser;
+    current.bio = bio;
+    this.setState({
+      loggedInUser: current
+    }, () => {
+      cb();
+    });
+  }
+
   render() {
     if (this.state.load) {
       return (
@@ -115,11 +126,6 @@ class App extends React.Component {
                 photo={this.state.loggedInUser.photo || null}
                 name={this.state.loggedInUser.name || null}
                 history={history}/>
-              <Home
-                history={history}
-                loginLogout={this.loginLogout}
-                ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId}/>
               <HomePage
                 friends={Object.values(this.state.loggedInUser.friends)}
                 ownerName={this.state.loggedInUser.name}
@@ -160,6 +166,7 @@ class App extends React.Component {
               <Profile loginLogout={this.loginLogout}
                 changeProfileImage={this.changeProfileImage}
                 changeDisplayName={this.changeDisplayName}
+                changeBio={this.changeBio}
                 state={this.state}/>
             </Route>
 

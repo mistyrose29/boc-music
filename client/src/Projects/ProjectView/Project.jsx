@@ -265,8 +265,7 @@ class Project extends React.Component {
                   initialEq={
                     this.props.eq
                     ? this.props.eq[track.name] || null
-                    : null
-                  }
+                    : null}
                 />
               </div>
             );

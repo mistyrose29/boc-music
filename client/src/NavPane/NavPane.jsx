@@ -34,7 +34,7 @@ const NavPane = (props) => {
     <>
       <Button
         style={{
-          // borderRadius: '100px',
+          backgroundColor: 'white',
           position: 'fixed',
           top: '10px',
           left: '10px',
@@ -48,7 +48,6 @@ const NavPane = (props) => {
 
       <Offcanvas size='sm' show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          {/* <Offcanvas.Title>Music Share</Offcanvas.Title> */}
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Image
