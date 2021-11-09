@@ -6,13 +6,13 @@ import Waveform from './Waveform.jsx';
 const tracks = [
   {
     id: 0,
-    title: 'Song 1',
+    title: 'Brahms St Anthony Chorale Theme - Two Pianos',
     url:
       'https://www.mfiles.co.uk/mp3-downloads/brahms-st-anthony-chorale-theme-two-pianos.mp3'
   },
   {
     id: 1,
-    title: 'Song 2',
+    title: 'Fraz Schubert Standchen Serenade',
     url:
       'https://www.mfiles.co.uk/mp3-downloads/franz-schubert-standchen-serenade.mp3'
   }
