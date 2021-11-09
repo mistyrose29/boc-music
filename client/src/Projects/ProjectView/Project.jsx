@@ -39,9 +39,7 @@ class Project extends React.Component {
     });
   }
 
-  setEq(key, values, WS) {
-    console.log(key);
-    console.log(values);
+  setEq(key, values) {
     let tempEq = {}
     for (name in this.state.eq) {
       tempEq[name] = this.state.eq[name];
@@ -54,8 +52,7 @@ class Project extends React.Component {
 
     this.setState({
       eq: tempEq
-    }, () => this.storeWS(WS));
-    console.log(this.state.wavesurfers)
+    });
   }
 
   storeWS(WS, index) {
@@ -64,14 +61,13 @@ class Project extends React.Component {
       wavesurfers[index] = WS
       this.setState({
         wavesurfers: wavesurfers
-      }, () => { console.log(this.state.wavesurfers) })
+      })
     }
   }
 
   async mix(soundSources) {
     let sources = Object.values(soundSources)
 
-    console.log(sources)
     // display mixing status and disable click
     let mixBtn = document.getElementById('mix-btn')
     mixBtn.disabled = true;
@@ -129,7 +125,6 @@ class Project extends React.Component {
           filter.connect(eq[index + 1])
         }
       })
-
 
       // Connect nodes to destination
       source.connect(eq[0])
