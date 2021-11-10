@@ -50,7 +50,7 @@ const Profile = (props) => {
       }}>
       <Card.Body>
         <Card.Title
-          className='text-center'
+          className='text-center profile-top'
           style={{
             fontSize: '30px'
           }}>

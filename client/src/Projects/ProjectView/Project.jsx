@@ -39,6 +39,8 @@ class Project extends React.Component {
     });
   }
 
+
+
   setEq(key, values) {
     console.log(key);
     console.log(values);
@@ -229,6 +231,7 @@ class Project extends React.Component {
     return (
       <div className='main-container'>
         <header className='sticky-header' style={{ marginBottom: 0 }}>
+        <Button className='back-btn' onClick = {this.props.goBack}> <Icon icon={'typcn:arrow-back'} /></Button>
           <div className='flex-row center-content'>
             <div className='center-text projects-header'>
               {this.props.title}

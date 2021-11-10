@@ -25,6 +25,7 @@ class Projects extends React.Component {
     this.create = this.create.bind(this);
     this.save = this.save.bind(this);
     this.clear = this.clear.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   componentDidMount() {
@@ -106,6 +107,12 @@ class Projects extends React.Component {
     });
   }
 
+  goBack() {
+    this.setState({
+      projectId : null
+    })
+  }
+
   render() {
     if (this.state.projectId !== null) {
       
@@ -114,7 +121,8 @@ class Projects extends React.Component {
           projectId={this.state.projectId}
           title={this.state.projectTitle}
           owner={this.state.projectOwner}
-          eq={this.state.projectEq}/>
+          eq={this.state.projectEq}
+          goBack = {this.goBack}/>
       );
     } else {
       return (

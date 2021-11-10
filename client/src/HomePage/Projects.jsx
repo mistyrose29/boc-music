@@ -34,6 +34,7 @@ class HomePage extends React.Component {
     this.setSearchTabFalse = this.setSearchTabFalse.bind(this);
     this.setFriendsTabTrue = this.setFriendsTabTrue.bind(this);
     this.setFriendsTabFalse = this.setFriendsTabFalse.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   componentDidMount() {
@@ -150,6 +151,12 @@ class HomePage extends React.Component {
     })
   }
   
+  goBack() {
+    this.setState({
+      projectId : null
+    })
+  }
+  
   setFriendsTabFalse() {
     this.setState({
       friendsTab: false
@@ -165,7 +172,8 @@ class HomePage extends React.Component {
         projectId={this.state.projectId}
         title={this.state.projectTitle}
         owner={this.state.projectOwner}
-        eq={this.state.projectEq}/>
+        eq={this.state.projectEq}
+        goBack = {this.goBack}/>
       );
     } else {
       return (
