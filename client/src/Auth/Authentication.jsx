@@ -30,12 +30,37 @@ export default function Authentication(props) {
   }, [props]);
 
   return (
-    <div>
-      <Card className="text-center" style={{border: 'none'}}>
-        <Image
-          src={'./musicsharelogo1.png'}
-          fluid
-        />
+    <div
+      className='music-share-login'
+      style={{
+        width: 'fit-content',
+        height: 'fit-content',
+        position: 'absolute',
+        top: '0',
+        bottom: '0',
+        left: '0',
+        right: '0',
+        margin: 'auto'
+      }}>
+      <Card
+        className="text-center"
+        style={{
+          border: 'none'
+        }}>
+        <div
+          style={{
+            width: 'fit-content',
+            margin: '0 auto'
+          }}>
+          <Image
+            src={'./musicsharelogo1.png'}
+            style={{
+              width: '330px'
+            }}
+            fluid/>
+        </div>
+        <br/>
+        <br/>
         <div id="firebaseui-auth-container"></div>
       </Card>
     </div>

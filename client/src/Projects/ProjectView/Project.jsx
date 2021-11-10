@@ -262,7 +262,10 @@ class Project extends React.Component {
                   saveTime={this.saveTime}
                   storeWS={this.storeWS}
                   setEq={this.setEq}
-                  initialEq={this.props.eq[track.name]}
+                  initialEq={
+                    this.props.eq
+                    ? this.props.eq[track.name] || null
+                    : null}
                 />
               </div>
             );

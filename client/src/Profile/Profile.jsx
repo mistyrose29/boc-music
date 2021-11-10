@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useState } from 'react';
-import { Card, Image, InputGroup, FormControl, Modal, Button } from 'react-bootstrap';
+import { Card, Form, Image, Button, Alert } from 'react-bootstrap';
 
 const noUser = 'Anonymous';
 const noPhoto = './anonymous.png';
@@ -12,78 +12,111 @@ const openSelectFile = () => {
 };
 
 const Profile = (props) => {
-  const [show, setShow] = useState(false);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(props.state.loggedInUser.name);
+  const [bio, setBio] = useState(props.state.loggedInUser.bio);
+  const [updated, setUpdated] = useState(false);
+  const [alert, setAlert] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleUsername = (event) => {
+    setUsername(event.target.value);
+    setUpdated(true);
+  };
 
-  const changeUsernameButtonClicked = () => {
-    const newName = username;
+  const handleBio = (event) => {
+    setBio(event.target.value);
+    setUpdated(true);
+  };
 
-    props.changeDisplayName(newName, () => {
-      setUsername('');
-      handleClose();
+  const saveChanges = () => {
+    setUpdated(false);
+    props.changeDisplayName(username, () => {
+      props.changeBio(bio, () => {
+        setAlert(true);
+        setTimeout(() => {
+          setAlert(false);
+        }, 2000);
+      });
     });
   };
 
   return (
-    <div className ="profile-div" >
-      <Image
-        src={props.state.loggedInUser.photo || noPhoto}
-        roundedCircle
-        alt='userPhoto' onClick={openSelectFile}
-        style={{ cursor: 'pointer' }}
-      />
-      <input id="profile-image-upload" type="file" onChange={props.changeProfileImage}/>
-      <div className = "friends-title">Current Username: {props.state.loggedInUser.name}</div>
-      <InputGroup className='mb-3'>
-        <FormControl
-          value={username}
-          id='newUsernameField'
-          placeholder='Enter New Username'
-          aria-label='Username'
-          aria-describedby='basic-addon1'
-          onChange={e => setUsername(e.target.value)}
-        />
-      </InputGroup>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Change Username Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          You are attempting to change your username. Please review and confirm the following changes to your account:
-          <br></br>
-          <br></br>
-          Current username: {props.state.loggedInUser.name}
-          <br></br>
-          New username: {username}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={changeUsernameButtonClicked}>
-            Confirm Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <button className = 'up-and-down-arrow' onClick={handleShow}>Change Username</button>
-      <br></br>
-      <div className = "friends-title">Email: {props.state.loggedInUser.email}</div>
-      <button className = "up-and-down-arrow">Change Email</button>
-      <br></br>
-      <div className = "friends-title">User ID: {props.state.loggedInUser.userId}</div>
+    <Card
+      style={{
+        position: 'absolute',
+        left: '0',
+        right: '0',
+        margin: 'auto',
+        border: 'none'
+      }}>
+      <Card.Body>
+        <Card.Title
+          className='text-center'
+          style={{
+            fontSize: '30px'
+          }}>
+          Profile
+        </Card.Title>
+        <br/>
+        <Form>
+          <Form.Group
+            style={{
+              textAlign: 'center'
+            }}>
+            <Image
+              src={props.state.loggedInUser.photo || noPhoto}
+              roundedCircle
+              alt='userPhoto'
+              onClick={openSelectFile}
+              style={{
+                maxWidth: '200px',
+                maxHeight: '200px',
+                cursor: 'pointer',
+                textAlign: 'center'
+              }}/>
+          </Form.Group>
+          <input
+            id="profile-image-upload"
+            type="file"
+            onChange={props.changeProfileImage}/>
+          <Form.Group className="mb-3" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="username"
+              value={username}
+              onChange={handleUsername}/>
+          </Form.Group>
 
-      <button className = "up-and-down-arrow">Change Password</button>
-      <br></br>
-      <button className = "up-and-down-arrow"
-        onClick={() => {
-          auth.signOut();
-          props.loginLogout(false, null);
-          props.history.push('/login');
-        }}>logout</button>
-    </div>
+          <Form.Group className="mb-3" controlId="bio">
+            <Form.Label>Bio</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={5}
+              value={bio}
+              onChange={handleBio}/>
+          </Form.Group>
+
+          <div className="d-grid gap-2">
+            {
+              alert
+                ? <Alert variant='primary'>
+                  Saved changes!
+                </Alert>
+                : updated
+                  ? <Button
+                    variant="primary"
+                    onClick={saveChanges}>
+                    Save Changes
+                  </Button>
+                  : <Button
+                    variant="primary"
+                    disabled>
+                      Save Changes
+                  </Button>
+            }
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 
