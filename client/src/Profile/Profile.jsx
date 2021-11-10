@@ -42,8 +42,6 @@ const Profile = (props) => {
   return (
     <Card
       style={{
-        width: 'fit-content',
-        height: 'fit-content',
         position: 'absolute',
         left: '0',
         right: '0',
@@ -70,8 +68,8 @@ const Profile = (props) => {
               alt='userPhoto'
               onClick={openSelectFile}
               style={{
-                width: '200px',
-                height: '200px',
+                maxWidth: '200px',
+                maxHeight: '200px',
                 cursor: 'pointer',
                 textAlign: 'center'
               }}/>
