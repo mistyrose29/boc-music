@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Authentication from './Auth/Authentication.jsx';
 import DisplayUser from './Auth/DisplayUser.jsx';
-import Home from './Waveform/home.jsx';
 import WaveformApp from './Waveform/WaveformApp.jsx';
 import Projects from './Projects/Projects.jsx';
 import NavPane from './NavPane/NavPane.jsx';
@@ -127,15 +126,10 @@ class App extends React.Component {
                 photo={this.state.loggedInUser.photo || null}
                 name={this.state.loggedInUser.name || null}
                 history={history}/>
-              <Home
-                history={history}
-                loginLogout={this.loginLogout}
-                ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId}/>
               <HomePage
-                ownerName={this.state.loggedInUser.username}
-                ownerId={this.state.loggedInUser.userId}
-                friends={Object.values(this.state.loggedInUser.friends)}/>
+                friends={Object.values(this.state.loggedInUser.friends)}
+                ownerName={this.state.loggedInUser.name}
+                ownerId={this.state.loggedInUser.userId} />
             </Route>
 
             <Route path='/projects'>

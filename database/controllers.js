@@ -29,6 +29,7 @@ export const getProjectFiles = (projectId) => {
 // FIREBASE DB METHODS
 export const createProject = (data) => {
   const id = uuid();
+  console.log('jhdkajhf', data)
   return addDoc(collection(db, 'projects'), data);
 };
 

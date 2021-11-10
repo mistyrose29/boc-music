@@ -42,8 +42,6 @@ const Profile = (props) => {
   return (
     <Card
       style={{
-        width: 'fit-content',
-        height: 'fit-content',
         position: 'absolute',
         left: '0',
         right: '0',
@@ -52,7 +50,7 @@ const Profile = (props) => {
       }}>
       <Card.Body>
         <Card.Title
-          className='text-center'
+          className='text-center profile-top'
           style={{
             fontSize: '30px'
           }}>
@@ -70,8 +68,8 @@ const Profile = (props) => {
               alt='userPhoto'
               onClick={openSelectFile}
               style={{
-                width: '200px',
-                height: '200px',
+                maxWidth: '200px',
+                maxHeight: '200px',
                 cursor: 'pointer',
                 textAlign: 'center'
               }}/>
@@ -92,7 +90,7 @@ const Profile = (props) => {
             <Form.Label>Bio</Form.Label>
             <Form.Control
               as="textarea"
-              rows={10}
+              rows={5}
               value={bio}
               onChange={handleBio}/>
           </Form.Group>
