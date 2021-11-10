@@ -10,7 +10,7 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload,
     <Card className='card-shadow'>
       <Card.Header>
         <div className="flex-row justify-between center-items">
-          <span>{project.title} - {project.public ? 'Public' : 'Private'}</span>
+          <span id='project-title'>{project.title} - {project.public ? 'Public' : 'Private'}</span>
           {project.owner === userId
             ? <div>
               <Share
