@@ -323,6 +323,30 @@ button {
   visibility: hidden;
 }
 
+#mixing {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#mix-btn {
+  position: relative;
+  margin: 2rem;
+  bottom: 0;
+  right: 0;
+}
+
+#download-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem;
+}
+
+#download {
+
+}
+
 /*
 
 Used on PROJECTS Page

@@ -48,7 +48,7 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState([]);
 
   const setGain = (index, value) => {
     filters[index].gain.value = value;
@@ -77,10 +77,10 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
     ];
 
     //create the filters
-    let bands = EQ.map(band => {
+    let bands = EQ.map((band, i) => {
       let filter = wavesurfer.current.backend.ac.createBiquadFilter();
       filter.type = band.type;
-      filter.gain.value = 0;
+      filter.gain.value = filterGains[i]
       filter.Q.value = 1;
       filter.frequency.value = band.f;
       return filter;
@@ -98,7 +98,7 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
         // wavesurfer.current.setVolume(volume);
         // setVolume(volume);
 
-        storeWS(wavesurfer.current)
+        storeWS(wavesurfer.current, index)
         const total = wavesurfer.current.getDuration().toFixed();
         const totalMinutes = Math.floor(total / 60);
         let totalSeconds = total % 60;
@@ -157,6 +157,8 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
       filterGains.forEach((gainValue, index) => {
         setGain(index, gainValue);
       });
+      // update WS state in Project.jsx
+      storeWS(wavesurfer.current, index)
     }
   }, [filterGains]);
 

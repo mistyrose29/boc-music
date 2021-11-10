@@ -19,7 +19,7 @@ class Track extends React.Component {
       wavesurfer: null,
       url: null,
       display: false,
-      filterGains: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      filterGains: JSON.parse(window.localStorage.getItem(`filterGains${this.props.index}`)) || Array(10).fill(0),
     };
 
     this.buildWaveform = this.buildWaveform.bind(this);
@@ -70,12 +70,12 @@ class Track extends React.Component {
     filterGains[index] = value;
     this.setState({
       filterGains: filterGains
-    });
+    }, () => {window.localStorage.setItem(`filterGains${this.props.index}`, JSON.stringify(filterGains))});
   }
 
   resetFilterGains() {
     this.setState({
-      filterGains: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      filterGains: Array(10).fill(0)
     });
   }
 

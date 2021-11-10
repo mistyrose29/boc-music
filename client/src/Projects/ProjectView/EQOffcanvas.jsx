@@ -13,7 +13,6 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
   const handleClose = () => {
     setShow(false);
     setEq(name, filterGains);
-    console.log('closed');
   };
 
   const handleShow = () => {
