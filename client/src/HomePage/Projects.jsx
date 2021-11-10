@@ -158,19 +158,14 @@ class HomePage extends React.Component {
 
   render() {
     if (this.state.projectId !== null) {
-      props.history.push('/projectView')
+      
       return (
-        <Router>
-          <Switch>
-            <Route path='/login'>
-              <Project
-              projectId={this.state.projectId}
-              title={this.state.projectTitle}
-              owner={this.state.projectOwner}
-              eq={this.state.projectEq}/>
-            </Route>
-          </Switch>
-        </Router>
+
+        <Project
+        projectId={this.state.projectId}
+        title={this.state.projectTitle}
+        owner={this.state.projectOwner}
+        eq={this.state.projectEq}/>
       );
     } else {
       return (
