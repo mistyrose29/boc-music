@@ -7,8 +7,9 @@ const noPhoto = './anonymous.png';
 
 export default function DisplayUser(props) {
   return (
-    <Card className="text-center" style={{border: 'none'}}>
-      <Card.Body>
+    <div >
+    <Card className="text-center"  style={{border: 'none'}}>
+      <Card.Body id='header-title'>
         <Image
           src={'./musicsharelogo1.png'}
           fluid
@@ -30,5 +31,6 @@ export default function DisplayUser(props) {
 
       </Card.Body>
     </Card>
+    </div>
   );
 }
