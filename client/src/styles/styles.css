@@ -217,8 +217,11 @@ background-repeat: no-repeat;
 }
 
 .playlist-item, .playlist-item-selected {
-  padding-bottom: 2.5%;
-  margin-bottom: 2.5%;
+  margin-top: 3px;
+  padding: 10px;
+  border: 1px solid #ececec;
+  background-color: white;
+  border-radius: 3px;
   border-bottom: 1px solid #ececec;
 }
 
