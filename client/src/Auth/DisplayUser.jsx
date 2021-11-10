@@ -7,6 +7,7 @@ const noPhoto = './anonymous.png';
 
 export default function DisplayUser(props) {
   return (
+    <div id="header-title">
     <Card className="text-center" style={{border: 'none'}}>
       <Card.Body>
         <Image
@@ -30,5 +31,6 @@ export default function DisplayUser(props) {
 
       </Card.Body>
     </Card>
+    </div>
   );
 }
