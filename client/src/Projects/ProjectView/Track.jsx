@@ -10,6 +10,7 @@ const headphones = ['tabler:headphones-off', 'tabler:headphones'];
 const trashcan = 'octicon:trash-16';
 const eq = 'file-icons:eq';
 const wav = 'fluent:device-eq-24-regular';
+const distortion = 'fa-solid:wave-square';
 
 class Track extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Track extends React.Component {
       url: null,
       display: false,
       filterGains: JSON.parse(window.localStorage.getItem(`filterGains${this.props.index}`)) || Array(10).fill(0),
+      distort: false,
     };
 
     this.buildWaveform = this.buildWaveform.bind(this);
@@ -27,6 +29,7 @@ class Track extends React.Component {
     this.toggleDisplay = this.toggleDisplay.bind(this);
     this.setFilterGains = this.setFilterGains.bind(this);
     this.resetFilterGains = this.resetFilterGains.bind(this);
+    this.toggleDistort = this.toggleDistort.bind(this);
   }
 
   componentDidMount() {
@@ -85,6 +88,12 @@ class Track extends React.Component {
     });
   }
 
+  toggleDistort() {
+    this.setState({
+      distort: !this.state.distort
+    })
+  }
+
   render() {
     return (
       <Card className='no-bottom no-radius' id={`card${this.props.index}`}>
@@ -102,6 +111,13 @@ class Track extends React.Component {
                 setEq={this.props.setEq}/>
               <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
                 <Icon icon={wav} />
+              </Button>
+              <Button
+                size='sm'
+                variant={this.state.distort ? 'outline-primary' : 'outline-secondary'}
+                onClick={this.toggleDistort}
+                >
+                <Icon icon={distortion} />
               </Button>
             </ButtonGroup>
             <div className='center-self'>
@@ -127,7 +143,9 @@ class Track extends React.Component {
               time={this.props.time}
               saveTime={this.props.saveTime}
               filterGains={this.state.filterGains}
-              storeWS={this.props.storeWS}/>
+              storeWS={this.props.storeWS}
+              distort={this.state.distort}
+              />
           }
         </Card.Body>
       </Card>
