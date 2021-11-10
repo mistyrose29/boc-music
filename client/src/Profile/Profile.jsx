@@ -90,7 +90,7 @@ const Profile = (props) => {
             <Form.Label>Bio</Form.Label>
             <Form.Control
               as="textarea"
-              rows={10}
+              rows={5}
               value={bio}
               onChange={handleBio}/>
           </Form.Group>
