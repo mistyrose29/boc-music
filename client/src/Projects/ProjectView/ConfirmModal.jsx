@@ -35,12 +35,15 @@ const ConfirmModal = ({ deleteTitle, deleteText, cb, cbValue, reload, outline })
         size="sm"
         show={smShow}
         onHide={() => setSmShow(false)}
-        aria-labelledby="example-modal-sizes-title-sm"
-      >
+        aria-labelledby="example-modal-sizes-title-sm">
         <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">{deleteTitle}</Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-sm">
+            {deleteTitle}
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{deleteText}</Modal.Body>
+        <Modal.Body>
+          {deleteText}
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancel
