@@ -6,6 +6,7 @@ import ProjectView from '../Projects//ProjectView/ProjectView.jsx';
 import Project from '../Projects/ProjectView/Project.jsx';
 import { getAllProjects, createProject, getProject } from '../../../database/controllers.js';
 import { Nav } from 'react-bootstrap';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class HomePage extends React.Component {
       isPublic: false,
       searchTab: false,
       friendsTab: false,
-      friendString: ''
+      friendString: '',
+      projectEq: {}
     };
 
     this.loadProjectList = this.loadProjectList.bind(this);
@@ -156,12 +158,19 @@ class HomePage extends React.Component {
 
   render() {
     if (this.state.projectId !== null) {
+      props.history.push('/projectView')
       return (
-        <Project
-        projectId={this.state.projectId}
-        title={this.state.projectTitle}
-        owner={this.state.projectOwner}
-        eq={this.state.projectEq}/>
+        <Router>
+          <Switch>
+            <Route path='/login'>
+              <Project
+              projectId={this.state.projectId}
+              title={this.state.projectTitle}
+              owner={this.state.projectOwner}
+              eq={this.state.projectEq}/>
+            </Route>
+          </Switch>
+        </Router>
       );
     } else {
       return (
@@ -172,9 +181,6 @@ class HomePage extends React.Component {
               setSearchTabFalse = {this.setSearchTabFalse} setFriendsTabFalse = {this.setFriendsTabFalse}
               setFriendsTabTrue = {this.setFriendsTabTrue}/>
             </div>
-
-                
-
             <div className='bottom-right'>
               <CreateProject
                 title={this.state.title}

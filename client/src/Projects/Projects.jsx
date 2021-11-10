@@ -17,6 +17,7 @@ class Projects extends React.Component {
       title: '',
       description: '',
       isPublic: false,
+      projectEq: {}
     };
 
     this.loadProjectList = this.loadProjectList.bind(this);
@@ -107,6 +108,7 @@ class Projects extends React.Component {
 
   render() {
     if (this.state.projectId !== null) {
+      
       return (
         <Project
           projectId={this.state.projectId}
