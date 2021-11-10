@@ -1,4 +1,4 @@
-* {
+body {
   background-color: #41393E;
   
 }
@@ -56,7 +56,27 @@
   justify-content: center;
   background: linear-gradient(#bf9aca,#c7e8f3 ); 
   margin-bottom: 2em;
+  position:sticky;
 
+
+}
+@font-face {
+  font-family: Vibur;
+  src: url(https://fonts.googleapis.com/css2?family=Vibur&display=swap);
+}
+.nav-link {
+  color:#8E4162;
+  font-family: 'Vibur', cursive;
+
+  text-shadow:
+    0 0 7px #c7e8f3,
+    0 0 10px #c7e8f3,
+    0 0 21px #c7e8f3,
+    0 0 42px #bf9aca,
+    0 0 82px #bf9aca,
+    0 0 92px #bf9aca,
+    0 0 102px #bf9aca,
+    0 0 151px #bf9aca;
 }
 .nav-pills {
   height: 100%;
@@ -132,8 +152,9 @@ color: #c7e8f3;
   background-color: #eda2c0 !important;
   
 }
-button {
-  color: #41393E !important;
+.iconify  {
+  background: transparent;
+
 }
 .grow {
   flex-grow: 1
@@ -236,12 +257,12 @@ button {
   position: relative;
 }
 
-.time-current {
-  color: orangered
+.time-current, .form-label, .page-title {
+  color:#c7e8f3
 }
 
 .playlist-item-selected {
-  color : orangered;
+  color : #c7e8f3;
   cursor: default;
 }
 
@@ -339,8 +360,23 @@ https://getbootstrap.com/docs/5.1/components/card/#using-custom-css
 .text-center {
   background: transparent;
 }
+.profile-top {
+  background-color: #eda2c0;
 
-#header-title, .text-center {
+}
+.btn-toolbar, .friends-title {
+  background-color: #C7E8F3;
+}
+.offcanvas-body, .card-footer, .card-header {
+  background: linear-gradient(#eda2c0, #C7E8F3 ) !important;
+}
+.offcanvas-header{
+  background-color: #8E4162;
+}
+.waveform {
+  background-color: #eda2c0;
+}
+#header-title {
   background: linear-gradient(#eda2c0, #8e4162, #41393E ) !important;
-  background-color:tomato !important;
+
 }

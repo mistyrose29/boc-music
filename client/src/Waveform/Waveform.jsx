@@ -183,7 +183,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
     <div style={{
       height: '100vh'
     }}>
-      <div style={{
+      <div className= 'page-title' style={{
         fontSize: '30px',
         margin: '20px',
         textAlign: 'center'
