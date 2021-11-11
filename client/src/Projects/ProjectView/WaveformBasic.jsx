@@ -44,11 +44,12 @@ const formWaveSurferOptions = ref => ({
   ]
 });
 
-export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, saveTime, index, storeWS, filterGains }) {
+export default function WaveformBasic(
+  { url, isMuted, isPlaying, visible, time, saveTime, index, storeWS, filterGains, distort }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState([]);
 
   const setGain = (index, value) => {
     filters[index].gain.value = value;
@@ -77,10 +78,10 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
     ];
 
     //create the filters
-    let bands = EQ.map(band => {
+    var bands = EQ.map((band, i) => {
       let filter = wavesurfer.current.backend.ac.createBiquadFilter();
       filter.type = band.type;
-      filter.gain.value = 0;
+      filter.gain.value = filterGains[i]
       filter.Q.value = 1;
       filter.frequency.value = band.f;
       return filter;
@@ -93,12 +94,11 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
 
     wavesurfer.current.on('ready', () => {
       if (wavesurfer.current) {
-
         // below 2 lines were blocking getDuration
         // wavesurfer.current.setVolume(volume);
         // setVolume(volume);
 
-        storeWS(wavesurfer.current)
+        storeWS(wavesurfer.current, index)
         const total = wavesurfer.current.getDuration().toFixed();
         const totalMinutes = Math.floor(total / 60);
         let totalSeconds = total % 60;
@@ -157,8 +157,45 @@ export default function WaveformBasic({ url, isMuted, isPlaying, visible, time, 
       filterGains.forEach((gainValue, index) => {
         setGain(index, gainValue);
       });
+      // update WS state in Project.jsx
+      storeWS(wavesurfer.current, index)
     }
   }, [filterGains]);
+
+  useEffect(() => {
+    if (wavesurfer.current.isReady) {
+      if (distort) {
+        wavesurfer.current.backend.distort = distort
+        let ac = wavesurfer.current.backend.ac
+        let distortion = ac.createWaveShaper();
+        distortion.oversample = '2x'
+        distortion.curve = makeDistortionCurve(15)
+        let fil = filters.slice()
+        fil.push(distortion)
+        wavesurfer.current.backend.setFilters(fil)
+        console.log(wavesurfer.current)
+
+        function makeDistortionCurve(amount) {
+          if (amount > 30) {
+            amount = 30
+          }
+          var k = typeof amount === 'number' ? amount : 15,
+            n_samples = 44100,
+            curve = new Float32Array(n_samples),
+            deg = Math.PI / 180,
+            i = 0,
+            x;
+          for ( ; i < n_samples; ++i ) {
+            x = i * 2 / n_samples - 1;
+            curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+          }
+          return curve;
+        };
+      } else {
+        wavesurfer.current.backend.setFilters(filters)
+      }
+    }
+  }, [distort])
 
   return (
     <div>

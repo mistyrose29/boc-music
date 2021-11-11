@@ -9,6 +9,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: DIST_DIR,
+    hashFunction: "xxhash64" 
   },
   plugins: [
     new Dotenv()
