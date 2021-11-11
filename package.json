@@ -4,7 +4,6 @@
   "description": "RPP29 MistyRose Blue Ocean Project",
   "main": "index.js",
   "scripts": {
-    "testtest": "jest",
     "test": "jest --coverage",
     "server": "npx nodemon server/index.js",
     "webpack:dev": "webpack --mode development --watch",
