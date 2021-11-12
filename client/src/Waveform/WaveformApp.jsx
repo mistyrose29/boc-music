@@ -21,12 +21,22 @@ const tracks = [
 export default function WaveformApp() {
   const [selectedTrack, setSelectedTrack] = useState(tracks[0]);
 
+  const addNewTrack = function (audioURL) {
+    tracks.push({
+      id: 1,
+      title: 'recorded track',
+      url: audioURL
+    })
+
+  }
+
   return (
     <Waveform
       url={selectedTrack.url}
       id={selectedTrack.id}
       tracks={tracks}
       selectedTrack={selectedTrack}
-      setSelectedTrack={setSelectedTrack}/>
+      setSelectedTrack={setSelectedTrack}
+      addNewTrack = {addNewTrack}/>
   );
 }

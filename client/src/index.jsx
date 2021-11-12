@@ -9,6 +9,10 @@ import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
 import HomePage from './HomePage/Projects.jsx';
 
+
+
+
+
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
@@ -115,7 +119,8 @@ class App extends React.Component {
               <HomePage
                 friends={Object.values(this.state.loggedInUser.friends)}
                 ownerName={this.state.loggedInUser.name}
-                ownerId={this.state.loggedInUser.userId} />
+                ownerId={this.state.loggedInUser.userId} 
+                history = {history}/>
             </Route>
 
             <Route path='/projects'>

@@ -196,6 +196,27 @@ color: #c7e8f3;
   padding: 0;
   margin: 0;
 }
+/* 
+.back-btn {
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  z-index: 30;
+  position: absolute;
+} */
+
+.back-btn {
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  z-index: 30;
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 90%;
+}
 
 /* .mb-3-top {
   margin-top: 1rem;

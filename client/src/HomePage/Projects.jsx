@@ -6,6 +6,7 @@ import ProjectView from '../Projects//ProjectView/ProjectView.jsx';
 import Project from '../Projects/ProjectView/Project.jsx';
 import { getAllProjects, createProject, getProject } from '../../../database/controllers.js';
 import { Nav } from 'react-bootstrap';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class HomePage extends React.Component {
       isPublic: false,
       searchTab: false,
       friendsTab: false,
-      friendString: ''
+      friendString: '',
+      projectEq: {}
     };
 
     this.loadProjectList = this.loadProjectList.bind(this);
@@ -32,6 +34,7 @@ class HomePage extends React.Component {
     this.setSearchTabFalse = this.setSearchTabFalse.bind(this);
     this.setFriendsTabTrue = this.setFriendsTabTrue.bind(this);
     this.setFriendsTabFalse = this.setFriendsTabFalse.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   componentDidMount() {
@@ -148,6 +151,12 @@ class HomePage extends React.Component {
     })
   }
   
+  goBack() {
+    this.setState({
+      projectId : null
+    })
+  }
+  
   setFriendsTabFalse() {
     this.setState({
       friendsTab: false
@@ -156,12 +165,15 @@ class HomePage extends React.Component {
 
   render() {
     if (this.state.projectId !== null) {
+      
       return (
+
         <Project
         projectId={this.state.projectId}
         title={this.state.projectTitle}
         owner={this.state.projectOwner}
-        eq={this.state.projectEq}/>
+        eq={this.state.projectEq}
+        goBack = {this.goBack}/>
       );
     } else {
       return (
@@ -172,9 +184,6 @@ class HomePage extends React.Component {
               setSearchTabFalse = {this.setSearchTabFalse} setFriendsTabFalse = {this.setFriendsTabFalse}
               setFriendsTabTrue = {this.setFriendsTabTrue}/>
             </div>
-
-                
-
             <div className='bottom-right'>
               <CreateProject
                 title={this.state.title}
