@@ -11,6 +11,10 @@ import HomePage from './HomePage/Projects.jsx';
 import AddFriend from './Share/AddFriend.jsx';
 import RemoveFriend from './Share/RemoveFriend.jsx';
 
+
+
+
+
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
