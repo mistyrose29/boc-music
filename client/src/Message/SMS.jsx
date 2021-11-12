@@ -57,8 +57,16 @@ const TextInvite = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleSend}>Send Invite</Button>
-        <Button onClick={props.onHide}>Cancel Invite</Button>
+        <Button
+          variant="secondary"
+          onClick={props.onHide}>
+            Cancel
+        </Button>
+        <Button
+          variant="primary"
+          onClick={handleSend}>
+            Send
+        </Button>
       </Modal.Footer>
     </Modal>
   );
@@ -70,8 +78,10 @@ const SMSInvite = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        SMS Invite
+      <Button
+        variant="outline-secondary"
+        onClick={() => setModalShow(true)}>
+        SMS
       </Button>
 
       <TextInvite
