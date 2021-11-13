@@ -401,7 +401,6 @@ body
 , .pencilIcon
 , .login-image {
   background-color:#41393E;
-  border: 0.1rem solid #fff;
   color: white;
   box-shadow: 0 0 0.1rem #fff,
     0 0 0.1rem #fff,
