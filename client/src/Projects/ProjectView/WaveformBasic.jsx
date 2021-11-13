@@ -26,7 +26,7 @@ const formWaveSurferOptions = ref => ({
       primaryFontColor: '#8E4162',
       secondaryFontColor: '#8E4162',
       fontFamily: 'Montserrat Alternates',
-      fontSize: 12
+      fontSize: 10
     }),
     CursorPlugin.create({
       showTime: true,
