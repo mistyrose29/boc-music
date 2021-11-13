@@ -45,7 +45,7 @@ const formWaveSurferOptions = ref => ({
 });
 
 export default function WaveformBasic(
-  { url, isMuted, isPlaying, visible, time, saveTime, index, storeWS, filterGains, distort }) {
+  { url, isMuted, isPlaying, visible, time, saveTime, index, storeWS, filterGains, distort, delay }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlay] = useState(false);
@@ -111,7 +111,7 @@ export default function WaveformBasic(
 
     wavesurfer.current.on('audioprocess', () => {
       const current = wavesurfer.current.getCurrentTime().toFixed();
-      const currentMinutes = Math.floor(current/60);
+      const currentMinutes = Math.floor(current / 60);
       let currentSeconds = current % 60;
       if ((currentSeconds / 10) < 1) {
         currentSeconds = `0${currentSeconds}`;
@@ -164,38 +164,53 @@ export default function WaveformBasic(
 
   useEffect(() => {
     if (wavesurfer.current.isReady) {
+      console.log(wavesurfer.current)
+      let ac = wavesurfer.current.backend.ac
+      let fil = filters.slice()
+      let efx = wavesurfer.current.backend
       if (distort) {
-        wavesurfer.current.backend.distort = distort
-        let ac = wavesurfer.current.backend.ac
-        let distortion = ac.createWaveShaper();
-        distortion.oversample = '2x'
-        distortion.curve = makeDistortionCurve(15)
-        let fil = filters.slice()
+        efx.distort = distort
+        let distortion = createDistortion('2x', 15)
         fil.push(distortion)
-        wavesurfer.current.backend.setFilters(fil)
-        console.log(wavesurfer.current)
-
-        function makeDistortionCurve(amount) {
-          if (amount > 30) {
-            amount = 30
-          }
-          var k = typeof amount === 'number' ? amount : 15,
-            n_samples = 44100,
-            curve = new Float32Array(n_samples),
-            deg = Math.PI / 180,
-            i = 0,
-            x;
-          for ( ; i < n_samples; ++i ) {
-            x = i * 2 / n_samples - 1;
-            curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
-          }
-          return curve;
-        };
       } else {
-        wavesurfer.current.backend.setFilters(filters)
+        efx.distort = distort
+      };
+
+      if (delay) {
+        efx.delay = delay;
+        let del = ac.createDelay();
+        del.delayTime.value = 1
+      } else {
+        efx.delay = delay;
+      }
+
+      wavesurfer.current.backend.setFilters(fil)
+
+      function createDistortion(oversample, curve) {
+        let distortion = ac.createWaveShaper()
+        distortion.oversample = oversample
+        distortion.curve = makeDistortionCurve(curve)
+        return distortion
+      }
+
+      function makeDistortionCurve(amount) {
+        if (amount > 30) {
+          amount = 30
+        }
+        var k = typeof amount === 'number' ? amount : 15,
+          n_samples = 44100,
+          curve = new Float32Array(n_samples),
+          deg = Math.PI / 180,
+          i = 0,
+          x;
+        for (; i < n_samples; ++i) {
+          x = i * 2 / n_samples - 1;
+          curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+        }
+        return curve;
       }
     }
-  }, [distort])
+  }, [distort, delay])
 
   return (
     <div>

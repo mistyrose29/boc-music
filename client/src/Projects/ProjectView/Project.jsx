@@ -108,8 +108,14 @@ class Project extends React.Component {
       compressor.attack.setValueAtTime(.005, offlineCtx.currentTime); // set value btw 0 and 1
       compressor.release.setValueAtTime(0.15, offlineCtx.currentTime); // set value btw 0 and 1
 
+      let eqFil = src.backend.filters.slice(0,10)
+      let efx = []
+      if (src.backend.filters.length > 10) {
+        efx = src.backend.filters.slice(10, src.backend.filters.length)
+        console.log(efx)
+      }
       // Create Filter Nodes
-      let eq = src.backend.filters.map((filter, index) => {
+      let eq = eqFil.map((filter, index) => {
         let eqFilter = offlineCtx.createBiquadFilter();
         eqFilter.type = filter.type;
         eqFilter.gain.value = filter.gain.value;
