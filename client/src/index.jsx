@@ -8,18 +8,12 @@ import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
 import HomePage from './HomePage/Projects.jsx';
-
-
-
-
-
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
 import './styles/styles.css';
 
 import { createFile, getFileUrl, changeAvatar, changeUserDisplayName, changeUserBio } from '../../database/controllers.js';
-
 
 const history = createBrowserHistory();
 
@@ -119,7 +113,7 @@ class App extends React.Component {
               <HomePage
                 friends={Object.values(this.state.loggedInUser.friends)}
                 ownerName={this.state.loggedInUser.name}
-                ownerId={this.state.loggedInUser.userId} 
+                ownerId={this.state.loggedInUser.userId}
                 history = {history}/>
             </Route>
 

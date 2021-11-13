@@ -252,14 +252,25 @@ class Project extends React.Component {
     return (
       <div className='main-container'>
         <header className='sticky-header' style={{ marginBottom: 0 }}>
-        <Button className='back-btn' onClick = {this.props.goBack}> <Icon icon={'typcn:arrow-back'} /></Button>
+        <Button
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+          }}
+          variant='outline-light'
+          className='back-btn'
+          onClick = {this.props.goBack}>
+            <Icon icon={'typcn:arrow-back'} />
+        </Button>
           <div className='flex-row center-content'>
             <div className='center-text projects-header'>
               {this.props.title}
             </div>
             <Button
               className='filter-btn'
-              variant='primary'
+              variant='outline-light'
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.2)'
+              }}
               onClick={this.handlePlay}>
               <Icon icon={this.state.isPlaying ? 'fe:pause' : 'akar-icons:play'} />
             </Button>
@@ -295,21 +306,33 @@ class Project extends React.Component {
             );
           })}
         </>
-        <div id='download-container'>
-          <div id='download'>
-
-            <a id="download-link"></a>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          color: 'white',
+          fontSize: 'small'
+        }}>
+          <div id='mixing'>
+            <div id='mixing-container'>
+              <Button
+                id='mix-btn'
+                size='sm'
+                variant='outline-light'
+                onClick={() => this.mix(this.state.wavesurfers)}>
+                <Icon icon='akar-icons:cloud-download'/>
+                <span id='mix-status'>
+                  {` Mix and Download`}
+                </span>
+              </Button>
+            </div>
           </div>
-        </div>
-        <div id='mixing'>
-          <div id='mixing-container'>
-            <Button id='mix-btn' variant='outline-primary' onClick={() => this.mix(this.state.wavesurfers)}>
-              <Icon icon='akar-icons:cloud-download' width='24' />
-              <span id='mix-status'>
-                Mix and Download
-              </span>
-            </Button>
-
+          <div id='download-container'
+            style={{
+              alignItems: 'center'
+            }}>
+            <div id='download'>
+              <a id="download-link"></a>
+            </div>
           </div>
         </div>
       </div>

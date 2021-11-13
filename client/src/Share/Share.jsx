@@ -46,13 +46,14 @@ const Share = ({ userId, projectId, friends, sharedWith, reload }) => {
     <>
       <Button
         size='sm'
-        variant='outline-primary'
-        onClick={handleShow}
-        style={{ border: 'none' }}>
+        variant='outline-light'
+        onClick={handleShow}>
         <Icon icon={share}/>
       </Button>
 
-      <Modal size='sm' show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Share with Friends</Modal.Title>
         </Modal.Header>
@@ -66,10 +67,14 @@ const Share = ({ userId, projectId, friends, sharedWith, reload }) => {
             onRemove={onChange}/>
         </Modal.Body>
         <Modal.Footer>
-          <Button size='sm' variant='secondary' onClick={handleClose}>
+          <Button
+            variant='outline-light'
+            onClick={handleClose}>
             Close
           </Button>
-          <Button size='sm' variant='primary' onClick={handleShare}>
+          <Button
+            variant='outline-light'
+            onClick={handleShare}>
             Save
           </Button>
         </Modal.Footer>

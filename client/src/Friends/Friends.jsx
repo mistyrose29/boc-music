@@ -30,7 +30,7 @@ const Friends = ({ userId, friends, cb }) => {
             width: '100%',
             marginBottom: '1em'
           }}>
-          <Button variant="secondary" disabled>Invite a Friend via</Button>
+          <Button variant="outline-light" disabled>Invite a Friend via</Button>
           <EInvite />
           <SMSInvite />
         </ButtonGroup>
@@ -46,7 +46,8 @@ const Friends = ({ userId, friends, cb }) => {
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
                 }}>
                 <Image
                   src={friend.photo || './anonymous.png'}

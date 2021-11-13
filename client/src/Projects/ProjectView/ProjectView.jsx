@@ -1,7 +1,7 @@
 import React from 'react';
 import Share from '../../Share/Share.jsx';
 import ConfirmModal from './ConfirmModal.jsx';
-import { Card, Button} from 'react-bootstrap';
+import { Card, Button, ButtonGroup } from 'react-bootstrap';
 import { deleteProject } from '../../../../database/controllers.js';
 import { Icon } from '@iconify/react';
 
@@ -12,7 +12,7 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload,
         <div className="flex-row justify-between center-items">
           <span id='project-title'>{project.title} - {project.public ? 'Public' : 'Private'}</span>
           {project.owner === userId
-            ? <div>
+            ? <ButtonGroup>
               <Share
                 userId={userId}
                 projectId={projectId}
@@ -26,19 +26,27 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload,
                 cbValue={projectId}
                 reload={reload}
                 outline={false}/>
-            </div>
+            </ButtonGroup>
             : null
           }
         </div>
       </Card.Header>
-      <Card.Body>
-        <Card.Subtitle className="mb-2 text-muted">
+      <Card.Body
+        style={{
+          backgroundColor: '#41393E'
+        }}>
+        <Card.Subtitle
+          className="mb-2 text-muted"
+          style={{
+            fontSize: 'small'
+          }}>
           {project.createdAt.toDate().toDateString()}
         </Card.Subtitle>
         <Card.Text>
           {project.description}
         </Card.Text>
         <Button
+          size="sm"
           variant="primary"
           index={index}
           onClick={loadProject}>

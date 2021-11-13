@@ -40,7 +40,7 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
     <>
       <Button
         size='sm'
-        variant='outline-secondary'
+        variant='outline-light'
         onClick={handleShow}>
         <Icon icon={eq} />
       </Button>
@@ -67,7 +67,7 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
             textAlign: 'center',
             fontSize: 'small',
             fontStyle: 'italic',
-            color: 'darkgray',
+            color: 'rgba(256, 256, 256, 0.7)',
             paddingBottom: '5px'
           }}>
             {frequency.map((freq, index) => {
@@ -75,7 +75,14 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
             })}
           </div>
           <div id='eq' style={{ display: 'flex' }}>
-            <canvas id='eq-draw' style={{ position: 'fixed', zIndex: '6' }}/>
+            <canvas
+              id='eq-draw'
+              style={{
+                position: 'fixed',
+                zIndex: '6',
+                backgroundColor: 'rgba(256, 256, 256, 0.1)',
+                borderRadius: '10px'
+              }}/>
             {filterGains.map((filter, index) => {
               return (
                 <input
@@ -98,7 +105,9 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
               justifyContent: 'space-between',
               fontSize: 'x-small',
               fontStyle: 'italic',
-              color: 'darkgray'
+              color: 'rgba(256, 256, 256, 0.7)',
+              textAlign: 'center',
+              flexGrow: 1
             }}>
               <div>40</div>
               <div>0 (dB)</div>
@@ -114,7 +123,7 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
             <div>Frequencies (Hz)</div>
             <Button
               size='sm'
-              variant='outline-danger'
+              variant='outline-light'
               onClick={resetFilterGains}>
                 Reset
             </Button>
