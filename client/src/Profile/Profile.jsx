@@ -67,10 +67,11 @@ const Profile = (props) => {
               src={props.state.loggedInUser.photo || noPhoto}
               roundedCircle
               alt='userPhoto'
+              className="img-fluid"
               onClick={openSelectFile}
               style={{
-                maxWidth: '200px',
-                maxHeight: '200px',
+                width: '200px',
+                height: '200px',
                 cursor: 'pointer',
                 textAlign: 'center'
               }}/>
