@@ -398,7 +398,8 @@ body
 , .list-group
 , .form-control
 , .form-control:focus
-, .pencilIcon {
+, .pencilIcon
+, .login-image {
   background-color:#41393E;
   border: 0.1rem solid #fff;
   color: white;

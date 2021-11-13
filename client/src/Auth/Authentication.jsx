@@ -53,6 +53,7 @@ export default function Authentication(props) {
             margin: '0 auto'
           }}>
           <Image
+            className="login-image"
             src={'./musicsharelogo1.png'}
             style={{
               width: '329px'
