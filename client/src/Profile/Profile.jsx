@@ -80,7 +80,7 @@ const Profile = (props) => {
               icon="akar-icons:pencil"
               width="30"
               height="30"
-            />
+              onClick={openSelectFile}/>
           </Form.Group>
           <input
             id="profile-image-upload"
