@@ -8,8 +8,11 @@ import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
 import HomePage from './HomePage/Projects.jsx';
-import AddFriend from './Share/AddFriend.jsx';
-import RemoveFriend from './Share/RemoveFriend.jsx';
+import VoiceRecorder from './Recorder/Voice.jsx';
+
+
+
+
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -17,7 +20,6 @@ import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../dat
 import './styles/styles.css';
 
 import { createFile, getFileUrl, changeAvatar, changeUserDisplayName, changeUserBio } from '../../database/controllers.js';
-
 
 const history = createBrowserHistory();
 
@@ -31,8 +33,6 @@ class App extends React.Component {
     };
 
     this.loginLogout = this.loginLogout.bind(this);
-    this.addFriend = this.addFriend.bind(this);
-    this.removeFriend = this.removeFriend.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
     this.changeProfileImage = this.changeProfileImage.bind(this);
     this.changeDisplayName = this.changeDisplayName.bind(this);
@@ -46,16 +46,6 @@ class App extends React.Component {
     }, cb);
   }
 
-  addFriend (email) {
-    addFriend(this.state.loggedInUser.userId, email);
-  }
-
-  removeFriend (id) {
-    RemoveFriends(this.state.loggedInUser.userId, id);
-
-  }
-
-  //remove this friend from friendslist
   reloadUser() {
     getUserData(this.state.loggedInUser.userId)
       .then((user) => {
@@ -129,7 +119,8 @@ class App extends React.Component {
               <HomePage
                 friends={Object.values(this.state.loggedInUser.friends)}
                 ownerName={this.state.loggedInUser.name}
-                ownerId={this.state.loggedInUser.userId} />
+                ownerId={this.state.loggedInUser.userId}
+                history = {history}/>
             </Route>
 
             <Route path='/projects'>
@@ -154,9 +145,16 @@ class App extends React.Component {
                 history={history}
                 loginLogout={this.loginLogout}/>
               <Friends
-                state={this.state}
-                addFriend={this.addFriend}
-                removeFriend={this.removeFriend}/>
+                userId={this.state.loggedInUser.userId}
+                friends={Object.values(this.state.loggedInUser.friends)}
+                cb={this.reloadUser}/>
+            </Route>
+
+            <Route path='/record'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
+              <VoiceRecorder />
             </Route>
 
             <Route path='/profile'>

@@ -1,35 +1,54 @@
 import React from 'react';
 import { useState } from 'react';
 import { removeFriend } from '../../../database/controllers.js';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
 
 const RemoveFriend = ({ userId, friend, cb }) => {
-  const handleRemove = (event) => {
-    let friendId = event.target.getAttribute('friendid');
-    console.log(friendId);
-    removeFriend(userId, friendId);
-    // reload friends list after removing friend
+  const [smShow, setSmShow] = useState(false);
+
+  const handleClose = () => setSmShow(false);
+  const handleShow = () => setSmShow(true);
+
+  const handleRemove = () => {
+    handleClose();
+    removeFriend(userId, friend.id);
     setTimeout(cb, 2000);
   };
 
   return (
-    <Button
-      friendid={friend.id}
-      onClick={handleRemove}>
-      {friend.name}
-    </Button>
+    <>
+      <Button
+        size='sm'
+        variant='outline-light'
+        onClick={handleShow}>
+        <Icon icon='octicon:trash-16'/>
+      </Button>
+
+      <Modal
+        size="sm"
+        show={smShow}
+        onHide={() => setSmShow(false)}
+        aria-labelledby="example-modal-sizes-title-sm">
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">
+            Remove Friend
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to remove "{friend.name}" as a friend?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline-light" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="outline-light" onClick={handleRemove}>
+            Remove
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
 export default RemoveFriend;
-
-/*
-example usage
-
-<RemoveFriend
-  userId={this.state.loggedInUser.userId}
-  friend={Object.values(this.state.loggedInUser.friends[0])}
-  cb={() => {}}
-/>
-
-*/

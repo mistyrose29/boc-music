@@ -34,29 +34,36 @@ const NavPane = (props) => {
     <>
       <Button
         style={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgba(256, 256, 256, 0.6)',
           position: 'fixed',
           top: '10px',
           left: '10px',
           zIndex: 5
         }}
         size='sm'
-        variant='outline-secondary'
+        variant='outline-dark'
         onClick={handleShow}>
         <Icon icon={threeBars}/>
       </Button>
 
-      <Offcanvas size='sm' show={show} onHide={handleClose}>
+      <Offcanvas
+        size='sm'
+        show={show}
+        onHide={handleClose}>
         <Offcanvas.Header closeButton>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Image
             src={'./musicsharelogo2.png'}
+            style={{
+              width: '200px',
+              height: '200px'
+            }}
             fluid
           />
           <Button
             route='/home'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Home
@@ -64,7 +71,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/profile'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Profile
@@ -72,7 +79,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/projects'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Projects
@@ -80,7 +87,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/waveform'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Waveform
@@ -88,15 +95,23 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/friends'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Friends
           </Button>
           <br/>
           <Button
-            route='/login'
+            route='/record'
             variant='outline-primary'
+            style={{ border: 'none' }}
+            onClick={handleClose}>
+            Voice Recorder
+          </Button>
+          <br/>
+          <Button
+            route='/login'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Logout

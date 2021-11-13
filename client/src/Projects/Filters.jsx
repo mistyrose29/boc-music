@@ -43,7 +43,14 @@ const Filters = ({ setFilters }) => {
 
   return (
     <>
-      <Button className="filter-btn" variant="primary" checked={'off'} onClick={handleShow}>
+      <Button
+        className='filter-btn'
+        variant='outline-light'
+        style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.2)'
+        }}
+        checked={'off'}
+        onClick={handleShow}>
         <span className="iconify" data-icon="mdi:filter"></span>
       </Button>
 
@@ -70,7 +77,7 @@ const Filters = ({ setFilters }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="outline-light" onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSearch}>

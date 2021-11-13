@@ -5,6 +5,7 @@ import EQOffcanvas from '../Projects/ProjectView/EQOffcanvas.jsx';
 import { Card, ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 
+
 const playIcon = 'akar-icons:play';
 const pauseIcon = 'fe:pause';
 const volumeIcon = ['bx:bxs-volume-full', 'bx:bxs-volume-mute'];
@@ -15,10 +16,10 @@ const eqIcon = 'file-icons:eq';
 
 const formWaveSurferOptions = ref => ({
   container: ref,
-  waveColor: '#eee',
-  progressColor: 'OrangeRed',
-  cursorColor: 'OrangeRed',
-  barWidth: 3,
+  waveColor: 'white',
+  progressColor: '#8E4162',
+  cursorColor: 'white',
+  barWidth: 2,
   barRadius: 3,
   responsive: true,
   height: 150,
@@ -36,7 +37,7 @@ let extend = (dest, ...sources) => {
   return dest;
 };
 
-export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTrack }) {
+export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTrack, addNewTrack }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [isReady, setIsReady] = useState(false);
@@ -49,6 +50,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
   const [filterGains, setFilterGains] = useState(
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   );
+
 
   const resetFilterGains = () => {
     setFilterGains([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -225,7 +227,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
           </div>
           <Button
             size='sm'
-            variant='outline-primary'
+            variant='outline-light'
             style={{
               border: 'none'
             }}
@@ -270,7 +272,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
             }}>
             <Button
               size='sm'
-              variant='outline-primary'
+              variant='outline-light'
               style={{
                 display: 'flex',
                 alignItems: 'center'
@@ -290,7 +292,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
             </div>
             <Button
               size='sm'
-              variant='outline-primary'
+              variant='outline-light'
               style={{
                 display: 'flex',
                 alignItems: 'center'
@@ -307,8 +309,10 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
             tracks={tracks || []}
             selectedTrack={selectedTrack}
             setSelectedTrack={setSelectedTrack || {}}/>
+
         </Card.Footer>
       </Card>
+
     </div>
   );
 }

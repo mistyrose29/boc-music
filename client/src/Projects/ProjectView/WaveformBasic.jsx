@@ -7,25 +7,26 @@ import TimelinePlugin from 'wavesurfer.js/src/plugin/timeline/index.js';
 
 const formWaveSurferOptions = ref => ({
   container: ref,
-  waveColor: '#eee',
-  progressColor: 'OrangeRed',
-  cursorColor: 'OrangeRed',
+  backgroundColor: 'black',
+  waveColor: 'white',
+  progressColor: '#8E4162',
+  cursorColor: 'white',
   barWidth: 2,
   barRadius: 3,
   responsive: true,
-  height: 75,
+  height: 100,
   normalize: true,
   partialRender: true,
   plugins: [
     // timeline not rendering properly
     TimelinePlugin.create({
       container: '.waveform-timeline',
-      primaryColor: 'blue',
-      secondaryColor: 'orangered',
-      primaryFontColor: 'blue',
-      secondaryFontColor: 'orangered',
-      fontFamily: 'Arial',
-      fontSize: 12
+      primaryColor: '#8E4162',
+      secondaryColor: '#8E4162',
+      primaryFontColor: '#8E4162',
+      secondaryFontColor: '#8E4162',
+      fontFamily: 'Montserrat Alternates',
+      fontSize: 10
     }),
     CursorPlugin.create({
       showTime: true,
@@ -35,8 +36,8 @@ const formWaveSurferOptions = ref => ({
         'height': '107px',
       },
       customShowTimeStyle: {
-        'background-color': '#000',
-        'color': '#fff',
+        'background-color': 'transparent',
+        'color': 'white',
         'padding': '2px',
         'font-size': '12px'
       }
@@ -142,7 +143,8 @@ export default function WaveformBasic(
 
   useEffect(() => {
     if (wavesurfer.current.isReady) {
-      wavesurfer.current.setHeight(75);
+      wavesurfer.current.setHeight(100);
+      wavesurfer.current.setBackgroundColor('black');
     }
   }, [visible]);
 
