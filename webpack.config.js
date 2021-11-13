@@ -9,7 +9,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: DIST_DIR,
-    hashFunction: "xxhash64" 
+    hashFunction: "xxhash64"
   },
   plugins: [
     new Dotenv()
@@ -33,6 +33,25 @@ module.exports = {
       {
         test: /\.css?/,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
       }
     ],
   },

@@ -8,6 +8,7 @@ import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
 import HomePage from './HomePage/Projects.jsx';
+import VoiceRecorder from './Recorder/Voice.jsx';
 
 
 
@@ -119,7 +120,7 @@ class App extends React.Component {
               <HomePage
                 friends={Object.values(this.state.loggedInUser.friends)}
                 ownerName={this.state.loggedInUser.name}
-                ownerId={this.state.loggedInUser.userId} 
+                ownerId={this.state.loggedInUser.userId}
                 history = {history}/>
             </Route>
 
@@ -148,6 +149,13 @@ class App extends React.Component {
                 userId={this.state.loggedInUser.userId}
                 friends={Object.values(this.state.loggedInUser.friends)}
                 cb={this.reloadUser}/>
+            </Route>
+
+            <Route path='/record'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
+              <VoiceRecorder />
             </Route>
 
             <Route path='/profile'>

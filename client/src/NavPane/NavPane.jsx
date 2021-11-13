@@ -95,6 +95,14 @@ const NavPane = (props) => {
           </Button>
           <br/>
           <Button
+            route='/record'
+            variant='outline-primary'
+            style={{ border: 'none' }}
+            onClick={handleClose}>
+            Voice Recorder
+          </Button>
+          <br/>
+          <Button
             route='/login'
             variant='outline-primary'
             style={{ border: 'none' }}
