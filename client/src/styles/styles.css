@@ -506,3 +506,7 @@ a:hover
 .main-container {
   height: 100vh;
 }
+
+.notFound {
+  color: black;
+}
