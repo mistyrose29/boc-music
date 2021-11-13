@@ -502,3 +502,7 @@ a:hover
 , a:focus {
   color: #9cd4e6;
 }
+
+.main-container {
+  height: 100vh;
+}
