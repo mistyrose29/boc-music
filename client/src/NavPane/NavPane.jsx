@@ -46,12 +46,19 @@ const NavPane = (props) => {
         <Icon icon={threeBars}/>
       </Button>
 
-      <Offcanvas size='sm' show={show} onHide={handleClose}>
+      <Offcanvas
+        size='sm'
+        show={show}
+        onHide={handleClose}>
         <Offcanvas.Header closeButton>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Image
             src={'./musicsharelogo2.png'}
+            style={{
+              width: '200px',
+              height: '200px'
+            }}
             fluid
           />
           <Button
