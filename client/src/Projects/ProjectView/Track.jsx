@@ -128,13 +128,13 @@ class Track extends React.Component {
                 >
                 <Icon icon={distortion} />
               </Button>
-              <Button
+              {/* <Button
                 size='sm'
                 variant={this.state.delay ? 'outline-primary' : 'outline-secondary'}
                 onClick={this.toggleDelay}
                 >
                 <Icon icon={delay} />
-              </Button>
+              </Button> */}
             </ButtonGroup>
             <div className='center-self'>
               {`${this.props.index} ${this.props.name}`}
