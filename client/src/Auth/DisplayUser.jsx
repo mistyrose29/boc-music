@@ -7,30 +7,37 @@ const noPhoto = './anonymous.png';
 
 export default function DisplayUser(props) {
   return (
-    <div >
-    <Card className="text-center"  style={{border: 'none'}}>
-      <Card.Body id='header-title'>
-        <Image
-          src={'./musicsharelogo1.png'}
-          fluid
-        />
-        <br/>
-        <Image
-          src={props.photo || noPhoto}
-          roundedCircle
-          alt='user photo'
-          fluid
-        />
-        <Card.Title>
+    <div>
+      <Card className="text-center"  style={{border: 'none'}}>
+        <Card.Body id='header-title'>
+          <Image
+            src={'./musicsharelogo1.png'}
+            style={{
+              width: '108px',
+              top: '10px',
+              right: '10px',
+              position: 'absolute',
+            }}
+            fluid
+          />
           <br/>
-          Hello, 
-          {/* <Card.Text> */}
-          {props.name || noUser} !
-          {/* </Card.Text> */}
-        </Card.Title>
+          <Image
+            src={props.photo || noPhoto}
+            roundedCircle
+            alt='user photo'
+            style={{
+              width: '180px',
+              height: '180px'
+            }}
+            fluid
+          />
+          <Card.Title>
+            <br/>
+            {`Hello, ${props.name || noUser}!`}
+          </Card.Title>
 
-      </Card.Body>
-    </Card>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

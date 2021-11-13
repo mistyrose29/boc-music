@@ -91,7 +91,7 @@ class Track extends React.Component {
   toggleDistort() {
     this.setState({
       distort: !this.state.distort
-    })
+    });
   }
 
   render() {
@@ -100,7 +100,10 @@ class Track extends React.Component {
         <Card.Header>
           <ButtonToolbar className='justify-between' aria-label='Toolbar with button groups'>
             <ButtonGroup className='me-2'>
-              <Button size='sm' variant='outline-primary' onClick={this.handleMute}>
+              <Button
+                size='sm'
+                variant='outline-light'
+                onClick={this.handleMute}>
                 <Icon icon={this.state.isMuted ? headphones[0] : headphones[1]} />
               </Button>
               <EQOffcanvas
@@ -109,14 +112,21 @@ class Track extends React.Component {
                 resetFilterGains={this.resetFilterGains}
                 name={this.props.name}
                 setEq={this.props.setEq}/>
-              <Button size='sm' variant='outline-secondary' onClick={this.toggleDisplay}>
+              <Button
+                size='sm'
+                variant='outline-light'
+                onClick={this.toggleDisplay}>
                 <Icon icon={wav} />
               </Button>
               <Button
                 size='sm'
-                variant={this.state.distort ? 'outline-primary' : 'outline-secondary'}
-                onClick={this.toggleDistort}
-                >
+                variant='outline-light'
+                style={
+                  this.state.distort
+                    ? { backgroundColor: 'rgba(0, 0, 255, 0.3)' }
+                    : {}
+                }
+                onClick={this.toggleDistort}>
                 <Icon icon={distortion} />
               </Button>
             </ButtonGroup>
@@ -132,7 +142,9 @@ class Track extends React.Component {
               outline={true} />
           </ButtonToolbar>
         </Card.Header>
-        <Card.Body className={this.props.name} style={{ display: this.state.display ? 'block' : 'none' }}>
+        <Card.Body
+          className={`${this.props.name} card-coffee`}
+          style={{ display: this.state.display ? 'block' : 'none' }}>
           {this.state.url &&
             <WaveformBasic
               index={this.props.index}
@@ -144,8 +156,7 @@ class Track extends React.Component {
               saveTime={this.props.saveTime}
               filterGains={this.state.filterGains}
               storeWS={this.props.storeWS}
-              distort={this.state.distort}
-              />
+              distort={this.state.distort}/>
           }
         </Card.Body>
       </Card>

@@ -69,7 +69,7 @@ const CreateProject = ({title, description, isPublic, create, save, clear }) => 
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="outline-light" onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSave}>

@@ -109,13 +109,13 @@ class Projects extends React.Component {
 
   goBack() {
     this.setState({
-      projectId : null
-    })
+      projectId: null
+    });
   }
 
   render() {
     if (this.state.projectId !== null) {
-      
+
       return (
         <Project
           projectId={this.state.projectId}

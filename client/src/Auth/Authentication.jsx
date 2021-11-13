@@ -53,9 +53,10 @@ export default function Authentication(props) {
             margin: '0 auto'
           }}>
           <Image
+            className="login-image"
             src={'./musicsharelogo1.png'}
             style={{
-              width: '330px'
+              width: '329px'
             }}
             fluid/>
         </div>
