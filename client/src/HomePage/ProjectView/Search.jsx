@@ -44,7 +44,8 @@ const Search = ({ setFilters, searchTab }) => {
                   variant="outline-light"
                   id="dropdown-basic"
                   style={{
-                    margin: "0 10px 0 0"
+                    margin: "0 10px 0 0",
+                    width: '82px'
                   }}>
                   {dropDown}
                 </Dropdown.Toggle>
@@ -58,6 +59,9 @@ const Search = ({ setFilters, searchTab }) => {
               <Button
                 size='sm'
                 variant="outline-light"
+                style={{
+                  width: '82px'
+                }}
                 onClick={handleSearch}>
                 Search
               </Button>
