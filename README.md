@@ -21,7 +21,7 @@ What is blue ocean?
 
 **Overview**
 
-What does the app do?
+Share Music with your friends from your phone.
 
 ---
 
@@ -36,6 +36,8 @@ What does the app do?
 *Back-end*
 * Express
 * Firebase (Authentication, Firestore, Firestorage)
+* NodeMailer
+* Twillio
 
 *Other*
 * Jest
