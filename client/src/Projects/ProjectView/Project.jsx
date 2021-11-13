@@ -326,7 +326,10 @@ class Project extends React.Component {
               </Button>
             </div>
           </div>
-          <div id='download-container'>
+          <div id='download-container'
+            style={{
+              alignItems: 'center'
+            }}>
             <div id='download'>
               <a id="download-link"></a>
             </div>
