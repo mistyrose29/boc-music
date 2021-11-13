@@ -8,6 +8,12 @@ import NavPane from './NavPane/NavPane.jsx';
 import Profile from './Profile/Profile.jsx';
 import Friends from './Friends/Friends.jsx';
 import HomePage from './HomePage/Projects.jsx';
+import VoiceRecorder from './Recorder/Voice.jsx';
+
+
+
+
+
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { getUserData, addFriend, removeFriend as RemoveFriends } from '../../database/controllers.js';
@@ -142,6 +148,13 @@ class App extends React.Component {
                 userId={this.state.loggedInUser.userId}
                 friends={Object.values(this.state.loggedInUser.friends)}
                 cb={this.reloadUser}/>
+            </Route>
+
+            <Route path='/record'>
+              <NavPane
+                history={history}
+                loginLogout={this.loginLogout}/>
+              <VoiceRecorder />
             </Route>
 
             <Route path='/profile'>
