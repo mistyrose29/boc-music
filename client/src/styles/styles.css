@@ -123,11 +123,11 @@ color: #c7e8f3;
 
 
 .card-shadow, .center-items, #project-title {
-  background-color: #bf9aca;
-  /* color: #41393E; */
+  color: #41393E;
+
 }
 .card-text, #project-title {
-  color: aliceblue;
+  color: #41393E;
 }
 .card-subtitle {
   color: #41393E;
