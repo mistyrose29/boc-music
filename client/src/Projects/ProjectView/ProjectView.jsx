@@ -44,7 +44,6 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload,
           onClick={loadProject}>
             Open Project
         </Button>
-        <Button><Icon icon={'akar-icons:play'} /></Button>
       </Card.Body>
     </Card>
   );
