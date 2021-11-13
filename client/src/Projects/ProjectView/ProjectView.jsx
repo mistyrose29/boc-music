@@ -39,12 +39,13 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload,
           {project.description}
         </Card.Text>
         <Button
+          size="sm"
           variant="primary"
           index={index}
           onClick={loadProject}>
             Open Project
         </Button>
-        <Button><Icon icon={'akar-icons:play'} /></Button>
+        {/* <Button><Icon icon={'akar-icons:play'} /></Button> */}
       </Card.Body>
     </Card>
   );

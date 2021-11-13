@@ -46,7 +46,8 @@ const Friends = ({ userId, friends, cb }) => {
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
                 }}>
                 <Image
                   src={friend.photo || './anonymous.png'}

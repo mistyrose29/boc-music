@@ -16,6 +16,23 @@ import './styles/styles.css';
 
 import { createFile, getFileUrl, changeAvatar, changeUserDisplayName, changeUserBio } from '../../database/controllers.js';
 
+const testUser = {
+  userId: '123456',
+  name: 'Jason Mollerup',
+  photo: null,
+  friends: [{
+    '1234': {
+      id: '1234',
+      name: 'testUser',
+      photo: null
+    },
+    '5678': {
+      id: '5678',
+      name: 'testUser 2',
+      photo: null
+    }
+  }]
+};
 
 const history = createBrowserHistory();
 
@@ -23,8 +40,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: {},
-      load: false,
+      loggedInUser: testUser,
+      load: true,
       route: null
     };
 

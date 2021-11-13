@@ -46,7 +46,7 @@ const Profile = (props) => {
         left: '0',
         right: '0',
         margin: 'auto',
-        border: 'none'
+        border: 'none',
       }}>
       <Card.Body>
         <Card.Title
@@ -108,8 +108,7 @@ const Profile = (props) => {
                     Save Changes
                   </Button>
                   : <Button
-                    variant="primary"
-                    disabled>
+                    variant="primary">
                       Save Changes
                   </Button>
             }
