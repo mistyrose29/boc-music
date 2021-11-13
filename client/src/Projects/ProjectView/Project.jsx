@@ -314,8 +314,12 @@ class Project extends React.Component {
         }}>
           <div id='mixing'>
             <div id='mixing-container'>
-              <Button id='mix-btn' variant='outline-light' onClick={() => this.mix(this.state.wavesurfers)}>
-                <Icon icon='akar-icons:cloud-download' width='24' />
+              <Button
+                id='mix-btn'
+                size='sm'
+                variant='outline-light'
+                onClick={() => this.mix(this.state.wavesurfers)}>
+                <Icon icon='akar-icons:cloud-download'/>
                 <span id='mix-status'>
                   {` Mix and Download`}
                 </span>

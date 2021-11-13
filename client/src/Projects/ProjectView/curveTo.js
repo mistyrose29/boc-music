@@ -39,8 +39,8 @@ const curveTo = (filters, f = 0.3, t = 0.6) => {
   ctx.clearRect(0, 0, cv.width, cv.height);
 
   for (let j = 0; j < points.length; j++) {
-    drawPoint(ctx, points[j].x, points[j].y, 5, 'white'); // light red
-    drawPoint(ctx, points[j].x, points[j].y, 3, 'rgba(0, 0, 0, 0.3)'); // dark red
+    drawPoint(ctx, points[j].x, points[j].y, 5, 'white');
+    drawPoint(ctx, points[j].x, points[j].y, 3, 'rgba(0, 0, 0, 0.3)');
   }
 
   ctx.beginPath();
