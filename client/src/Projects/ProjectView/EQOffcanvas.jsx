@@ -106,6 +106,8 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
               fontSize: 'x-small',
               fontStyle: 'italic',
               color: 'rgba(256, 256, 256, 0.7)',
+              textAlign: 'center',
+              flexGrow: 1
             }}>
               <div>40</div>
               <div>0 (dB)</div>
