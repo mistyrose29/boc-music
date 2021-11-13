@@ -172,13 +172,7 @@ class Track extends React.Component {
               saveTime={this.props.saveTime}
               filterGains={this.state.filterGains}
               storeWS={this.props.storeWS}
-<<<<<<< HEAD
-              distort={this.state.distort}
-              delay={this.state.delay}
-              />
-=======
               distort={this.state.distort}/>
->>>>>>> main
           }
         </Card.Body>
       </Card>
