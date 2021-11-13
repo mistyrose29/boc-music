@@ -11,6 +11,7 @@ const trashcan = 'octicon:trash-16';
 const eq = 'file-icons:eq';
 const wav = 'fluent:device-eq-24-regular';
 const distortion = 'fa-solid:wave-square';
+const delay = 'gg:sand-clock';
 
 class Track extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Track extends React.Component {
       display: false,
       filterGains: JSON.parse(window.localStorage.getItem(`filterGains${this.props.index}`)) || Array(10).fill(0),
       distort: false,
+      delay: false,
     };
 
     this.buildWaveform = this.buildWaveform.bind(this);
@@ -30,6 +32,7 @@ class Track extends React.Component {
     this.setFilterGains = this.setFilterGains.bind(this);
     this.resetFilterGains = this.resetFilterGains.bind(this);
     this.toggleDistort = this.toggleDistort.bind(this);
+    this.toggleDelay = this.toggleDelay.bind(this);
   }
 
   componentDidMount() {
@@ -94,6 +97,12 @@ class Track extends React.Component {
     });
   }
 
+  toggleDelay() {
+    this.setState({
+      delay: !this.state.delay
+    })
+  }
+
   render() {
     return (
       <Card className='no-bottom no-radius' id={`card${this.props.index}`}>
@@ -129,6 +138,13 @@ class Track extends React.Component {
                 onClick={this.toggleDistort}>
                 <Icon icon={distortion} />
               </Button>
+              {/* <Button
+                size='sm'
+                variant={this.state.delay ? 'outline-primary' : 'outline-secondary'}
+                onClick={this.toggleDelay}
+                >
+                <Icon icon={delay} />
+              </Button> */}
             </ButtonGroup>
             <div className='center-self'>
               {`${this.props.index} ${this.props.name}`}
