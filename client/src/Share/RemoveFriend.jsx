@@ -20,7 +20,7 @@ const RemoveFriend = ({ userId, friend, cb }) => {
     <>
       <Button
         size='sm'
-        variant='outline-danger'
+        variant='outline-light'
         onClick={handleShow}>
         <Icon icon='octicon:trash-16'/>
       </Button>
@@ -39,10 +39,10 @@ const RemoveFriend = ({ userId, friend, cb }) => {
           Are you sure you want to remove "{friend.name}" as a friend?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="outline-light" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleRemove}>
+          <Button variant="outline-light" onClick={handleRemove}>
             Remove
           </Button>
         </Modal.Footer>

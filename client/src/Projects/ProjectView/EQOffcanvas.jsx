@@ -40,7 +40,7 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
     <>
       <Button
         size='sm'
-        variant='outline-secondary'
+        variant='outline-light'
         onClick={handleShow}>
         <Icon icon={eq} />
       </Button>
@@ -114,7 +114,7 @@ const EQOffcanvas = ({ filterGains, setFilterGains, resetFilterGains, name, setE
             <div>Frequencies (Hz)</div>
             <Button
               size='sm'
-              variant='outline-danger'
+              variant='outline-light'
               onClick={resetFilterGains}>
                 Reset
             </Button>

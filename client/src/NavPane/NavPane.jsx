@@ -34,14 +34,14 @@ const NavPane = (props) => {
     <>
       <Button
         style={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgba(256, 256, 256, 0.6)',
           position: 'fixed',
           top: '10px',
           left: '10px',
           zIndex: 5
         }}
         size='sm'
-        variant='outline-secondary'
+        variant='outline-dark'
         onClick={handleShow}>
         <Icon icon={threeBars}/>
       </Button>
@@ -56,7 +56,7 @@ const NavPane = (props) => {
           />
           <Button
             route='/home'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Home
@@ -64,7 +64,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/profile'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Profile
@@ -72,7 +72,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/projects'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Projects
@@ -80,7 +80,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/waveform'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Waveform
@@ -88,7 +88,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/friends'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Friends
@@ -96,7 +96,7 @@ const NavPane = (props) => {
           <br/>
           <Button
             route='/login'
-            variant='outline-primary'
+            variant='outline-light'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Logout

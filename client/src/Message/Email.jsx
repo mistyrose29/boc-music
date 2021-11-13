@@ -58,7 +58,7 @@ const EmailInvite = (props) => {
       </Modal.Body>
       <Modal.Footer>
         <Button
-          variant="secondary"
+          variant="outline-light"
           onClick={props.onHide}>
             Cancel
         </Button>
@@ -79,7 +79,7 @@ const EInvite = () => {
   return (
     <>
       <Button
-        variant="outline-secondary"
+        variant="outline-light"
         onClick={() => setModalShow(true)}>
         Email
       </Button>

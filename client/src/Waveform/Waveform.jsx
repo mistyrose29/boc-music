@@ -16,10 +16,10 @@ const eqIcon = 'file-icons:eq';
 
 const formWaveSurferOptions = ref => ({
   container: ref,
-  waveColor: '#eee',
-  progressColor: 'OrangeRed',
-  cursorColor: 'OrangeRed',
-  barWidth: 3,
+  waveColor: 'white',
+  progressColor: '#8E4162',
+  cursorColor: 'white',
+  barWidth: 2,
   barRadius: 3,
   responsive: true,
   height: 150,
@@ -227,7 +227,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
           </div>
           <Button
             size='sm'
-            variant='outline-primary'
+            variant='outline-light'
             style={{
               border: 'none'
             }}
@@ -272,7 +272,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
             }}>
             <Button
               size='sm'
-              variant='outline-primary'
+              variant='outline-light'
               style={{
                 display: 'flex',
                 alignItems: 'center'
@@ -292,7 +292,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
             </div>
             <Button
               size='sm'
-              variant='outline-primary'
+              variant='outline-light'
               style={{
                 display: 'flex',
                 alignItems: 'center'
@@ -309,10 +309,10 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
             tracks={tracks || []}
             selectedTrack={selectedTrack}
             setSelectedTrack={setSelectedTrack || {}}/>
-           
+
         </Card.Footer>
       </Card>
-       
+
     </div>
   );
 }

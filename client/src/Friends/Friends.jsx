@@ -30,7 +30,7 @@ const Friends = ({ userId, friends, cb }) => {
             width: '100%',
             marginBottom: '1em'
           }}>
-          <Button variant="secondary" disabled>Invite a Friend via</Button>
+          <Button variant="outline-light" disabled>Invite a Friend via</Button>
           <EInvite />
           <SMSInvite />
         </ButtonGroup>
