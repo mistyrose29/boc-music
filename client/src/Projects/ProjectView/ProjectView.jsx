@@ -35,7 +35,11 @@ const ProjectView = ({ userId, friends, project, loadProject, projectId, reload,
         style={{
           backgroundColor: '#41393E'
         }}>
-        <Card.Subtitle className="mb-2 text-muted">
+        <Card.Subtitle
+          className="mb-2 text-muted"
+          style={{
+            fontSize: 'small'
+          }}>
           {project.createdAt.toDate().toDateString()}
         </Card.Subtitle>
         <Card.Text>
