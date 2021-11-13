@@ -120,7 +120,12 @@ class Track extends React.Component {
               </Button>
               <Button
                 size='sm'
-                variant={this.state.distort ? 'outline-light' : 'outline-light'}
+                variant='outline-light'
+                style={
+                  this.state.distort
+                    ? { backgroundColor: 'rgba(0, 0, 255, 0.3)' }
+                    : {}
+                }
                 onClick={this.toggleDistort}>
                 <Icon icon={distortion} />
               </Button>
