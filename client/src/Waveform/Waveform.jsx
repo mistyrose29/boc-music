@@ -5,6 +5,7 @@ import EQOffcanvas from '../Projects/ProjectView/EQOffcanvas.jsx';
 import { Card, ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 
+
 const playIcon = 'akar-icons:play';
 const pauseIcon = 'fe:pause';
 const volumeIcon = ['bx:bxs-volume-full', 'bx:bxs-volume-mute'];
@@ -36,7 +37,7 @@ let extend = (dest, ...sources) => {
   return dest;
 };
 
-export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTrack }) {
+export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTrack, addNewTrack }) {
   const waveformRef = useRef(null);
   const wavesurfer = useRef(null);
   const [isReady, setIsReady] = useState(false);
@@ -49,6 +50,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
   const [filterGains, setFilterGains] = useState(
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   );
+
 
   const resetFilterGains = () => {
     setFilterGains([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -183,7 +185,7 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
     <div style={{
       height: '100vh'
     }}>
-      <div style={{
+      <div className= 'page-title' style={{
         fontSize: '30px',
         margin: '20px',
         textAlign: 'center'
@@ -307,8 +309,10 @@ export default function Waveform({ url, id, tracks, selectedTrack, setSelectedTr
             tracks={tracks || []}
             selectedTrack={selectedTrack}
             setSelectedTrack={setSelectedTrack || {}}/>
+           
         </Card.Footer>
       </Card>
+       
     </div>
   );
 }

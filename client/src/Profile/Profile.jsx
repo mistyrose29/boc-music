@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { useState } from 'react';
 import { Card, Form, Image, Button, Alert } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
 
 const noUser = 'Anonymous';
 const noPhoto = './anonymous.png';
@@ -50,7 +51,7 @@ const Profile = (props) => {
       }}>
       <Card.Body>
         <Card.Title
-          className='text-center'
+          className='text-center profile-top'
           style={{
             fontSize: '30px'
           }}>
@@ -73,6 +74,12 @@ const Profile = (props) => {
                 cursor: 'pointer',
                 textAlign: 'center'
               }}/>
+            <Icon
+              className='pencilIcon'
+              icon="akar-icons:pencil"
+              width="30"
+              height="30"
+            />
           </Form.Group>
           <input
             id="profile-image-upload"

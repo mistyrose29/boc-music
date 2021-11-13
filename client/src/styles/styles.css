@@ -1,4 +1,4 @@
-/* body {
+body {
   background-color: #41393E;
 
 }
@@ -55,9 +55,29 @@
 .center-content {
   align-items: center;
   justify-content: center;
-  /* background: linear-gradient(#bf9aca,#c7e8f3 ); */
+  background: linear-gradient(#bf9aca,#c7e8f3 );
   margin-bottom: 2em;
+  position:sticky;
 
+
+}
+@font-face {
+  font-family: Vibur;
+  src: url(https://fonts.googleapis.com/css2?family=Vibur&display=swap);
+}
+.nav-link {
+  color:#8E4162;
+  font-family: 'Vibur', cursive;
+
+  text-shadow:
+    0 0 7px #c7e8f3,
+    0 0 10px #c7e8f3,
+    0 0 21px #c7e8f3,
+    0 0 42px #bf9aca,
+    0 0 82px #bf9aca,
+    0 0 92px #bf9aca,
+    0 0 102px #bf9aca,
+    0 0 151px #bf9aca;
 }
 .nav-pills {
   height: 100%;
@@ -80,13 +100,15 @@
   margin: auto;
   width: 40%;
   padding-bottom: 1em;
-  /* background: linear-gradient(#bf9aca,#eda2c0 );
+  background: linear-gradient(#bf9aca,#eda2c0 );
   background-image: linear-gradient(to left, #8E4162 1%, #bf9aca 100%),
-  linear-gradient(to left, #8E4162 1%, #c7e8f3 50%, #bf9aca 100%); */
-  background-size: 100% 3px;
-  background-position: 0% 0%, 0% 100%;
-  background-repeat: no-repeat;
-  /* color: #c7e8f3; */
+  linear-gradient(to left, #8E4162 1%, #c7e8f3 50%, #bf9aca 100%);
+background-size: 100% 3px;
+background-position: 0% 0%, 0% 100%;
+background-repeat: no-repeat;
+color: #c7e8f3;
+
+
 }
 
 .rounded-circle {
@@ -110,9 +132,9 @@
   background: transparent;
 }
 .card-body {
-  /* border-style: solid;
-  border-width: .8em; */
-  /* background: #41393E; */
+  border-style: solid;
+  border-width: .8em;
+  background: #41393E;
 
 }
 
@@ -126,11 +148,12 @@
 }
 
 .btn {
-  /* background-color: #eda2c0 !important; */
+  background-color: #eda2c0 !important;
 
 }
-button {
-  /* color: #41393E !important; */
+.iconify  {
+  background: transparent;
+
 }
 .grow {
   flex-grow: 1
@@ -171,6 +194,27 @@ button {
   height: 40px;
   padding: 0;
   margin: 0;
+}
+/*
+.back-btn {
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  z-index: 30;
+  position: absolute;
+} */
+
+.back-btn {
+  border-radius: 100px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  z-index: 30;
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 90%;
 }
 
 /* .mb-3-top {
@@ -233,12 +277,12 @@ button {
   position: relative;
 }
 
-.time-current {
-  color: orangered
+.time-current, .form-label, .page-title {
+  color:#c7e8f3
 }
 
 .playlist-item-selected {
-  color : orangered;
+  color : #c7e8f3;
   cursor: default;
 }
 
@@ -320,6 +364,30 @@ button {
   visibility: hidden;
 }
 
+#mixing {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#mix-btn {
+  position: relative;
+  margin: 2rem;
+  bottom: 0;
+  right: 0;
+}
+
+#download-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem;
+}
+
+#download {
+
+}
+
 /*
 
 Used on PROJECTS Page
@@ -336,14 +404,45 @@ https://getbootstrap.com/docs/5.1/components/card/#using-custom-css
 .text-center {
   background: transparent;
 }
+.profile-top {
+  background-color: #eda2c0;
+}
 
 #header-title, .text-center {
   /* background: linear-gradient(#eda2c0, #8e4162, #41393E ) !important; */
   /* background-color:tomato !important; */
 }
 
-/* WORKING ON CSS */
-body
+.btn-toolbar, .friends-title {
+  background-color: #C7E8F3;
+}
+.offcanvas-body, .card-footer, .card-header {
+  background: linear-gradient(#eda2c0, #C7E8F3 ) !important;
+}
+.offcanvas-header{
+  background-color: #8E4162;
+}
+.waveform {
+  background-color: #eda2c0;
+}
+#header-title {
+  background: linear-gradient(#eda2c0, #8e4162, #41393E ) !important;
+
+}
+
+.pencilIcon {
+  display: inline-flex;
+  border-radius: 2em;
+  background-color: white;
+  outline: .2em solid #eda2c0;
+  position: sticky;
+  right: 6em;
+  margin-top: 5.5em;
+}
+
+/* WIP CSS */
+
+/* body
 , .card {
   color: white;
   background-color: black;
@@ -435,4 +534,4 @@ body
 , .btn-outline-secondary:hover
 {
   background-color: rgba(0, 0, 0, 0.1);
-}
+} */
