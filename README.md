@@ -61,6 +61,7 @@ On the homepage of the application, users can view all public music projects as 
 *Login/Signup*
 - Users can login to the app using their Google, Facebook, Twitter, Github, or phone number. In addition, Users can register an account with their an email/password.
 - Firebase Authentication was used on the backend to verify the user's external social media accounts and email/passwords.
+![login](https://drive.google.com/uc?export=view&id=1BqrQ_uhTq3CA9OLz1y8JVzkjtxllZa4s)
 
 *Audio Player*
 - Users can easily play and pause the music.
@@ -70,12 +71,14 @@ On the homepage of the application, users can view all public music projects as 
 
 *EQ Editing*
 - An equalizer button allows the user to make adjustments to their music track(s).
+![eq](https://drive.google.com/uc?export=view&id=1_Os8D8Q1TBrYbhkjzYivhLT80gt9xItR)
 
 *Distortion*
 - A distortion button is available for users to toggle on/off to adjust their music track(s).
 
 *Waveform*
 - Users can view the waveform of their music tracks by clicking the waveform icon
+![waveform](https://drive.google.com/uc?export=view&id=199geopNBPtxl0k5N7ZNnd04gez5Ojcdr)
 
 *Friends list*
 - Users can send friend requests by entering in their emails.
