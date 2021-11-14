@@ -71,7 +71,7 @@ On the homepage of the application, users can view all public music projects as 
 
 *EQ Editing*
 - An equalizer button allows the user to make adjustments to their music track(s).
-![eq](1Yxf6PRCLmCAYIG-Cd5V05kaD0Y-4SsnH)
+![eq](https://drive.google.com/uc?export=view&id=1Yxf6PRCLmCAYIG-Cd5V05kaD0Y-4SsnH)
 
 *Distortion*
 - A distortion button is available for users to toggle on/off to adjust their music track(s).
