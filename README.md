@@ -1,5 +1,5 @@
 # Music Share
-![logo](https://github.com/mistyrose29/boc-music/blob/main/client/dist/musicsharelogo1.png)
+![logo](https://drive.google.com/uc?export=view&id=1qCFn0zSNdOogfUSno84p2bxl81hIgKAR)
 
 **RPP29 Blue Ocean Project**
 
@@ -61,7 +61,7 @@ On the homepage of the application, users can view all public music projects as 
 *Login/Signup*
 - Users can login to the app using their Google, Facebook, Twitter, Github, or phone number. In addition, Users can register an account with their an email/password.
 - Firebase Authentication was used on the backend to verify the user's external social media accounts and email/passwords.
-![login](https://drive.google.com/uc?export=view&id=1BqrQ_uhTq3CA9OLz1y8JVzkjtxllZa4s)
+![login](https://drive.google.com/uc?export=view&id=1dPP7s2i6w_XiC5KURTndo2HbT0ADwYC5)
 
 *Audio Player*
 - Users can easily play and pause the music.
@@ -71,14 +71,14 @@ On the homepage of the application, users can view all public music projects as 
 
 *EQ Editing*
 - An equalizer button allows the user to make adjustments to their music track(s).
-![eq](https://drive.google.com/uc?export=view&id=1_Os8D8Q1TBrYbhkjzYivhLT80gt9xItR)
+![eq](1Yxf6PRCLmCAYIG-Cd5V05kaD0Y-4SsnH)
 
 *Distortion*
 - A distortion button is available for users to toggle on/off to adjust their music track(s).
 
 *Waveform*
 - Users can view the waveform of their music tracks by clicking the waveform icon
-![waveform](https://drive.google.com/uc?export=view&id=199geopNBPtxl0k5N7ZNnd04gez5Ojcdr)
+![waveform](https://drive.google.com/uc?export=view&id=1uesaR4rVDe-RnASf1Au8fisFkvD89M2U)
 
 *Friends list*
 - Users can send friend requests by entering in their emails.
