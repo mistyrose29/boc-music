@@ -131,7 +131,6 @@ class HomePage extends React.Component {
   }
   
   setSearchTabTrue() {
-    console.log(this.props)
       this.setState({
       searchTab: true
     }) 
