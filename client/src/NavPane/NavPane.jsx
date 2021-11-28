@@ -100,14 +100,14 @@ const NavPane = (props) => {
             onClick={handleClose}>
             Friends
           </Button>
-          <br/>
+          {/* <br/>
           <Button
             route='/record'
             variant='outline-primary'
             style={{ border: 'none' }}
             onClick={handleClose}>
             Voice Recorder
-          </Button>
+          </Button> */}
           <br/>
           <Button
             route='/login'
