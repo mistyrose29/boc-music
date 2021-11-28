@@ -2,8 +2,18 @@ import React, {useState} from 'react';
 import { withRouter } from 'react-router-dom';
 import {Recorder} from 'react-voice-recorder';
 import 'react-voice-recorder/dist/index.css';
+import { createFile } from '../../../database/controllers.js';
+import { Button, Modal, Form } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
 
-const VoiceRecorder = () => {
+
+const microphone = 'carbon:microphone-filled';
+
+const VoiceRecorder = (props) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [audioDetails, setAudioDetails] = useState({
     url: null,
@@ -23,6 +33,9 @@ const VoiceRecorder = () => {
 
   const handleAudioUpload = (file) => {
     console.log(file);
+    createFile(file, props.projectId)
+
+
   };
 
   const handleReset = () => {
@@ -41,8 +54,26 @@ const VoiceRecorder = () => {
 
 
   return (
+    <>
+    <Button
+      variant="primary"
+      onClick={handleShow}
+      style={{
+        borderRadius: '100px',
+        width: '60px',
+        height: '60px',
+        fontSize: '30px',
+        boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.4)'
+      }}>
+      <Icon icon={microphone} />
+    </Button>
 
-    <Recorder
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Project Details</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      <Recorder
       record={true}
       title={'New recording'}
       audioURL={audioDetails.url}
@@ -51,8 +82,16 @@ const VoiceRecorder = () => {
       handleAudioUpload={data => handleAudioUpload(data)}
       handleReset={() => handleReset()}
       mimeTypeToUseWhenRecording={'audio/webm'} // For specific mimetype.
-    />
+     />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="outline-light" onClick={handleClose}>
+          Cancel
+        </Button>
+      </Modal.Footer>
+    </Modal>
+    </>
   );
 };
 
-export default withRouter(VoiceRecorder);
+export default VoiceRecorder;

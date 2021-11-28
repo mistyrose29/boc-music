@@ -4,6 +4,8 @@ import Track from './Track.jsx';
 import Upload from './Upload.jsx';
 import { getProjectFiles, updateEq } from '../../../../database/controllers.js';
 import { Icon } from '@iconify/react';
+import  VoiceRecorder  from '../../Recorder/Voice.jsx'
+
 
 const headphones = ['tabler:headphones-off', 'tabler:headphones'];
 const trashcan = 'octicon:trash-16';
@@ -68,7 +70,10 @@ class Project extends React.Component {
   }
 
   async mix(soundSources) {
+    console.log('soundsources', soundSources)
     let sources = Object.values(soundSources)
+    console.log('sources', sources)
+    
 
     // display mixing status and disable click
     let mixBtn = document.getElementById('mix-btn')
@@ -254,6 +259,18 @@ class Project extends React.Component {
     });
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
   render() {
     return (
       <div className='main-container'>
@@ -318,6 +335,16 @@ class Project extends React.Component {
           color: 'white',
           fontSize: 'small'
         }}>
+          <VoiceRecorder 
+          projectId={this.props.projectId}
+          isPlaying={this.state.isPlaying}
+          reload={this.reload}
+          time={this.state.time}
+          saveTime={this.saveTime}
+          storeWS={this.storeWS}
+          setEq={this.setEq}
+          
+          />
           <div id='mixing'>
             <div id='mixing-container'>
               <Button
