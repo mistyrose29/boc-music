@@ -7,6 +7,7 @@ const auth = getAuth();
 
 // FIRESTORAGE METHODS
 export const createFile = (file, filepath) => {
+  console.log('aksdjhfkasd', file, filepath)
   const storageRef = ref(storage, `${filepath}/${file.name}`);
   return uploadBytes(storageRef, file);
 };

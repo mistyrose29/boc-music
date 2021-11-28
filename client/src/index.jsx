@@ -150,12 +150,12 @@ class App extends React.Component {
                 cb={this.reloadUser}/>
             </Route>
 
-            <Route path='/record'>
+            {/* <Route path='/record'>
               <NavPane
                 history={history}
                 loginLogout={this.loginLogout}/>
               <VoiceRecorder />
-            </Route>
+            </Route> */}
 
             <Route path='/profile'>
               <NavPane

@@ -21,6 +21,7 @@ const firebaseConfig = {
   measurementId: process.env.MEASUREMENTID,
 };
 
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const storage = getStorage();
@@ -42,7 +43,8 @@ var uiConfig = {
     firebase.auth.PhoneAuthProvider.PROVIDER_ID
   ],
   tosUrl: '<your-tos-url>',
-  privacyPolicyUrl: '<your-privacy-policy-url>'
+  privacyPolicyUrl: '<your-privacy-policy-url>',
+
 };
 
 export const signIn = () => {
