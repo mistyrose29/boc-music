@@ -32,8 +32,15 @@ const VoiceRecorder = (props) => {
   };
 
   const handleAudioUpload = (file) => {
-    console.log(file);
-    createFile(file, props.projectId)
+    file.name = "Voice Recording"
+    createFile(file, props.projectId).then(() => {
+      props.reload();
+    })
+    .catch((err) => {
+      console.log(err)
+      window.alert('Error occured we could not upload your file');
+    });
+    handleClose();
 
 
   };
