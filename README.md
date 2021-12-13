@@ -61,7 +61,6 @@ On the homepage of the application, users can view all public music projects as 
 *Login/Signup*
 - Users can login to the app using their Google, Facebook, Twitter, Github, or phone number. In addition, Users can register an account with their an email/password.
 - Firebase Authentication was used on the backend to verify the user's external social media accounts and email/passwords.
-
 ![login](https://drive.google.com/uc?export=view&id=1dPP7s2i6w_XiC5KURTndo2HbT0ADwYC5)
 
 *Audio Player*
