@@ -66,6 +66,11 @@ On the homepage of the application, users can view all public music projects as 
 *Audio Player*
 - Users can easily play and pause the music.
 
+*Home Page*
+
+Home Page that renders modules for Global users, Friends, Your Projects, Projects shared with you and has a tab that can search for projects. 
+<img width="549" alt="Home Page" src="https://user-images.githubusercontent.com/75652493/145886688-5dd942b7-8bb5-4eac-874e-86b957ca6f14.png">
+
 *Layering*
 - Multiple music tracks can be uploaded for layering and all tracks can be played at once. The user can control which tracks to play together.
 
@@ -79,6 +84,12 @@ On the homepage of the application, users can view all public music projects as 
 *Waveform*
 - Users can view the waveform of their music tracks by clicking the waveform icon
 ![waveform](https://drive.google.com/uc?export=view&id=1uesaR4rVDe-RnASf1Au8fisFkvD89M2U)
+
+*Voice Record*
+
+Record live from your device. Just click the micrphone icon in the bottom left and record your voice while the track is playing. The app will generate a Waveform in the project view, and the sound file can be edited and downloaded.
+<img width="545" alt="Voice Recording" src="https://user-images.githubusercontent.com/75652493/145886741-2b4279e9-bd1b-42b6-b508-264648f93a88.png">
+
 
 *Friends list*
 - Users can send friend requests by entering in their emails.
