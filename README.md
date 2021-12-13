@@ -61,6 +61,7 @@ On the homepage of the application, users can view all public music projects as 
 *Login/Signup*
 - Users can login to the app using their Google, Facebook, Twitter, Github, or phone number. In addition, Users can register an account with their an email/password.
 - Firebase Authentication was used on the backend to verify the user's external social media accounts and email/passwords.
+
 ![login](https://drive.google.com/uc?export=view&id=1dPP7s2i6w_XiC5KURTndo2HbT0ADwYC5)
 
 *Audio Player*
@@ -88,7 +89,7 @@ Home Page that renders modules for Global users, Friends, Your Projects, Project
 *Voice Record*
 
 Record live from your device. Just click the micrphone icon in the bottom left and record your voice while the track is playing. The app will generate a Waveform in the project view, and the sound file can be edited and downloaded.
-<img width="400" alt="Voice Recording" src="https://user-images.githubusercontent.com/75652493/145886741-2b4279e9-bd1b-42b6-b508-264648f93a88.png">
+<img width="350" alt="Voice Recording" src="https://user-images.githubusercontent.com/75652493/145886741-2b4279e9-bd1b-42b6-b508-264648f93a88.png">
 
 
 *Friends list*
