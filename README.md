@@ -1,8 +1,6 @@
 # Music Share
 ![logo](https://drive.google.com/uc?export=view&id=1qCFn0zSNdOogfUSno84p2bxl81hIgKAR)
 
-**RPP29 Blue Ocean Project**
-
 **Team Members**
 
 * [Abdulhameed Nouraldean](https://github.com/a-nouraldean)
